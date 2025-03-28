@@ -1236,14 +1236,14 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7bxqn"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k4h53"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rxjb8"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
 
 [resource]
 Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)

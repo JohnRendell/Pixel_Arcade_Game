@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dsm7505q2ni6k"]
+[gd_scene load_steps=5 format=3 uid="uid://dsm7505q2ni6k"]
 
-[ext_resource type="Texture2D" uid="uid://ca3sno6yaly6q" path="res://Assets/Images/Menu_Background.png" id="1_khgqt"]
+[ext_resource type="Texture2D" uid="uid://ue01vlk78bpj" path="res://Assets/Images/Menu_Background.png" id="1_khgqt"]
 [ext_resource type="FontFile" uid="uid://bmdl23cbnw41b" path="res://Assets/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="2_yljh5"]
 [ext_resource type="Theme" uid="uid://fytpjh21mbhn" path="res://Assets/Themes/default_button_theme.tres" id="3_crkrt"]
+[ext_resource type="Script" uid="uid://dxg6ryhrrakdm" path="res://Scripts/Global_Scripts/button.gd" id="4_mjef6"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -69,6 +70,8 @@ button_mask = 7
 shortcut_feedback = false
 shortcut_in_tooltip = false
 text = "Play"
+script = ExtResource("4_mjef6")
+navigate_to_scene = "res://Scenes/lobby_scene.tscn"
 
 [node name="LinkButton" type="LinkButton" parent="."]
 layout_mode = 1
@@ -86,3 +89,5 @@ theme_override_font_sizes/font_size = 20
 button_mask = 5
 text = "Developed by John Rendell Catuiza"
 uri = "https://github.com/JohnRendell/Pixel_Arcade_Game"
+
+[connection signal="pressed" from="Game title and other buttons/Play Button" to="Game title and other buttons/Play Button" method="_on_pressed"]

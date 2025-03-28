@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvnoej7tdycly"]
+
+[ext_resource type="Texture2D" uid="uid://bfyvcuew133w5" path="res://Assets/Game_Objects/Objects/lobby_island.png" id="1_7hemx"]
+[ext_resource type="Script" uid="uid://civ1ewidmdtg2" path="res://Scripts/Global_Scripts/playerInterface.gd" id="1_ljcoi"]
+
+[node name="scene" type="Node2D"]
+script = ExtResource("1_ljcoi")
+
+[node name="Sky" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -217.0
+offset_right = 1520.0
+offset_bottom = 863.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.529412, 0.807843, 0.921569, 1)
+
+[node name="Island" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -274.0
+offset_top = -477.0
+offset_right = 1348.0
+offset_bottom = 1145.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_7hemx")
+expand_mode = 1

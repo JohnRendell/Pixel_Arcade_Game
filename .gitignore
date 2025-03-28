@@ -1,3 +1,28 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Ignore auto-generated import files
+.import/
+*.import
+
+# Ignore export files (binaries)
+.export/
+*.exe
+*.pck
+*.zip
+*.tar.gz
+*.apk
+*.ipa
+
+# Ignore user-specific editor settings
+.editor_settings-*.json
+*.cfg
+*.ini
+
+# Ignore log files
+*.log
+
+# Ignore OS junk files
+.DS_Store
+Thumbs.db

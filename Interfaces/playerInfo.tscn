@@ -2,33 +2,34 @@
 
 [ext_resource type="FontFile" uid="uid://bmdl23cbnw41b" path="res://Assets/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="1_fhr0c"]
 [ext_resource type="Theme" uid="uid://t8cakbf8cvmc" path="res://Assets/Themes/default_button_texture.tres" id="2_27cgy"]
-[ext_resource type="Texture2D" uid="uid://c3shmif17fb4i" path="res://Assets/Sprite_Slice/UI_Buttons_Stuff.png" id="2_c534t"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_27cgy"]
-texture = ExtResource("2_c534t")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
-region_rect = Rect2(6, 6, 75, 30)
+[ext_resource type="Texture2D" uid="uid://b8i2cshy45y0e" path="res://Assets/Sprite_Slice/Sprite_UI_Stuff.png" id="3_27cgy"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_14f72"]
-texture = ExtResource("2_c534t")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
-region_rect = Rect2(6, 45, 75, 30)
+texture = ExtResource("3_27cgy")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+region_rect = Rect2(36, 12, 99, 48)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jqtam"]
-texture = ExtResource("2_c534t")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
-region_rect = Rect2(6, 6, 75, 30)
+texture = ExtResource("3_27cgy")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+region_rect = Rect2(147, 18, 93, 42)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1sa06"]
+texture = ExtResource("3_27cgy")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+region_rect = Rect2(36, 12, 99, 48)
 
 [node name="Control" type="Control"]
+z_index = 10
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,8 +37,41 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Player Count" type="RichTextLabel" parent="."]
-layout_mode = 1
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="Control Tip" type="RichTextLabel" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -57.0
+offset_right = 150.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/normal_font = ExtResource("1_fhr0c")
+theme_override_font_sizes/normal_font_size = 15
+text = "Press WASD or Arrow keys to move"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player Coordinates" type="RichTextLabel" parent="CanvasLayer"]
+offset_left = 20.0
+offset_top = 54.0
+offset_right = 320.0
+offset_bottom = 92.0
+theme_override_fonts/normal_font = ExtResource("1_fhr0c")
+theme_override_font_sizes/normal_font_size = 20
+text = "X: 0
+Y: 0"
+fit_content = true
+vertical_alignment = 1
+
+[node name="Player Count" type="RichTextLabel" parent="CanvasLayer"]
 offset_left = 19.0
 offset_top = 18.0
 offset_right = 220.0
@@ -47,23 +81,27 @@ theme_override_font_sizes/normal_font_size = 20
 text = "Player Count: 0"
 fit_content = true
 
-[node name="Global Message Button" type="Button" parent="."]
-layout_mode = 1
+[node name="Global Messages" type="Button" parent="CanvasLayer"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -163.0
-offset_top = -65.0
-offset_right = -14.0
-offset_bottom = -18.0
+offset_left = -148.0
+offset_top = -47.0
+offset_right = -19.0
+offset_bottom = -16.0
 grow_horizontal = 0
 grow_vertical = 0
+tooltip_text = "Global Messages"
 mouse_default_cursor_shape = 2
 theme = ExtResource("2_27cgy")
-theme_override_styles/hover = SubResource("StyleBoxTexture_27cgy")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_14f72")
-theme_override_styles/normal = SubResource("StyleBoxTexture_jqtam")
-button_mask = 7
+theme_override_colors/font_hover_color = Color(0.607843, 0.411765, 0, 1)
+theme_override_colors/font_color = Color(0.607886, 0.410193, 0, 1)
+theme_override_colors/font_focus_color = Color(0.607843, 0.411765, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.607843, 0.411765, 0, 1)
+theme_override_styles/hover = SubResource("StyleBoxTexture_14f72")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jqtam")
+theme_override_styles/normal = SubResource("StyleBoxTexture_1sa06")
+button_mask = 5
 text = "Global Message"

@@ -1,33 +1,44 @@
 [gd_scene load_steps=3 format=3 uid="uid://cvnoej7tdycly"]
 
 [ext_resource type="Texture2D" uid="uid://bfyvcuew133w5" path="res://Assets/Game_Objects/Objects/lobby_island.png" id="1_7hemx"]
-[ext_resource type="Script" uid="uid://civ1ewidmdtg2" path="res://Scripts/Global_Scripts/playerInterface.gd" id="1_ljcoi"]
+
+[sub_resource type="GDScript" id="GDScript_7hemx"]
+script/source = "extends Node2D
+
+var playerUIInterface = preload(\"res://Interfaces/playerInfo.tscn\").instantiate()
+
+func _ready():
+	get_tree().get_root().add_child(playerUIInterface)
+"
 
 [node name="scene" type="Node2D"]
-script = ExtResource("1_ljcoi")
+script = SubResource("GDScript_7hemx")
 
-[node name="Sky" type="ColorRect" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -400.0
-offset_top = -217.0
-offset_right = 1520.0
-offset_bottom = 863.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Sky" type="ColorRect" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color(0.529412, 0.807843, 0.921569, 1)
 
-[node name="Island" type="TextureRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -274.0
-offset_top = -477.0
-offset_right = 1348.0
-offset_bottom = 1145.0
+[node name="Island" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -811.0
+offset_top = -811.0
+offset_right = 811.0
+offset_bottom = 811.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_7hemx")

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvnoej7tdycly"]
+[gd_scene load_steps=4 format=3 uid="uid://cvnoej7tdycly"]
 
 [ext_resource type="Texture2D" uid="uid://bfyvcuew133w5" path="res://Assets/Game_Objects/Objects/lobby_island.png" id="1_7hemx"]
+[ext_resource type="PackedScene" uid="uid://draqfc0ximnvd" path="res://Sprites/player_character.tscn" id="2_ljcoi"]
 
 [sub_resource type="GDScript" id="GDScript_7hemx"]
 script/source = "extends Node2D
@@ -43,3 +44,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_7hemx")
 expand_mode = 1
+
+[node name="Main Player" parent="CanvasLayer" instance=ExtResource("2_ljcoi")]
+position = Vector2(596, 291)

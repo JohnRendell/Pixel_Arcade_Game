@@ -10,48 +10,49 @@ func _physics_process(delta):
 	input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	input_vector = input_vector.normalized()
 
-	if input_vector:
-		velocity = input_vector * speed
-		PlayerGlobalScript.isIdle = false
-		
-		#left
-		if input_vector.x <= -1 and input_vector.y <= 0:
-			PlayerGlobalScript.isLeft = true
-			PlayerGlobalScript.isRight = false
-			PlayerGlobalScript.isUp = false
-			PlayerGlobalScript.isDown = false
+	if PlayerGlobalScript.modal_open == false:
+		if input_vector:
+			velocity = input_vector * speed
+			PlayerGlobalScript.isIdle = false
 			
-			sprite.flip_h = true
-		
-		#right
-		elif input_vector.x >= 1 and input_vector.y <= 0:
-			PlayerGlobalScript.isLeft = false
-			PlayerGlobalScript.isRight = true
-			PlayerGlobalScript.isUp = false
-			PlayerGlobalScript.isDown = false
+			#left
+			if input_vector.x <= -1 and input_vector.y <= 0:
+				PlayerGlobalScript.isLeft = true
+				PlayerGlobalScript.isRight = false
+				PlayerGlobalScript.isUp = false
+				PlayerGlobalScript.isDown = false
+				
+				sprite.flip_h = true
 			
-			sprite.flip_h = false
-		
-		#back/down
-		elif input_vector.y >= 1 and input_vector.x <= 0:
-			PlayerGlobalScript.isLeft = false
-			PlayerGlobalScript.isRight = false
-			PlayerGlobalScript.isUp = false
-			PlayerGlobalScript.isDown = true
+			#right
+			elif input_vector.x >= 1 and input_vector.y <= 0:
+				PlayerGlobalScript.isLeft = false
+				PlayerGlobalScript.isRight = true
+				PlayerGlobalScript.isUp = false
+				PlayerGlobalScript.isDown = false
+				
+				sprite.flip_h = false
 			
-			sprite.flip_h = false
-		
-		#front/up
-		elif input_vector.y <= -1 and input_vector.x <= 0:
-			PlayerGlobalScript.isLeft = false
-			PlayerGlobalScript.isRight = false
-			PlayerGlobalScript.isUp = true
-			PlayerGlobalScript.isDown = false
+			#back/down
+			elif input_vector.y >= 1 and input_vector.x <= 0:
+				PlayerGlobalScript.isLeft = false
+				PlayerGlobalScript.isRight = false
+				PlayerGlobalScript.isUp = false
+				PlayerGlobalScript.isDown = true
+				
+				sprite.flip_h = false
 			
-			sprite.flip_h = false
-	else:
-		velocity = input_vector
-		PlayerGlobalScript.isIdle = true
+			#front/up
+			elif input_vector.y <= -1 and input_vector.x <= 0:
+				PlayerGlobalScript.isLeft = false
+				PlayerGlobalScript.isRight = false
+				PlayerGlobalScript.isUp = true
+				PlayerGlobalScript.isDown = false
+				
+				sprite.flip_h = false
+		else:
+			velocity = input_vector
+			PlayerGlobalScript.isIdle = true
 	move_and_slide()
 	
 	playerPos = self.position

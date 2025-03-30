@@ -102,5 +102,6 @@ theme = ExtResource("2_27cgy")
 theme_override_styles/hover = SubResource("StyleBoxTexture_14f72")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_jqtam")
 theme_override_styles/normal = SubResource("StyleBoxTexture_1sa06")
+action_mode = 0
 button_mask = 5
 text = "Global Message"

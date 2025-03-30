@@ -1,0 +1,95 @@
+[gd_scene load_steps=10 format=3 uid="uid://can60qx0sq1hp"]
+
+[ext_resource type="Script" uid="uid://bbmmwm2jmjnug" path="res://Scripts/Global_Scripts/modal_script.gd" id="1_6fe7b"]
+[ext_resource type="Theme" uid="uid://ctjk8afb01o0p" path="res://Assets/Themes/modal_default_theme.tres" id="1_mt8pp"]
+[ext_resource type="Texture2D" uid="uid://b8i2cshy45y0e" path="res://Assets/Sprite_Slice/Sprite_UI_Stuff.png" id="2_c38oy"]
+[ext_resource type="Theme" uid="uid://fytpjh21mbhn" path="res://Assets/Themes/default_button_theme.tres" id="3_pr2ud"]
+[ext_resource type="FontFile" uid="uid://bmdl23cbnw41b" path="res://Assets/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="5_jggfe"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pr2ud"]
+texture = ExtResource("2_c38oy")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+region_rect = Rect2(42, 75, 153, 108)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6fe7b"]
+texture = ExtResource("2_c38oy")
+region_rect = Rect2(261, 24, 15, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jggfe"]
+texture = ExtResource("2_c38oy")
+region_rect = Rect2(261, 24, 15, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ym2q7"]
+texture = ExtResource("2_c38oy")
+region_rect = Rect2(261, 24, 15, 15)
+
+[node name="Modal" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6fe7b")
+
+[node name="Background Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Background Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -250.0
+offset_right = 400.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mt8pp")
+theme_override_styles/panel = SubResource("StyleBoxTexture_pr2ud")
+
+[node name="Close Button" type="Button" parent="Background Panel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -29.0
+offset_top = 10.0
+offset_right = -9.0
+offset_bottom = 30.0
+grow_horizontal = 0
+tooltip_text = "Close the Modal"
+mouse_default_cursor_shape = 2
+theme = ExtResource("3_pr2ud")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6fe7b")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jggfe")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ym2q7")
+action_mode = 0
+button_mask = 5
+
+[node name="Modal Label" type="RichTextLabel" parent="Background Panel/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_right = 300.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("5_jggfe")
+theme_override_font_sizes/normal_font_size = 20
+text = "Modal Label"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,21 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://cvnoej7tdycly"]
+[gd_scene load_steps=11 format=3 uid="uid://cvnoej7tdycly"]
 
+[ext_resource type="Script" uid="uid://bfvjja37p1vyb" path="res://Scripts/Lobby_Scripts/lobby_script.gd" id="1_3q4fp"]
 [ext_resource type="Texture2D" uid="uid://bfyvcuew133w5" path="res://Assets/Game_Objects/Objects/lobby_island.png" id="1_7hemx"]
 [ext_resource type="PackedScene" uid="uid://draqfc0ximnvd" path="res://Sprites/player_character.tscn" id="2_ljcoi"]
 [ext_resource type="Theme" uid="uid://t8cakbf8cvmc" path="res://Assets/Themes/default_button_texture.tres" id="3_op75h"]
 [ext_resource type="Texture2D" uid="uid://b8i2cshy45y0e" path="res://Assets/Sprite_Slice/Sprite_UI_Stuff.png" id="4_2ipua"]
-
-[sub_resource type="GDScript" id="GDScript_7hemx"]
-script/source = "extends Node2D
-
-var playerUIInterface = preload(\"res://Interfaces/playerInfo.tscn\").instantiate()
-
-func _ready():
-	get_tree().get_root().add_child(playerUIInterface)
-"
+[ext_resource type="PackedScene" uid="uid://can60qx0sq1hp" path="res://Interfaces/modal.tscn" id="5_44aa0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ljcoi"]
-size = Vector2(47, 804)
+size = Vector2(47, 574.5)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2ipua"]
 texture = ExtResource("4_2ipua")
@@ -42,7 +35,7 @@ texture_margin_bottom = 14.0
 region_rect = Rect2(36, 12, 99, 48)
 
 [node name="scene" type="Node2D"]
-script = SubResource("GDScript_7hemx")
+script = ExtResource("1_3q4fp")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
@@ -87,21 +80,21 @@ speed = 200
 disable_mode = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Bound"]
-position = Vector2(229, 318)
+position = Vector2(350, 339.75)
 shape = SubResource("RectangleShape2D_ljcoi")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CanvasLayer/Bound"]
-position = Vector2(973, 304)
+position = Vector2(800, 345)
 shape = SubResource("RectangleShape2D_ljcoi")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="CanvasLayer/Bound"]
-position = Vector2(598, -24)
-rotation = 1.5708
+position = Vector2(545, 103)
+rotation = 1.31772
 shape = SubResource("RectangleShape2D_ljcoi")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="CanvasLayer/Bound"]
-position = Vector2(595, 692)
-rotation = 1.5708
+position = Vector2(569, 541)
+rotation = 1.65283
 shape = SubResource("RectangleShape2D_ljcoi")
 
 [node name="Lobby UI" type="Control" parent="."]
@@ -130,6 +123,7 @@ theme = ExtResource("3_op75h")
 theme_override_styles/hover = SubResource("StyleBoxTexture_2ipua")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_3q4fp")
 theme_override_styles/normal = SubResource("StyleBoxTexture_lvc8g")
+action_mode = 0
 button_mask = 5
 text = "Log in"
 
@@ -147,5 +141,11 @@ theme = ExtResource("3_op75h")
 theme_override_styles/hover = SubResource("StyleBoxTexture_2ipua")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_3q4fp")
 theme_override_styles/normal = SubResource("StyleBoxTexture_lvc8g")
+action_mode = 0
 button_mask = 5
 text = "Log in as Guest"
+
+[node name="Log in Modal" parent="Lobby UI/CanvasLayer" instance=ExtResource("5_44aa0")]
+offset_top = -1.0
+offset_bottom = -1.0
+modal_label = "Log in"

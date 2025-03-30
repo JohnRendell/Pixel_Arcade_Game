@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://ranvboc1aleu"]
+[gd_scene load_steps=8 format=3 uid="uid://ranvboc1aleu"]
 
+[ext_resource type="Script" uid="uid://ce6wbg0vx4rjd" path="res://Scripts/Global_Scripts/game_interface.gd" id="1_14f72"]
 [ext_resource type="FontFile" uid="uid://bmdl23cbnw41b" path="res://Assets/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="1_fhr0c"]
 [ext_resource type="Theme" uid="uid://t8cakbf8cvmc" path="res://Assets/Themes/default_button_texture.tres" id="2_27cgy"]
 [ext_resource type="Texture2D" uid="uid://b8i2cshy45y0e" path="res://Assets/Sprite_Slice/Sprite_UI_Stuff.png" id="3_27cgy"]
@@ -36,6 +37,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_14f72")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 5
@@ -65,7 +67,7 @@ offset_top = 54.0
 offset_right = 320.0
 offset_bottom = 92.0
 theme_override_fonts/normal_font = ExtResource("1_fhr0c")
-theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/normal_font_size = 15
 text = "X: 0
 Y: 0"
 fit_content = true
@@ -77,9 +79,10 @@ offset_top = 18.0
 offset_right = 220.0
 offset_bottom = 50.0
 theme_override_fonts/normal_font = ExtResource("1_fhr0c")
-theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/normal_font_size = 15
 text = "Player Count: 0"
 fit_content = true
+vertical_alignment = 1
 
 [node name="Global Messages" type="Button" parent="CanvasLayer"]
 anchors_preset = 3
@@ -96,10 +99,6 @@ grow_vertical = 0
 tooltip_text = "Global Messages"
 mouse_default_cursor_shape = 2
 theme = ExtResource("2_27cgy")
-theme_override_colors/font_hover_color = Color(0.607843, 0.411765, 0, 1)
-theme_override_colors/font_color = Color(0.607886, 0.410193, 0, 1)
-theme_override_colors/font_focus_color = Color(0.607843, 0.411765, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.607843, 0.411765, 0, 1)
 theme_override_styles/hover = SubResource("StyleBoxTexture_14f72")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_jqtam")
 theme_override_styles/normal = SubResource("StyleBoxTexture_1sa06")

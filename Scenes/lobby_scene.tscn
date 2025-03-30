@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cvnoej7tdycly"]
+[gd_scene load_steps=10 format=3 uid="uid://cvnoej7tdycly"]
 
 [ext_resource type="Texture2D" uid="uid://bfyvcuew133w5" path="res://Assets/Game_Objects/Objects/lobby_island.png" id="1_7hemx"]
 [ext_resource type="PackedScene" uid="uid://draqfc0ximnvd" path="res://Sprites/player_character.tscn" id="2_ljcoi"]
+[ext_resource type="Theme" uid="uid://t8cakbf8cvmc" path="res://Assets/Themes/default_button_texture.tres" id="3_op75h"]
+[ext_resource type="Texture2D" uid="uid://b8i2cshy45y0e" path="res://Assets/Sprite_Slice/Sprite_UI_Stuff.png" id="4_2ipua"]
 
 [sub_resource type="GDScript" id="GDScript_7hemx"]
 script/source = "extends Node2D
@@ -12,15 +14,47 @@ func _ready():
 	get_tree().get_root().add_child(playerUIInterface)
 "
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ljcoi"]
+size = Vector2(47, 804)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2ipua"]
+texture = ExtResource("4_2ipua")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+region_rect = Rect2(36, 12, 99, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3q4fp"]
+texture = ExtResource("4_2ipua")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+region_rect = Rect2(147, 18, 93, 42)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lvc8g"]
+texture = ExtResource("4_2ipua")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+region_rect = Rect2(36, 12, 99, 48)
+
 [node name="scene" type="Node2D"]
 script = SubResource("GDScript_7hemx")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -600.0
+offset_top = -633.0
+offset_right = 731.0
+offset_bottom = 677.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -36,14 +70,82 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -811.0
-offset_top = -811.0
-offset_right = 811.0
-offset_bottom = 811.0
+offset_left = -311.0
+offset_top = -305.0
+offset_right = 305.0
+offset_bottom = 311.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_7hemx")
 expand_mode = 1
 
 [node name="Main Player" parent="CanvasLayer" instance=ExtResource("2_ljcoi")]
-position = Vector2(596, 291)
+position = Vector2(589, 307)
+speed = 200
+
+[node name="Bound" type="StaticBody2D" parent="CanvasLayer"]
+disable_mode = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Bound"]
+position = Vector2(229, 318)
+shape = SubResource("RectangleShape2D_ljcoi")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CanvasLayer/Bound"]
+position = Vector2(973, 304)
+shape = SubResource("RectangleShape2D_ljcoi")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="CanvasLayer/Bound"]
+position = Vector2(598, -24)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_ljcoi")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="CanvasLayer/Bound"]
+position = Vector2(595, 692)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_ljcoi")
+
+[node name="Lobby UI" type="Control" parent="."]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Lobby UI"]
+layer = 5
+
+[node name="Log in Button" type="Button" parent="Lobby UI/CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -102.0
+offset_top = 28.0
+offset_right = -30.0
+offset_bottom = 76.0
+grow_horizontal = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("3_op75h")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2ipua")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3q4fp")
+theme_override_styles/normal = SubResource("StyleBoxTexture_lvc8g")
+button_mask = 5
+text = "Log in"
+
+[node name="Guest Button" type="Button" parent="Lobby UI/CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -176.0
+offset_top = 92.0
+offset_right = -30.0
+offset_bottom = 140.0
+grow_horizontal = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("3_op75h")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2ipua")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3q4fp")
+theme_override_styles/normal = SubResource("StyleBoxTexture_lvc8g")
+button_mask = 5
+text = "Log in as Guest"

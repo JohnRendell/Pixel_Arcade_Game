@@ -2,22 +2,25 @@ extends Sprite2D
 
 @onready var anim = $Player_Anim
 
+func _ready():
+	anim.play("Idle_Front")
+
 func _process(delta):
-	if PlayerScript.isIdle:
-		if PlayerScript.isLeft or PlayerScript.isRight:
+	if PlayerGlobalScript.isIdle:
+		if PlayerGlobalScript.isLeft or PlayerGlobalScript.isRight:
 			anim.play("Idle_Side")
 			
-		if PlayerScript.isDown:
+		if PlayerGlobalScript.isDown:
 			anim.play("Idle_Front")
 			
-		if PlayerScript.isUp:
+		if PlayerGlobalScript.isUp:
 			anim.play("Idle_Back")
 	else:
-		if PlayerScript.isLeft or PlayerScript.isRight:
+		if PlayerGlobalScript.isLeft or PlayerGlobalScript.isRight:
 			anim.play("Walk_Side")
 			
-		if PlayerScript.isDown:
+		if PlayerGlobalScript.isDown:
 			anim.play("Walk_Front")
 			
-		if PlayerScript.isUp:
+		if PlayerGlobalScript.isUp:
 			anim.play("Walk_Back")

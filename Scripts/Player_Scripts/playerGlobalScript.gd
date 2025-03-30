@@ -5,3 +5,5 @@ var isRight = false
 var isUp = false
 var isDown = false
 var isIdle = false
+
+var playerCoords = "";

@@ -16,7 +16,6 @@ const io = new WebSocket.Server({ server: expressServer });
 
 io.on("connection", (socket)=>{
     console.log("Server Connected")
-    socket.send(JSON.stringify({ message: "Hello from Express!" }));
 });
 require("./game_socket")(io)
 

@@ -13,6 +13,10 @@ func _ready():
 	login_button.pressed.connect(open_login)
 	
 	PlayerGlobalScript.player_name = guest_player_name_generator()
+	
+func _process(delta: float):
+	var socket_data = SocketConnection.socket_data
+	check_for_players(socket_data)
 
 func open_login():
 	PlayerGlobalScript.modal_open = true
@@ -34,3 +38,12 @@ func guest_player_name_generator():
 		name += temp_name
 	
 	return "Guest_%s" % [name]
+
+func check_for_players(data):
+	if typeof(data) == TYPE_DICTIONARY:
+		if data.get("Socket_Type") == "playerSpawn":
+			var player_name = data.get("Player_Name")
+			var player_posX = data.get("Pos_X")
+			var player_posY = data.get("Pos_Y")
+			
+			print(player_name)

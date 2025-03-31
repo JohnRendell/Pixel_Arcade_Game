@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 PlayerGlobalScript="*res://Scripts/Player_Scripts/playerGlobalScript.gd"
 SocketConnection="*res://Scripts/Socket/socket_connection.gd"
+GameSocket="*res://Scripts/Socket/game_socket.gd"
 
 [display]
 

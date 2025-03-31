@@ -14,11 +14,11 @@ app.get("/", (req, res)=>{
 //for socket
 const io = new WebSocket.Server({ server: expressServer });
 
-//TODO: fix this
 io.on("connection", (socket)=>{
-    io.send("Welcome to server")
-})
-//require("./game_socket")(socket, "test")
+    console.log("Server Connected")
+    socket.send(JSON.stringify({ message: "Hello from Express!" }));
+});
+require("./game_socket")(io)
 
 const PORT = process.env.PORT || 1000
 expressServer.listen(PORT, ()=>{ console.log(`Listening to ${PORT}`) })

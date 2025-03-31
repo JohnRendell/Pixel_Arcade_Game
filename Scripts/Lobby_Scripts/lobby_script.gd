@@ -2,9 +2,6 @@ extends Node2D
 
 var playerUIInterface = preload("res://Interfaces/playerInfo.tscn").instantiate()
 
-#guest player name
-@onready var guest_player_name = $"CanvasLayer/Main Player/Player Name"
-
 #buttons on the lobby
 @onready var login_button = $"Lobby UI/CanvasLayer/Log in Button"
 
@@ -15,7 +12,7 @@ func _ready():
 	get_tree().get_root().add_child(playerUIInterface)
 	login_button.pressed.connect(open_login)
 	
-	guest_player_name.text = guest_player_name_generator()
+	PlayerGlobalScript.player_name = guest_player_name_generator()
 
 func open_login():
 	PlayerGlobalScript.modal_open = true

@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://draqfc0ximnvd"]
+[gd_scene load_steps=15 format=3 uid="uid://draqfc0ximnvd"]
 
 [ext_resource type="Texture2D" uid="uid://dqlvll5wanwf6" path="res://Assets/Sprite_Slice/Default_Character.png" id="1_8yiwg"]
-[ext_resource type="Script" uid="uid://rsmvb4ju25pu" path="res://Scripts/Player_Scripts/playerMovement.gd" id="1_wj6ey"]
+[ext_resource type="Script" uid="uid://byhnvk1iq8nrv" path="res://Scripts/Player_Scripts/player_character_info.gd" id="1_27txk"]
 [ext_resource type="Script" uid="uid://davw7ydns40l6" path="res://Scripts/Player_Scripts/playerAnimation.gd" id="3_52txp"]
+[ext_resource type="FontFile" uid="uid://bmdl23cbnw41b" path="res://Assets/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="4_27txk"]
 
 [sub_resource type="Animation" id="Animation_27txk"]
 resource_name = "Idle_Back"
@@ -132,12 +133,15 @@ _data = {
 &"Walk_Side": SubResource("Animation_muxwr")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vcs20"]
+bg_color = Color(0, 0.711448, 0.46152, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8yiwg"]
 size = Vector2(33, 71)
 
 [node name="Player_Body" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
-script = ExtResource("1_wj6ey")
+script = ExtResource("1_27txk")
 
 [node name="Player_Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -150,6 +154,21 @@ script = ExtResource("3_52txp")
 libraries = {
 &"": SubResource("AnimationLibrary_52txp")
 }
+
+[node name="Player Name" type="RichTextLabel" parent="Player_Sprite"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -90.0
+offset_top = -69.5
+offset_right = 54.0
+offset_bottom = -49.5
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("4_27txk")
+theme_override_styles/normal = SubResource("StyleBoxFlat_vcs20")
+text = "Player Name"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Player_Collision" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -3.5)

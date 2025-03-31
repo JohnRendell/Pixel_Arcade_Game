@@ -10,3 +10,6 @@ var playerCoords = "";
 
 #for opening modal that restricts player when moving
 var modal_open = false
+
+#for setting up player name
+var player_name = ""

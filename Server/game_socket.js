@@ -1,6 +1,7 @@
-module.exports = (io, socket_label) =>{
-    io.on("connection", (socket)=>{
-        console.log("Connected to the server: " + socket.id)
-        console.log("Label: " + socket_label)
-    })
+module.exports = (server) =>{
+    server.on("connection", (socket)=>{
+        socket.on("message", (data)=>{
+            console.log(JSON.parse(data));
+        });
+    });
 }

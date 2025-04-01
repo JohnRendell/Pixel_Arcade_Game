@@ -25,6 +25,13 @@ func _process(_delta):
 		while socket.get_available_packet_count():
 			socket_data = JSON.parse_string(socket.get_packet().get_string_from_utf8())
 
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		if socket.get_ready_state() == WebSocketPeer.STATE_OPEN:
+			send_data({"Socket_Type": "playerDisconnect", "Player_Name": PlayerGlobalScript.player_name })
+			socket.close(1000, "%s left" % [PlayerGlobalScript.player_name])
+		get_tree().quit()
+
 func send_data(data):
 	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN:
 		var json_string = JSON.stringify(data)

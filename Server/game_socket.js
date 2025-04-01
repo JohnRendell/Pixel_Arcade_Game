@@ -27,10 +27,25 @@ module.exports = (server) =>{
                         "isIdle": isIdle
                     }
                     break;
+                
+                case "playerDisconnect":
+                    socket_data = { 
+                        Socket_Type: socket_type, 
+                        "Player_Name": parsed_data.Player_Name 
+                    }
+                    break;
+                
+                default:
+                    console.log(data)
+                    break;
             }
 
             //send back the data to all players
             broadcast(server, socket_data);
+        });
+
+        socket.on("close", (code, reason) => {
+            console.log(`Player disconnected. Code: ${code}, Reason: ${reason}`);
         });
     });
 

@@ -9,12 +9,22 @@ module.exports = (server) =>{
                 case "playerSpawn":
                     let playerName = parsed_data.Player_Name;
                     let playerCoords = { x: parsed_data.Pos_X, y: parsed_data.Pos_Y }
+                    let isLeft = parsed_data.isLeft;
+                    let isRight = parsed_data.isRight;
+                    let isUp = parsed_data.isUp;
+                    let isDown = parsed_data.isDown;
+                    let isIdle = parsed_data.isIdle;
                     
                     socket_data = {
                         Socket_Type: socket_type,
                         "Player_Name": playerName,
                         "Pos_X": playerCoords.x,
-                        "Pos_Y": playerCoords.y
+                        "Pos_Y": playerCoords.y,
+                        "isLeft": isLeft,
+                        "isRight": isRight,
+                        "isDown": isDown,
+                        "isUp": isUp,
+                        "isIdle": isIdle
                     }
                     break;
             }

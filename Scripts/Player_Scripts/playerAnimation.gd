@@ -5,7 +5,7 @@ extends Sprite2D
 func _ready():
 	anim.play("Idle_Front")
 
-func _process(delta):
+func _process(_delta):
 	if PlayerGlobalScript.isIdle:
 		if PlayerGlobalScript.isLeft or PlayerGlobalScript.isRight:
 			anim.play("Idle_Side")

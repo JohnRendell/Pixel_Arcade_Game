@@ -2,7 +2,7 @@ extends Control
 
 @onready var playerTextCoordsLabel = $"CanvasLayer/Player Coordinates"
 
-func _process(delta: float):
+func _process(_delta: float):
 	var playerX = PlayerGlobalScript.playerCoords.x
 	var playerY = PlayerGlobalScript.playerCoords.y
 	

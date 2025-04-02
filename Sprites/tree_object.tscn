@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://shpjlyaxp0i4"]
+
+[ext_resource type="Texture2D" uid="uid://b2hicj7vfwptr" path="res://Assets/Sprite_Slice/Objects/Tree.png" id="1_niqrb"]
+
+[node name="Tree_body" type="CharacterBody2D"]
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_niqrb")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+build_mode = 1
+polygon = PackedVector2Array(-216, 345, -323, 490, -326, 543, 368, 542, 335, 488, 138, 345)

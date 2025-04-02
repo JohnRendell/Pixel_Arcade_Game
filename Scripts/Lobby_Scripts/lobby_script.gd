@@ -11,6 +11,9 @@ var playerUIInterface = preload("res://Interfaces/playerInfo.tscn").instantiate(
 #preload player assets
 var player_scene = preload("res://Sprites/player_2.tscn")
 
+#objects on the lobby
+@onready var spawner = $"CanvasLayer/Objects and players/spawner"
+
 #dictionary for joined players
 @export var joined_players = {}
 
@@ -68,6 +71,10 @@ func check_for_players(data):
 			#spawn the player
 			if PlayerGlobalScript.player_name != player_name:
 				if not joined_players.has(player_name):
+					#activate the spawner machine status
+					if !spawner.isSpawn:
+						spawner.isSpawn = true
+					
 					player_join.position = Vector2(player_posX, player_posY)
 				
 					#player status

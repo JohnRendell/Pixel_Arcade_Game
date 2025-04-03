@@ -12,7 +12,7 @@ var playerUIInterface = preload("res://Interfaces/playerInfo.tscn").instantiate(
 var player_scene = preload("res://Sprites/player_2.tscn")
 
 #objects on the lobby
-@onready var spawner = $"CanvasLayer/Objects and players/spawner"
+@onready var spawner = $CanvasLayer/Grass/spawner
 
 #dictionary for joined players
 @export var joined_players = {}
@@ -89,7 +89,7 @@ func check_for_players(data):
 						"Player": player_join,
 						"Position": Vector2(player_posX, player_posY)
 					}
-					$CanvasLayer.add_child(player_join)
+					$CanvasLayer/Grass.add_child(player_join)
 				else:
 					var player = joined_players[player_name]
 					player["Position"] = Vector2(player_posX, player_posY)

@@ -3,23 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://td3nfxpulo85" path="res://Assets/Sprite_Slice/Objects/Spawner.png" id="1_dy546"]
 [ext_resource type="Script" uid="uid://lslpcjyk0u86" path="res://Scripts/Object_Scripts/spawner.gd" id="2_ma531"]
 
-[sub_resource type="Animation" id="Animation_dy546"]
-resource_name = "Stationary"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-
 [sub_resource type="Animation" id="Animation_ma531"]
 length = 0.001
 tracks/0/type = "value"
@@ -51,6 +34,23 @@ tracks/0/keys = {
 "values": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 }
 
+[sub_resource type="Animation" id="Animation_dy546"]
+resource_name = "Stationary"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ma531"]
 _data = {
 &"RESET": SubResource("Animation_ma531"),
@@ -61,7 +61,7 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ma531"]
 size = Vector2(85, 20)
 
-[node name="spawner_body" type="CharacterBody2D"]
+[node name="spawner_body" type="StaticBody2D"]
 texture_filter = 1
 script = ExtResource("2_ma531")
 

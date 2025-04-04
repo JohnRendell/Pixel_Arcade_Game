@@ -133,10 +133,9 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oxcdl"]
-size = Vector2(44, 98)
+size = Vector2(44, 9)
 
 [node name="Joined_Player_Body" type="CharacterBody2D"]
-z_index = 2
 y_sort_enabled = true
 texture_filter = 1
 scale = Vector2(0.5, 0.5)
@@ -145,6 +144,7 @@ script = ExtResource("2_oxcdl")
 [node name="joined_Player_Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_1jmsu")
+offset = Vector2(0, -40)
 hframes = 7
 vframes = 2
 frame = 8
@@ -160,9 +160,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -100.0
-offset_top = -80.0
+offset_top = -120.0
 offset_right = 100.0
-offset_bottom = -60.0
+offset_bottom = -100.0
 grow_horizontal = 2
 theme_override_fonts/normal_font = ExtResource("2_thyxd")
 text = "Player Name"
@@ -170,5 +170,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
+y_sort_enabled = true
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_oxcdl")
+disabled = true

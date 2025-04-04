@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://d3fhlsra82dlj"]
 
-[ext_resource type="Texture2D" uid="uid://td3nfxpulo85" path="res://Assets/Sprite_Slice/Objects/Spawner.png" id="1_dy546"]
+[ext_resource type="Texture2D" uid="uid://td3nfxpulo85" path="res://Assets/Sprite_Slice/Objects_Animated/Spawner.png" id="1_dy546"]
 [ext_resource type="Script" uid="uid://lslpcjyk0u86" path="res://Scripts/Object_Scripts/spawner.gd" id="2_ma531"]
 
 [sub_resource type="Animation" id="Animation_ma531"]
@@ -59,15 +59,17 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ma531"]
-size = Vector2(85, 20)
+size = Vector2(85, 1)
 
 [node name="spawner_body" type="StaticBody2D"]
+y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("2_ma531")
 
 [node name="spawner" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("1_dy546")
+offset = Vector2(0, -40)
 hframes = 8
 vframes = 2
 
@@ -77,7 +79,8 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 36)
+position = Vector2(1, -9)
 shape = SubResource("RectangleShape2D_ma531")
+disabled = true
 
 [connection signal="animation_finished" from="spawner/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

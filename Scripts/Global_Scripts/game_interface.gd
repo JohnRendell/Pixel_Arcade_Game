@@ -1,6 +1,6 @@
 extends Control
 
-@onready var playerTextCoordsLabel = $"CanvasLayer/Player Coordinates"
+@onready var playerTextCoordsLabel = $"Player Coordinates"
 
 func _process(_delta: float):
 	var playerX = PlayerGlobalScript.playerCoords.x

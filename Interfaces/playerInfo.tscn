@@ -29,7 +29,7 @@ texture_margin_right = 14.0
 texture_margin_bottom = 14.0
 region_rect = Rect2(36, 12, 99, 48)
 
-[node name="Control" type="Control"]
+[node name="UI" type="Control"]
 z_index = 10
 layout_mode = 3
 anchors_preset = 15
@@ -39,10 +39,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_14f72")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 5
-
-[node name="Control Tip" type="RichTextLabel" parent="CanvasLayer"]
+[node name="Control Tip" type="RichTextLabel" parent="."]
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -61,7 +59,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Player Coordinates" type="RichTextLabel" parent="CanvasLayer"]
+[node name="Player Coordinates" type="RichTextLabel" parent="."]
 offset_left = 20.0
 offset_top = 54.0
 offset_right = 320.0
@@ -73,7 +71,7 @@ Y: 0"
 fit_content = true
 vertical_alignment = 1
 
-[node name="Player Count" type="RichTextLabel" parent="CanvasLayer"]
+[node name="Player Count" type="RichTextLabel" parent="."]
 offset_left = 19.0
 offset_top = 18.0
 offset_right = 220.0
@@ -84,14 +82,15 @@ text = "Player Count: 0"
 fit_content = true
 vertical_alignment = 1
 
-[node name="Global Messages" type="Button" parent="CanvasLayer"]
+[node name="Global Messages" type="Button" parent="."]
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -148.0
-offset_top = -47.0
+offset_left = -164.0
+offset_top = -64.0
 offset_right = -19.0
 offset_bottom = -16.0
 grow_horizontal = 0

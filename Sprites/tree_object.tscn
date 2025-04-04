@@ -1,13 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://shpjlyaxp0i4"]
+[gd_scene load_steps=3 format=3 uid="uid://cdj0t2exh2ona"]
 
-[ext_resource type="Texture2D" uid="uid://b2hicj7vfwptr" path="res://Assets/Sprite_Slice/Objects/Tree.png" id="1_niqrb"]
+[ext_resource type="Texture2D" uid="uid://dvdrmari3avmf" path="res://Assets/Sprite_Slice/Tile_Maps/Object_Terrain.png" id="1_niqrb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_niqrb"]
+size = Vector2(13, 4)
 
 [node name="Tree_body" type="StaticBody2D"]
 y_sort_enabled = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
+y_sort_enabled = true
+texture_filter = 1
 texture = ExtResource("1_niqrb")
+offset = Vector2(0, -44)
+region_enabled = true
+region_rect = Rect2(12, 8, 52, 92)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-build_mode = 1
-polygon = PackedVector2Array(-216, 345, -323, 490, -326, 543, 368, 542, 335, 488, 138, 345)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+y_sort_enabled = true
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_niqrb")
+disabled = true

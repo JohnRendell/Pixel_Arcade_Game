@@ -1,12 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://cyouk0akkaaij"]
+[gd_scene load_steps=3 format=3 uid="uid://b8gx6iv6pue5u"]
 
-[ext_resource type="Texture2D" uid="uid://b4ik3ovayx7hf" path="res://Assets/Sprite_Slice/Objects/Rock.png" id="1_7bkit"]
+[ext_resource type="Texture2D" uid="uid://dvdrmari3avmf" path="res://Assets/Sprite_Slice/Tile_Maps/Object_Terrain.png" id="1_7bkit"]
 
-[node name="Rock_body" type="StaticBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7bkit"]
+size = Vector2(36, 6)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="rock_object" type="StaticBody2D"]
+
+[node name="sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_7bkit")
+offset = Vector2(0, -2)
+region_enabled = true
+region_rect = Rect2(96, 8, 40, 32)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-build_mode = 1
-polygon = PackedVector2Array(-393, 102, -360, 100, -358, 416, -122, 414, 18, 272, 293, 270, 400, 153, 396, 75, 427, 73, 425, -182, -393, -182)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+y_sort_enabled = true
+position = Vector2(2, -1)
+shape = SubResource("RectangleShape2D_7bkit")
+disabled = true

@@ -28,6 +28,7 @@ region_rect = Rect2(261, 24, 15, 15)
 
 [node name="Modal" type="Control"]
 visible = false
+z_index = 20
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

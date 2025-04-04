@@ -137,15 +137,17 @@ _data = {
 bg_color = Color(0, 0.711448, 0.46152, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8yiwg"]
-size = Vector2(44, 96)
+size = Vector2(44, 6)
 
 [node name="Player_Body" type="CharacterBody2D"]
+y_sort_enabled = true
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_27txk")
 
 [node name="Player_Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_27txk")
+offset = Vector2(0, -40)
 hframes = 7
 vframes = 2
 script = ExtResource("3_52txp")
@@ -160,9 +162,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -120.0
-offset_top = -80.0
+offset_top = -120.0
 offset_right = 24.0
-offset_bottom = -60.0
+offset_bottom = -100.0
 grow_horizontal = 2
 theme_override_fonts/normal_font = ExtResource("4_27txk")
 theme_override_styles/normal = SubResource("StyleBoxFlat_vcs20")
@@ -171,7 +173,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Player_Collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
+y_sort_enabled = true
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_8yiwg")
 
 [node name="Player_Camera" type="Camera2D" parent="."]

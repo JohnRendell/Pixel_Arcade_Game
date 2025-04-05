@@ -1,0 +1,54 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://c3p81mbueqgmy"]
+
+[ext_resource type="FontFile" uid="uid://bmdl23cbnw41b" path="res://Assets/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="1_yvi2m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3lt1i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yvi2m"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3lt1i"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[resource]
+LineEdit/colors/caret_color = Color(0, 0, 0, 1)
+LineEdit/colors/font_color = Color(0, 0, 0, 1)
+LineEdit/colors/font_placeholder_color = Color(0.493545, 0.493546, 0.493546, 1)
+LineEdit/constants/caret_width = 2
+LineEdit/font_sizes/font_size = 15
+LineEdit/fonts/font = ExtResource("1_yvi2m")
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_3lt1i")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_yvi2m")
+TextEdit/colors/caret_color = Color(0, 0, 0, 1)
+TextEdit/colors/font_color = Color(0, 0, 0, 1)
+TextEdit/colors/font_placeholder_color = Color(0.419813, 0.419813, 0.419813, 1)
+TextEdit/constants/caret_width = 2
+TextEdit/font_sizes/font_size = 15
+TextEdit/fonts/font = ExtResource("1_yvi2m")
+TextEdit/styles/normal = SubResource("StyleBoxFlat_3lt1i")

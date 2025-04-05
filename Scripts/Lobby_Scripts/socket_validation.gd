@@ -20,7 +20,7 @@ func _process(_delta: float):
 		isDisconnect = true
 		connect_server_modal_anim.play("disconnect_anim")
 		
-	elif SocketConnection.connect_server_status == "Connecting to Server...":
+	elif SocketConnection.connect_server_status == "Connecting...":
 		isDisconnect = false
 		connect_server_modal_anim.play("connecting_anim")
 	

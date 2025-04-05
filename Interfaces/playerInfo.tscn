@@ -1,33 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://ranvboc1aleu"]
+[gd_scene load_steps=4 format=3 uid="uid://ranvboc1aleu"]
 
 [ext_resource type="Script" uid="uid://ce6wbg0vx4rjd" path="res://Scripts/Global_Scripts/game_interface.gd" id="1_14f72"]
 [ext_resource type="FontFile" uid="uid://bmdl23cbnw41b" path="res://Assets/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="1_fhr0c"]
 [ext_resource type="Theme" uid="uid://t8cakbf8cvmc" path="res://Assets/Themes/default_button_texture.tres" id="2_27cgy"]
-[ext_resource type="Texture2D" uid="uid://b8i2cshy45y0e" path="res://Assets/Sprite_Slice/Sprite_UI_Stuff.png" id="3_27cgy"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_14f72"]
-texture = ExtResource("3_27cgy")
-texture_margin_left = 14.0
-texture_margin_top = 14.0
-texture_margin_right = 14.0
-texture_margin_bottom = 14.0
-region_rect = Rect2(36, 12, 99, 48)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jqtam"]
-texture = ExtResource("3_27cgy")
-texture_margin_left = 14.0
-texture_margin_top = 14.0
-texture_margin_right = 14.0
-texture_margin_bottom = 14.0
-region_rect = Rect2(147, 18, 93, 42)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1sa06"]
-texture = ExtResource("3_27cgy")
-texture_margin_left = 14.0
-texture_margin_top = 14.0
-texture_margin_right = 14.0
-texture_margin_bottom = 14.0
-region_rect = Rect2(36, 12, 99, 48)
 
 [node name="UI" type="Control"]
 z_index = 10
@@ -100,9 +75,6 @@ grow_vertical = 0
 tooltip_text = "Global Messages"
 mouse_default_cursor_shape = 2
 theme = ExtResource("2_27cgy")
-theme_override_styles/hover = SubResource("StyleBoxTexture_14f72")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_jqtam")
-theme_override_styles/normal = SubResource("StyleBoxTexture_1sa06")
 action_mode = 0
 button_mask = 5
 text = "Global Message"

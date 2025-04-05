@@ -16,6 +16,7 @@ var player_scene = preload("res://Sprites/player_2.tscn")
 @export var joined_players = {}
 
 func _ready():
+	login_modal.visible = false
 	login_button.pressed.connect(open_login)
 	PlayerGlobalScript.player_name = guest_player_name_generator()
 	

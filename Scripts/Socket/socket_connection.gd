@@ -34,7 +34,7 @@ func _process(_delta):
 				socket_data = JSON.parse_string(socket.get_packet().get_string_from_utf8())
 		
 		WebSocketPeer.STATE_CONNECTING:
-			connect_server_status = "Connecting..."
+			connect_server_status = "Connecting to Server..."
 		
 		WebSocketPeer.STATE_CLOSING, WebSocketPeer.STATE_CLOSED:
 			connect_server_status = "Unable to Connect with the Server"

@@ -1,41 +1,19 @@
-[gd_scene load_steps=32 format=4 uid="uid://cvnoej7tdycly"]
+[gd_scene load_steps=28 format=4 uid="uid://cvnoej7tdycly"]
 
 [ext_resource type="Script" uid="uid://bfvjja37p1vyb" path="res://Scripts/Lobby_Scripts/lobby_script.gd" id="1_3q4fp"]
-[ext_resource type="Script" uid="uid://d3i6fvee82pvm" path="res://Scenes/socket_validation.gd" id="2_h23dp"]
+[ext_resource type="Script" uid="uid://cy5gxmdjiyaul" path="res://Scenes/socket_validation.gd" id="2_h23dp"]
 [ext_resource type="PackedScene" uid="uid://draqfc0ximnvd" path="res://Sprites/player_character.tscn" id="2_ljcoi"]
 [ext_resource type="Theme" uid="uid://t8cakbf8cvmc" path="res://Assets/Themes/default_button_texture.tres" id="3_op75h"]
-[ext_resource type="Texture2D" uid="uid://b8i2cshy45y0e" path="res://Assets/Sprite_Slice/Sprite_UI_Stuff.png" id="4_2ipua"]
 [ext_resource type="PackedScene" uid="uid://d3fhlsra82dlj" path="res://Sprites/spawner_machine.tscn" id="4_lvc8g"]
 [ext_resource type="PackedScene" uid="uid://can60qx0sq1hp" path="res://Interfaces/modal.tscn" id="5_44aa0"]
 [ext_resource type="Texture2D" uid="uid://oyjo60fugefg" path="res://Assets/Sprite_Slice/Tile_Maps/Grass_Terrain.png" id="6_nr3av"]
 [ext_resource type="FontFile" uid="uid://bmdl23cbnw41b" path="res://Assets/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="6_s7ahk"]
+[ext_resource type="Theme" uid="uid://drrfpd7ov3vf6" path="res://Assets/Themes/proceed_button_theme.tres" id="7_bku1b"]
 [ext_resource type="Texture2D" uid="uid://b7ji88j5ksrqo" path="res://Assets/Sprite_Slice/Tile_Maps/Rock_Terrain.png" id="7_nr3av"]
+[ext_resource type="Theme" uid="uid://c3p81mbueqgmy" path="res://Assets/Themes/modal_input.tres" id="7_oohhb"]
 [ext_resource type="Texture2D" uid="uid://px1w8sf20uj" path="res://Assets/Sprite_Slice/Connecting_anim.png" id="7_s7ahk"]
 [ext_resource type="PackedScene" uid="uid://ranvboc1aleu" path="res://Interfaces/playerInfo.tscn" id="10_nr3av"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2ipua"]
-texture = ExtResource("4_2ipua")
-texture_margin_left = 14.0
-texture_margin_top = 14.0
-texture_margin_right = 14.0
-texture_margin_bottom = 14.0
-region_rect = Rect2(36, 12, 99, 48)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3q4fp"]
-texture = ExtResource("4_2ipua")
-texture_margin_left = 14.0
-texture_margin_top = 14.0
-texture_margin_right = 14.0
-texture_margin_bottom = 14.0
-region_rect = Rect2(147, 18, 93, 42)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lvc8g"]
-texture = ExtResource("4_2ipua")
-texture_margin_left = 14.0
-texture_margin_top = 14.0
-texture_margin_right = 14.0
-texture_margin_bottom = 14.0
-region_rect = Rect2(36, 12, 99, 48)
+[ext_resource type="Script" uid="uid://bopyd0hbxtb05" path="res://Scripts/Lobby_Scripts/lobby_validation.gd" id="15_ngbab"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r1is2"]
 bg_color = Color(1, 1, 1, 1)
@@ -44,29 +22,20 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h23dp"]
-texture = ExtResource("4_2ipua")
-texture_margin_left = 14.0
-texture_margin_top = 14.0
-texture_margin_right = 14.0
-texture_margin_bottom = 14.0
-region_rect = Rect2(36, 12, 99, 48)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s7ahk"]
-texture = ExtResource("4_2ipua")
-texture_margin_left = 14.0
-texture_margin_top = 14.0
-texture_margin_right = 14.0
-texture_margin_bottom = 14.0
-region_rect = Rect2(147, 18, 93, 42)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nr3av"]
-texture = ExtResource("4_2ipua")
-texture_margin_left = 14.0
-texture_margin_top = 14.0
-texture_margin_right = 14.0
-texture_margin_bottom = 14.0
-region_rect = Rect2(36, 12, 99, 48)
+[sub_resource type="Animation" id="Animation_h23dp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_s7ahk"]
 resource_name = "connecting_anim"
@@ -83,21 +52,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [0, 1, 2, 3]
-}
-
-[sub_resource type="Animation" id="Animation_h23dp"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_oohhb"]
@@ -666,9 +620,6 @@ offset_bottom = 76.0
 grow_horizontal = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("3_op75h")
-theme_override_styles/hover = SubResource("StyleBoxTexture_2ipua")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_3q4fp")
-theme_override_styles/normal = SubResource("StyleBoxTexture_lvc8g")
 action_mode = 0
 button_mask = 5
 text = "Log in"
@@ -684,9 +635,6 @@ offset_bottom = 140.0
 grow_horizontal = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("3_op75h")
-theme_override_styles/hover = SubResource("StyleBoxTexture_2ipua")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_3q4fp")
-theme_override_styles/normal = SubResource("StyleBoxTexture_lvc8g")
 action_mode = 0
 button_mask = 5
 text = "Log in as Guest"
@@ -696,7 +644,139 @@ offset_top = -1.0
 offset_bottom = -1.0
 modal_label = "Log in"
 
+[node name="Username Label" type="RichTextLabel" parent="Lobby UI/UI/Log in Modal"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -164.0
+offset_top = -161.0
+offset_right = 164.0
+offset_bottom = -121.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("6_s7ahk")
+text = "Username"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Username Input" type="LineEdit" parent="Lobby UI/UI/Log in Modal"]
+layout_mode = 2
+offset_left = 412.0
+offset_top = 205.0
+offset_right = 740.0
+offset_bottom = 232.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_oohhb")
+placeholder_text = "Type your username"
+alignment = 1
+max_length = 20
+drag_and_drop_selection_enabled = false
+caret_blink = true
+
+[node name="Password Label" type="RichTextLabel" parent="Lobby UI/UI/Log in Modal"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -164.0
+offset_top = -49.0
+offset_right = 164.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("6_s7ahk")
+text = "Password"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Password Input" type="LineEdit" parent="Lobby UI/UI/Log in Modal"]
+layout_mode = 2
+offset_left = 412.0
+offset_top = 319.0
+offset_right = 740.0
+offset_bottom = 346.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_oohhb")
+placeholder_text = "Type your password"
+alignment = 1
+max_length = 20
+drag_and_drop_selection_enabled = false
+caret_blink = true
+secret = true
+secret_character = "*"
+
+[node name="Sign in Link" type="LinkButton" parent="Lobby UI/UI/Log in Modal"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.0
+offset_top = 134.0
+offset_right = 26.0
+offset_bottom = 158.0
+grow_horizontal = 2
+grow_vertical = 2
+tooltip_text = "Sign in"
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_colors/font_pressed_color = Color(2.35841e-06, 0, 0.685646, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 1, 1)
+theme_override_fonts/font = ExtResource("6_s7ahk")
+theme_override_font_sizes/font_size = 0
+button_mask = 5
+text = "Sign in"
+uri = "www.google.com"
+
+[node name="Warning Text" type="RichTextLabel" parent="Lobby UI/UI/Log in Modal"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -101.0
+offset_top = -251.0
+offset_right = 99.0
+offset_bottom = -211.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("6_s7ahk")
+theme_override_font_sizes/normal_font_size = 15
+text = "This is a warning text"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Log in Button" type="Button" parent="Lobby UI/UI/Log in Modal"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -42.5
+offset_top = -150.0
+offset_right = 42.5
+offset_bottom = -110.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("7_bku1b")
+button_mask = 5
+text = "Proceed"
+
 [node name="Connected Validation" type="Control" parent="Lobby UI/UI"]
+visible = false
 z_index = 20
 layout_mode = 3
 anchors_preset = 15
@@ -754,9 +834,6 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("3_op75h")
-theme_override_styles/hover = SubResource("StyleBoxTexture_h23dp")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_s7ahk")
-theme_override_styles/normal = SubResource("StyleBoxTexture_nr3av")
 action_mode = 0
 button_mask = 5
 text = "Retry"
@@ -827,5 +904,16 @@ offset_bottom = 40.0
 script = ExtResource("2_h23dp")
 connect_server_modal_path = NodePath("../Lobby UI/UI/Connected Validation")
 
+[node name="Lobby Validation" type="Control" parent="." node_paths=PackedStringArray("login_warning_text", "login_username_input", "login_password_input")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("15_ngbab")
+login_warning_text = NodePath("../Lobby UI/UI/Log in Modal/Warning Text")
+login_username_input = NodePath("../Lobby UI/UI/Log in Modal/Username Input")
+login_password_input = NodePath("../Lobby UI/UI/Log in Modal/Password Input")
+
+[connection signal="pressed" from="Lobby UI/UI/Log in Modal/Log in Button" to="Lobby Validation" method="_on_log_in_button_pressed"]
 [connection signal="button_down" from="Lobby UI/UI/Connected Validation/Panel/Retry_btn" to="Socket Connection" method="_on_retry_btn_button_down"]
 [connection signal="animation_finished" from="Lobby UI/UI/Connected Validation/Panel/Sprite Display/AnimationPlayer" to="Socket Connection" method="_on_animation_player_animation_finished"]

@@ -6,28 +6,26 @@
 [ext_resource type="Theme" uid="uid://fytpjh21mbhn" path="res://Assets/Themes/default_button_theme.tres" id="3_pr2ud"]
 [ext_resource type="FontFile" uid="uid://bmdl23cbnw41b" path="res://Assets/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="5_jggfe"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pr2ud"]
-texture = ExtResource("2_c38oy")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
-region_rect = Rect2(42, 75, 153, 108)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jggfe"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6fe7b"]
 texture = ExtResource("2_c38oy")
-region_rect = Rect2(261, 24, 15, 15)
+region_rect = Rect2(348, 32, 20, 20)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jggfe"]
 texture = ExtResource("2_c38oy")
-region_rect = Rect2(261, 24, 15, 15)
+region_rect = Rect2(348, 32, 20, 20)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ym2q7"]
 texture = ExtResource("2_c38oy")
-region_rect = Rect2(261, 24, 15, 15)
+region_rect = Rect2(348, 32, 20, 20)
 
 [node name="Modal" type="Control"]
-visible = false
 z_index = 20
 layout_mode = 3
 anchors_preset = 15
@@ -59,7 +57,7 @@ offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_mt8pp")
-theme_override_styles/panel = SubResource("StyleBoxTexture_pr2ud")
+theme_override_styles/panel = SubResource("StyleBoxFlat_jggfe")
 
 [node name="Close Button" type="Button" parent="Background Panel/Panel"]
 layout_mode = 1
@@ -89,6 +87,7 @@ offset_left = -300.0
 offset_right = 300.0
 offset_bottom = 40.0
 grow_horizontal = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("5_jggfe")
 theme_override_font_sizes/normal_font_size = 20
 text = "Modal Label"

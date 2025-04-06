@@ -28,11 +28,18 @@ async function run() {
 }
 run().catch(console.dir);
 
+mongoose.connection.on("connected", () => {
+    console.log("Connected to DB:", mongoose.connection.name);
+});
+
 //parse incoming json
 app.use(express.json())
 
+//serve the index sign up folder
+app.use(express.static(path.join(__dirname, "../Sign Up Pages")))
+
 app.get("/", (req, res)=>{
-    res.send("Hi, the server is open")
+  res.sendFile(path.join(__dirname, "../Sign Up Pages/index.html"))
 });
 
 //for socket
@@ -45,6 +52,7 @@ require("./game_socket")(io)
 
 //for routes
 app.use("/validate", require("./validateAccount"))
+app.use("/success", require("./successRedirect"))
 
 app.use(bodyParser.json())
 

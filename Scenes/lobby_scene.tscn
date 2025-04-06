@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://cvnoej7tdycly"]
+[gd_scene load_steps=32 format=4 uid="uid://cvnoej7tdycly"]
 
 [ext_resource type="Script" uid="uid://bfvjja37p1vyb" path="res://Scripts/Lobby_Scripts/lobby_script.gd" id="1_3q4fp"]
 [ext_resource type="PackedScene" uid="uid://draqfc0ximnvd" path="res://Sprites/player_character.tscn" id="2_ljcoi"]
@@ -96,6 +96,44 @@ _data = {
 &"connecting_anim": SubResource("Animation_s7ahk"),
 &"disconnect_anim": SubResource("Animation_oohhb"),
 &"no_connection_anim": SubResource("Animation_bku1b")
+}
+
+[sub_resource type="Animation" id="Animation_ngbab"]
+resource_name = "floating_validation"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(326, 26), Vector2(326, 36)]
+}
+
+[sub_resource type="Animation" id="Animation_eh844"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(326, 26)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eh844"]
+_data = {
+&"RESET": SubResource("Animation_eh844"),
+&"floating_validation": SubResource("Animation_ngbab")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ljcoi"]
@@ -739,7 +777,7 @@ theme_override_fonts/font = ExtResource("6_s7ahk")
 theme_override_font_sizes/font_size = 0
 button_mask = 5
 text = "Sign in"
-uri = "www.google.com"
+uri = "http://localhost:8080/"
 
 [node name="Warning Text" type="RichTextLabel" parent="Lobby UI/UI/Log in Modal"]
 layout_mode = 1
@@ -865,6 +903,63 @@ libraries = {
 &"": SubResource("AnimationLibrary_h23dp")
 }
 
+[node name="Validate Loading" type="Control" parent="Lobby UI/UI"]
+visible = false
+z_index = 20
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Panel" parent="Lobby UI/UI/Validate Loading"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bku1b")
+
+[node name="Panel" type="Panel" parent="Lobby UI/UI/Validate Loading"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_top = 26.0
+offset_right = 250.0
+offset_bottom = 120.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r1is2")
+
+[node name="Label" type="RichTextLabel" parent="Lobby UI/UI/Validate Loading/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -20.0
+offset_right = 200.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("6_s7ahk")
+theme_override_font_sizes/normal_font_size = 20
+text = "Validating..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Lobby UI/UI/Validate Loading"]
+libraries = {
+&"": SubResource("AnimationLibrary_eh844")
+}
+autoplay = "floating_validation"
+
 [node name="Bound" type="StaticBody2D" parent="."]
 disable_mode = 2
 
@@ -918,7 +1013,7 @@ offset_bottom = 40.0
 script = ExtResource("13_bku1b")
 connect_server_modal_path = NodePath("../Lobby UI/UI/Connected Validation")
 
-[node name="Lobby Validation" type="Control" parent="." node_paths=PackedStringArray("login_warning_text", "login_username_input", "login_password_input")]
+[node name="Lobby Validation" type="Control" parent="." node_paths=PackedStringArray("login_warning_text", "login_username_input", "login_password_input", "validate_loading", "warning_text")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -927,6 +1022,8 @@ script = ExtResource("15_ngbab")
 login_warning_text = NodePath("../Lobby UI/UI/Log in Modal/Warning Text")
 login_username_input = NodePath("../Lobby UI/UI/Log in Modal/Username Input")
 login_password_input = NodePath("../Lobby UI/UI/Log in Modal/Password Input")
+validate_loading = NodePath("../Lobby UI/UI/Validate Loading")
+warning_text = NodePath("../Lobby UI/UI/Log in Modal/Warning Text")
 
 [connection signal="pressed" from="Lobby UI/UI/Log in Modal/Log in Button" to="Lobby Validation" method="_on_log_in_button_pressed"]
 [connection signal="button_down" from="Lobby UI/UI/Connected Validation/Panel/Retry_btn" to="Socket Connection" method="_on_retry_btn_button_down"]

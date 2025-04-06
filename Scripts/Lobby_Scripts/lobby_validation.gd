@@ -3,6 +3,11 @@ extends Control
 @export var login_warning_text: RichTextLabel
 @export var login_username_input: LineEdit
 @export var login_password_input: LineEdit
+@export var validate_loading: Control
+@export var warning_text: RichTextLabel
+
+func _ready():
+	validate_loading.visible = false
 	
 func _process(_delta: float):
 	if !PlayerGlobalScript.modal_open:
@@ -13,9 +18,10 @@ func _on_log_in_button_pressed():
 		login_warning_text.text = "Fields cannot be empty."
 	
 	else:
+		validate_loading.visible = true
 		BackendStuff.send_data_to_express({ "username": login_username_input.text, "password": login_password_input.text }, "/validate/login")
 		
-		#TODO: finish this one
 		await get_tree().create_timer(1.0).timeout
+		validate_loading.visible = false
+		warning_text.text = BackendStuff.returned_parsed["status"]
 		print("Get from request: " + str(BackendStuff.returned_parsed))
-		print("Status: " + str(BackendStuff.returned_parsed["status"]))

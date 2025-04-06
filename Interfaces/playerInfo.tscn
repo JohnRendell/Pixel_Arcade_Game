@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ranvboc1aleu"]
+[gd_scene load_steps=5 format=3 uid="uid://ranvboc1aleu"]
 
 [ext_resource type="Script" uid="uid://ce6wbg0vx4rjd" path="res://Scripts/Global_Scripts/game_interface.gd" id="1_14f72"]
 [ext_resource type="FontFile" uid="uid://bmdl23cbnw41b" path="res://Assets/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="1_fhr0c"]
 [ext_resource type="Theme" uid="uid://t8cakbf8cvmc" path="res://Assets/Themes/default_button_texture.tres" id="2_27cgy"]
+[ext_resource type="PackedScene" uid="uid://can60qx0sq1hp" path="res://Interfaces/modal.tscn" id="4_14f72"]
 
 [node name="UI" type="Control"]
 z_index = 10
@@ -78,3 +79,10 @@ theme = ExtResource("2_27cgy")
 action_mode = 0
 button_mask = 5
 text = "Global Message"
+
+[node name="Global Message Modal" parent="." instance=ExtResource("4_14f72")]
+visible = false
+layout_mode = 1
+modal_label = "Global Message"
+
+[connection signal="button_down" from="Global Messages" to="." method="_on_global_messages_button_down"]

@@ -1,8 +1,5 @@
 extends Node2D
 
-#buttons on the lobby
-@onready var login_button = $"Lobby UI/UI/Log in Button"
-
 #modals
 @onready var login_modal = $"Lobby UI/UI/Log in Modal"
 
@@ -17,9 +14,6 @@ var player_scene = preload("res://Sprites/player_2.tscn")
 
 func _ready():
 	login_modal.visible = false
-	
-	#connect the buttons
-	login_button.pressed.connect(open_login)
 	PlayerGlobalScript.player_name = guest_player_name_generator()
 	
 	#scatter trees
@@ -35,10 +29,6 @@ func _ready():
 func _process(_delta: float):
 	var socket_data = SocketConnection.socket_data
 	check_for_players(socket_data)
-
-func open_login():
-	PlayerGlobalScript.modal_open = true
-	login_modal.visible = true
 	
 func guest_player_name_generator():
 	var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",

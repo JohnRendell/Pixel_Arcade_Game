@@ -12,8 +12,3 @@ func _process(_delta: float):
 	var playerY = PlayerGlobalScript.playerCoords.y
 	
 	playerTextCoordsLabel.text = "X: %.2f \nY: %.2f " % [playerX, playerY]
-
-#TODO: design and add functionality on global messages
-func _on_global_messages_button_down():
-	global_message_modal.visible = true
-	PlayerGlobalScript.modal_open = true

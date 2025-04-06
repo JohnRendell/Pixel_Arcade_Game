@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://can60qx0sq1hp"]
+[gd_scene load_steps=13 format=3 uid="uid://can60qx0sq1hp"]
 
 [ext_resource type="Script" uid="uid://bbmmwm2jmjnug" path="res://Scripts/Global_Scripts/modal_script.gd" id="1_6fe7b"]
 [ext_resource type="Theme" uid="uid://ctjk8afb01o0p" path="res://Assets/Themes/modal_default_theme.tres" id="1_mt8pp"]
@@ -24,6 +24,67 @@ region_rect = Rect2(348, 32, 20, 20)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ym2q7"]
 texture = ExtResource("2_c38oy")
 region_rect = Rect2(348, 32, 20, 20)
+
+[sub_resource type="Animation" id="Animation_jggfe"]
+resource_name = "pop_modal"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(176, -300), Vector2(176, 74)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_styles/panel:bg_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.270588), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ym2q7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(176, -300)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_styles/panel:bg_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ym2q7"]
+_data = {
+&"RESET": SubResource("Animation_ym2q7"),
+&"pop_modal": SubResource("Animation_jggfe")
+}
 
 [node name="Modal" type="Control"]
 z_index = 20
@@ -51,9 +112,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -400.0
-offset_top = -250.0
+offset_top = -624.0
 offset_right = 400.0
-offset_bottom = 250.0
+offset_bottom = -124.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_mt8pp")
@@ -93,3 +154,10 @@ theme_override_font_sizes/normal_font_size = 20
 text = "Modal Label"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Background Panel/Panel"]
+libraries = {
+&"": SubResource("AnimationLibrary_ym2q7")
+}
+
+[connection signal="animation_finished" from="Background Panel/Panel/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -80,9 +80,8 @@ action_mode = 0
 button_mask = 5
 text = "Global Message"
 
-[node name="Global Message Modal" parent="." instance=ExtResource("4_14f72")]
+[node name="Global Message Modal" parent="." node_paths=PackedStringArray("modal_button") instance=ExtResource("4_14f72")]
 visible = false
 layout_mode = 1
+modal_button = NodePath("../Global Messages")
 modal_label = "Global Message"
-
-[connection signal="button_down" from="Global Messages" to="." method="_on_global_messages_button_down"]

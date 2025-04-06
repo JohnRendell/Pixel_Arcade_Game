@@ -20,7 +20,7 @@ func _process(_delta: float):
 		isDisconnect = true
 		connect_server_modal_anim.play("disconnect_anim")
 		
-	elif SocketConnection.connect_server_status == "Connecting...":
+	if SocketConnection.connect_server_status == "Connecting to Server...":
 		isDisconnect = false
 		connect_server_modal_anim.play("connecting_anim")
 	
@@ -31,7 +31,6 @@ func _process(_delta: float):
 func _on_retry_btn_button_down():
 	await SocketConnection.reconnect_to_server()
 
-
 func _on_animation_player_animation_finished(anim_name: StringName):
-	if anim_name == "disconnect_anim":
+	if anim_name == "disconnect_anim" and isDisconnect:
 		connect_server_modal_anim.play("no_connection_anim")

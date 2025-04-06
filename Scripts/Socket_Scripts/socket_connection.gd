@@ -1,6 +1,7 @@
 extends Node
 
-@export var websocket_url = "ws://localhost:8080"
+var websocket_url = "ws://localhost:8080"
+
 var socket = WebSocketPeer.new()
 
 var socket_data = "";

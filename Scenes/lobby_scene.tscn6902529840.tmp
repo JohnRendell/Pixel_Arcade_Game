@@ -600,6 +600,8 @@ sources/6 = SubResource("TileSetAtlasSource_s7ahk")
 [node name="scene" type="Node2D"]
 script = ExtResource("1_3q4fp")
 
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
 [node name="Lobby UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15

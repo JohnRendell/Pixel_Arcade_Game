@@ -6,7 +6,11 @@ extends Control
 @export var validate_loading: Control
 @export var warning_text: RichTextLabel
 
+#for loading panel
+@export var loading_panel: Panel
+
 func _ready():
+	loading_panel.visible = false
 	validate_loading.visible = false
 	
 func _process(_delta: float):
@@ -24,4 +28,8 @@ func _on_log_in_button_pressed():
 		await get_tree().create_timer(1.0).timeout
 		validate_loading.visible = false
 		warning_text.text = BackendStuff.returned_parsed["status"]
+		
+		if BackendStuff.returned_parsed["status"] == "account exists":
+			loading_panel.visible = true
+			loading_panel.begin_load = true
 		print("Get from request: " + str(BackendStuff.returned_parsed))

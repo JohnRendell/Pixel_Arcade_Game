@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://cvnoej7tdycly"]
+[gd_scene load_steps=33 format=4 uid="uid://cvnoej7tdycly"]
 
 [ext_resource type="Script" uid="uid://bfvjja37p1vyb" path="res://Scripts/Lobby_Scripts/lobby_script.gd" id="1_3q4fp"]
 [ext_resource type="PackedScene" uid="uid://draqfc0ximnvd" path="res://Sprites/player_character.tscn" id="2_ljcoi"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://b7ji88j5ksrqo" path="res://Assets/Sprite_Slice/Tile_Maps/Rock_Terrain.png" id="7_nr3av"]
 [ext_resource type="Theme" uid="uid://c3p81mbueqgmy" path="res://Assets/Themes/modal_input.tres" id="7_oohhb"]
 [ext_resource type="Texture2D" uid="uid://px1w8sf20uj" path="res://Assets/Sprite_Slice/Connecting_anim.png" id="7_s7ahk"]
+[ext_resource type="PackedScene" uid="uid://cwyiac3k7jsff" path="res://Interfaces/loading_panel.tscn" id="9_ngbab"]
 [ext_resource type="PackedScene" uid="uid://ranvboc1aleu" path="res://Interfaces/playerInfo.tscn" id="10_nr3av"]
 [ext_resource type="Script" uid="uid://cy5gxmdjiyaul" path="res://Scripts/Socket_Scripts/socket_validation.gd" id="13_bku1b"]
 [ext_resource type="Script" uid="uid://bopyd0hbxtb05" path="res://Scripts/Lobby_Scripts/lobby_validation.gd" id="15_ngbab"]
@@ -635,10 +636,9 @@ texture = ExtResource("6_nr3av")
 [sub_resource type="TileSet" id="TileSet_u8ul4"]
 sources/6 = SubResource("TileSetAtlasSource_s7ahk")
 
-[node name="scene" type="Node2D"]
+[node name="scene" type="Node2D" node_paths=PackedStringArray("loading_panel")]
 script = ExtResource("1_3q4fp")
-
-[node name="ResourcePreloader" type="ResourcePreloader" parent="."]
+loading_panel = NodePath("Lobby UI/UI/Loading Panel")
 
 [node name="Lobby UI" type="Control" parent="."]
 layout_mode = 3
@@ -963,6 +963,11 @@ libraries = {
 }
 autoplay = "floating_validation"
 
+[node name="Loading Panel" parent="Lobby UI/UI" instance=ExtResource("9_ngbab")]
+visible = false
+z_index = 40
+navigate_to_scene = "res://Scenes/player_base_scene.tscn"
+
 [node name="Bound" type="StaticBody2D" parent="."]
 disable_mode = 2
 
@@ -1017,7 +1022,7 @@ offset_bottom = 40.0
 script = ExtResource("13_bku1b")
 connect_server_modal_path = NodePath("../Lobby UI/UI/Connected Validation")
 
-[node name="Lobby Validation" type="Control" parent="." node_paths=PackedStringArray("login_warning_text", "login_username_input", "login_password_input", "validate_loading", "warning_text")]
+[node name="Lobby Validation" type="Control" parent="." node_paths=PackedStringArray("login_warning_text", "login_username_input", "login_password_input", "validate_loading", "warning_text", "loading_panel")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -1028,7 +1033,9 @@ login_username_input = NodePath("../Lobby UI/UI/Log in Modal/Username Input")
 login_password_input = NodePath("../Lobby UI/UI/Log in Modal/Password Input")
 validate_loading = NodePath("../Lobby UI/UI/Validate Loading")
 warning_text = NodePath("../Lobby UI/UI/Log in Modal/Warning Text")
+loading_panel = NodePath("../Lobby UI/UI/Loading Panel")
 
+[connection signal="pressed" from="Lobby UI/UI/Guest Button" to="." method="_on_guest_button_pressed"]
 [connection signal="pressed" from="Lobby UI/UI/Log in Modal/Log in Button" to="Lobby Validation" method="_on_log_in_button_pressed"]
 [connection signal="button_down" from="Lobby UI/UI/Connected Validation/Panel/Retry_btn" to="Socket Connection" method="_on_retry_btn_button_down"]
 [connection signal="animation_finished" from="Lobby UI/UI/Connected Validation/Panel/Sprite Display/AnimationPlayer" to="Socket Connection" method="_on_animation_player_animation_finished"]

@@ -1,9 +1,49 @@
-[gd_scene load_steps=5 format=3 uid="uid://dsm7505q2ni6k"]
+[gd_scene load_steps=9 format=3 uid="uid://dsm7505q2ni6k"]
 
 [ext_resource type="Texture2D" uid="uid://ue01vlk78bpj" path="res://Assets/Images/Menu_Background.png" id="1_khgqt"]
 [ext_resource type="FontFile" uid="uid://bmdl23cbnw41b" path="res://Assets/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="2_yljh5"]
 [ext_resource type="Theme" uid="uid://fytpjh21mbhn" path="res://Assets/Themes/default_button_theme.tres" id="3_crkrt"]
 [ext_resource type="Script" uid="uid://dxg6ryhrrakdm" path="res://Scripts/Global_Scripts/global_button.gd" id="4_mjef6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mjef6"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_mjef6"]
+resource_name = "loading_text_anim"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["Loading...", "Loading", "Loading.", "Loading.."]
+}
+
+[sub_resource type="Animation" id="Animation_yyrbg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Loading..."]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yyrbg"]
+_data = {
+&"RESET": SubResource("Animation_yyrbg"),
+&"loading_text_anim": SubResource("Animation_mjef6")
+}
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -54,7 +94,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Play Button" type="Button" parent="Game title and other buttons"]
+[node name="Play Button" type="Button" parent="Game title and other buttons" node_paths=PackedStringArray("loading_panel")]
 layout_mode = 0
 offset_left = -22.0
 offset_top = 66.0
@@ -72,6 +112,7 @@ shortcut_in_tooltip = false
 text = "Play"
 script = ExtResource("4_mjef6")
 navigate_to_scene = "res://Scenes/lobby_scene.tscn"
+loading_panel = NodePath("../../Loading Panel")
 
 [node name="LinkButton" type="LinkButton" parent="."]
 layout_mode = 1
@@ -89,5 +130,39 @@ theme_override_font_sizes/font_size = 15
 button_mask = 5
 text = "Developed by John Rendell Catuiza"
 uri = "https://github.com/JohnRendell/Pixel_Wars_And_Stuff"
+
+[node name="Loading Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mjef6")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Loading Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -20.0
+offset_right = 100.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("2_yljh5")
+theme_override_font_sizes/normal_font_size = 20
+text = "Loading..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Loading Panel/RichTextLabel"]
+libraries = {
+&"": SubResource("AnimationLibrary_yyrbg")
+}
+autoplay = "loading_text_anim"
 
 [connection signal="pressed" from="Game title and other buttons/Play Button" to="Game title and other buttons/Play Button" method="_on_pressed"]

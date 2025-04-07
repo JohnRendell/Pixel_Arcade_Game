@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Pixel_Arcade_Game"
+config/name="Pixel_Wars_And_Stuff"
 run/main_scene="uid://dsm7505q2ni6k"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"

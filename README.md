@@ -1,4 +1,4 @@
-# Pixel_Arcade_Game
+# Pixel_Wars_And_Stuff
  A open world game made with godot Game Engine.
 
 ## Third-Party Licenses

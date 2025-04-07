@@ -12,7 +12,20 @@ var player_scene = preload("res://Sprites/player_2.tscn")
 #dictionary for joined players
 @export var joined_players = {}
 
+var all_assets_loaded = false
+
 func _ready():
+	var all = $ResourcePreloader.get_resource_list()
+	for resource_name in all:
+		print(resource_name)
+		var res = $ResourcePreloader.get_resource(resource_name)
+		if res == null:
+			print("Scene not loaded")
+			all_assets_loaded = false
+		else:
+			all_assets_loaded = true
+			print("✅ All preloaded assets are ready!")
+	
 	login_modal.visible = false
 	PlayerGlobalScript.player_name = guest_player_name_generator()
 	

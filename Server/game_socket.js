@@ -34,9 +34,17 @@ module.exports = (server) =>{
                         "Player_Name": parsed_data.Player_Name 
                     }
                     break;
+
+                case "globalMessage":
+                    socket_data = {
+                        Socket_Type: socket_type,
+                        "Sender": parsed_data.Sender,
+                        "Message": parsed_data.Message
+                    }
+                    break;
                 
                 default:
-                    console.log(data)
+                    console.log(parsed_data)
                     break;
             }
 
@@ -56,5 +64,4 @@ module.exports = (server) =>{
             }
         });
     }
-
 }

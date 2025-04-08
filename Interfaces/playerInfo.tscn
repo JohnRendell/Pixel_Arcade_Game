@@ -7,6 +7,7 @@
 [ext_resource type="Theme" uid="uid://c3p81mbueqgmy" path="res://Assets/Themes/modal_input.tres" id="5_jqtam"]
 [ext_resource type="Theme" uid="uid://drrfpd7ov3vf6" path="res://Assets/Themes/proceed_button_theme.tres" id="6_1sa06"]
 [ext_resource type="Script" uid="uid://kg4sni8o66cs" path="res://Scripts/Global_Scripts/global_message_script.gd" id="7_f1e4r"]
+[ext_resource type="Texture2D" uid="uid://cmmb6un7xduaj" path="res://icon.svg" id="7_w0rbd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_52mh3"]
 bg_color = Color(1, 0.992157, 0.815686, 1)
@@ -24,33 +25,17 @@ expand_margin_top = 20.0
 expand_margin_right = 20.0
 expand_margin_bottom = 20.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f1e4r"]
-bg_color = Color(0.450825, 0.625867, 1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 0)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-expand_margin_left = 5.0
-expand_margin_top = 5.0
-expand_margin_right = 5.0
-expand_margin_bottom = 5.0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0rbd"]
-bg_color = Color(0, 0.927874, 0, 1)
+bg_color = Color(0.476841, 0.644696, 1, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 0)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 expand_margin_left = 5.0
 expand_margin_top = 5.0
 expand_margin_right = 5.0
@@ -188,33 +173,21 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="Receive Message" type="Panel" parent="Global Message Modal/ScrollContainer/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 50)
+[node name="Receive Message" type="Control" parent="Global Message Modal/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
-theme_override_styles/panel = SubResource("StyleBoxFlat_f1e4r")
 
-[node name="Text Contents" type="RichTextLabel" parent="Global Message Modal/ScrollContainer/VBoxContainer/Receive Message"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/normal_font = ExtResource("1_fhr0c")
-theme_override_font_sizes/normal_font_size = 15
-text = "test"
-
-[node name="Send Message" type="Panel" parent="Global Message Modal/ScrollContainer/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 50)
-layout_mode = 2
-size_flags_horizontal = 8
+[node name="Panel" type="Panel" parent="Global Message Modal/ScrollContainer/VBoxContainer/Receive Message"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 0
+offset_top = 43.0
+offset_right = 300.0
+offset_bottom = 93.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_w0rbd")
 
-[node name="Text Contents" type="RichTextLabel" parent="Global Message Modal/ScrollContainer/VBoxContainer/Send Message"]
+[node name="Text Contents" type="RichTextLabel" parent="Global Message Modal/ScrollContainer/VBoxContainer/Receive Message/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -224,14 +197,45 @@ grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("1_fhr0c")
 theme_override_font_sizes/normal_font_size = 15
 text = "test"
+
+[node name="Sender" type="RichTextLabel" parent="Global Message Modal/ScrollContainer/VBoxContainer/Receive Message"]
+custom_minimum_size = Vector2(250, 30)
+layout_mode = 0
+offset_left = 43.5
+offset_top = 2.0
+offset_right = 293.5
+offset_bottom = 32.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("1_fhr0c")
+theme_override_font_sizes/normal_font_size = 15
+text = "Sender"
+vertical_alignment = 1
+
+[node name="Profile" type="ColorRect" parent="Global Message Modal/ScrollContainer/VBoxContainer/Receive Message"]
+layout_mode = 0
+offset_left = -2.5
+offset_top = -7.0
+offset_right = 37.5
+offset_bottom = 33.0
+color = Color(0.340339, 0.340339, 0.340339, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Global Message Modal/ScrollContainer/VBoxContainer/Receive Message/Profile"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("7_w0rbd")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="HTTPRequest" type="HTTPRequest" parent="Global Message Modal/ScrollContainer/VBoxContainer/Receive Message/Profile"]
 
 [node name="Global Msg Script" type="Control" parent="." node_paths=PackedStringArray("send_message_container", "recieve_message_container", "message_input", "send_message_button", "message_contents_container", "scroll_container")]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("7_f1e4r")
-send_message_container = NodePath("../Global Message Modal/ScrollContainer/VBoxContainer/Send Message")
-recieve_message_container = NodePath("../Global Message Modal/ScrollContainer/VBoxContainer/Receive Message")
+send_message_container = NodePath("")
+recieve_message_container = NodePath("")
 message_input = NodePath("../Global Message Modal/Input Message")
 send_message_button = NodePath("../Global Message Modal/Send Button")
 message_contents_container = NodePath("../Global Message Modal/ScrollContainer/VBoxContainer")

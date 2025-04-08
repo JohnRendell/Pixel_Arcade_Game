@@ -1,7 +1,15 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://t8cakbf8cvmc"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://t8cakbf8cvmc"]
 
 [ext_resource type="FontFile" uid="uid://bmdl23cbnw41b" path="res://Assets/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="1_bflus"]
 [ext_resource type="Texture2D" uid="uid://b8i2cshy45y0e" path="res://Assets/Sprite_Slice/Sprite_UI_Stuff.png" id="2_si6t6"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_si6t6"]
+texture = ExtResource("2_si6t6")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+region_rect = Rect2(44, 92, 136, 64)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_si6t6"]
 
@@ -31,10 +39,12 @@ region_rect = Rect2(196, 24, 124, 56)
 
 [resource]
 Button/colors/font_color = Color(0.607843, 0.411765, 0, 1)
+Button/colors/font_disabled_color = Color(0.186872, 0.105956, 1.20327e-08, 1)
 Button/colors/font_focus_color = Color(0.607843, 0.411765, 0, 1)
 Button/colors/font_hover_color = Color(0.607843, 0.411765, 0, 1)
 Button/colors/font_pressed_color = Color(0.607843, 0.411765, 0, 1)
 Button/fonts/font = ExtResource("1_bflus")
+Button/styles/disabled = SubResource("StyleBoxTexture_si6t6")
 Button/styles/focus = SubResource("StyleBoxEmpty_si6t6")
 Button/styles/hover = SubResource("StyleBoxTexture_u31mg")
 Button/styles/normal = SubResource("StyleBoxTexture_o16s1")

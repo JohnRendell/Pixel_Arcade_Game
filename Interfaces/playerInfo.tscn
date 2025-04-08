@@ -1,9 +1,60 @@
-[gd_scene load_steps=5 format=3 uid="uid://ranvboc1aleu"]
+[gd_scene load_steps=11 format=3 uid="uid://ranvboc1aleu"]
 
 [ext_resource type="Script" uid="uid://ce6wbg0vx4rjd" path="res://Scripts/Global_Scripts/game_interface.gd" id="1_14f72"]
 [ext_resource type="FontFile" uid="uid://bmdl23cbnw41b" path="res://Assets/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="1_fhr0c"]
 [ext_resource type="Theme" uid="uid://t8cakbf8cvmc" path="res://Assets/Themes/default_button_texture.tres" id="2_27cgy"]
 [ext_resource type="PackedScene" uid="uid://can60qx0sq1hp" path="res://Interfaces/modal.tscn" id="4_14f72"]
+[ext_resource type="Theme" uid="uid://c3p81mbueqgmy" path="res://Assets/Themes/modal_input.tres" id="5_jqtam"]
+[ext_resource type="Theme" uid="uid://drrfpd7ov3vf6" path="res://Assets/Themes/proceed_button_theme.tres" id="6_1sa06"]
+[ext_resource type="Script" uid="uid://kg4sni8o66cs" path="res://Scripts/Global_Scripts/global_message_script.gd" id="7_f1e4r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_52mh3"]
+bg_color = Color(1, 0.992157, 0.815686, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 0)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f1e4r"]
+bg_color = Color(0.450825, 0.625867, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0rbd"]
+bg_color = Color(0, 0.927874, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
 
 [node name="UI" type="Control"]
 z_index = 10
@@ -81,7 +132,109 @@ button_mask = 5
 text = "Global Message"
 
 [node name="Global Message Modal" parent="." node_paths=PackedStringArray("modal_button") instance=ExtResource("4_14f72")]
-visible = false
 layout_mode = 1
 modal_button = NodePath("../Global Messages")
 modal_label = "Global Message"
+
+[node name="Input Message" type="TextEdit" parent="Global Message Modal"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -174.0
+offset_right = 250.0
+offset_bottom = -94.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("5_jqtam")
+placeholder_text = "Type a message..."
+wrap_mode = 1
+scroll_smooth = true
+
+[node name="Send Button" type="Button" parent="Global Message Modal"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 275.0
+offset_top = -159.0
+offset_right = 332.0
+offset_bottom = -119.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("6_1sa06")
+button_mask = 5
+text = "Send"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Global Message Modal"]
+custom_minimum_size = Vector2(721, 314)
+layout_mode = 0
+offset_left = 215.5
+offset_top = 132.0
+offset_right = 936.5
+offset_bottom = 446.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_52mh3")
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Global Message Modal/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="Receive Message" type="Panel" parent="Global Message Modal/ScrollContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_f1e4r")
+
+[node name="Text Contents" type="RichTextLabel" parent="Global Message Modal/ScrollContainer/VBoxContainer/Receive Message"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("1_fhr0c")
+theme_override_font_sizes/normal_font_size = 15
+text = "test"
+
+[node name="Send Message" type="Panel" parent="Global Message Modal/ScrollContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_w0rbd")
+
+[node name="Text Contents" type="RichTextLabel" parent="Global Message Modal/ScrollContainer/VBoxContainer/Send Message"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("1_fhr0c")
+theme_override_font_sizes/normal_font_size = 15
+text = "test"
+
+[node name="Global Msg Script" type="Control" parent="." node_paths=PackedStringArray("send_message_container", "recieve_message_container", "message_input", "send_message_button", "message_contents_container", "scroll_container")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_f1e4r")
+send_message_container = NodePath("../Global Message Modal/ScrollContainer/VBoxContainer/Send Message")
+recieve_message_container = NodePath("../Global Message Modal/ScrollContainer/VBoxContainer/Receive Message")
+message_input = NodePath("../Global Message Modal/Input Message")
+send_message_button = NodePath("../Global Message Modal/Send Button")
+message_contents_container = NodePath("../Global Message Modal/ScrollContainer/VBoxContainer")
+scroll_container = NodePath("../Global Message Modal/ScrollContainer")
+
+[connection signal="pressed" from="Global Message Modal/Send Button" to="Global Msg Script" method="_on_send_button_pressed"]

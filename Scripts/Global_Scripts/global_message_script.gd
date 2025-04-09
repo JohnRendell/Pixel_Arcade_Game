@@ -26,17 +26,23 @@ func _on_send_button_pressed():
 		var sender_profile = instance_send_container.get_node("Profile")
 		var sender_panel = instance_send_container.get_node("Panel")
 		var send_message_text = sender_panel.get_node("Text Contents")
-		
-		#TODO: work on this, the size
-		await get_tree().process_frame
-		sender_panel.custom_minimum_size = send_message_text.get_content_size()
 
 		#"https://i.imgur.com/ajVzRmV.png"
 		send_message_text.text = message_input.text
 		sender_name.text = PlayerGlobalScript.player_name + " (You)"
 		
 		instance_send_container.visible = true
+		print("Before adding the instance container: " + str(instance_send_container.size))
+		print("Before adding the panel container: " + str(sender_panel.size))
+		
 		message_contents_container.add_child(instance_send_container)
+		
+		#TODO: work on these
+		await get_tree().process_frame
+		instance_send_container.size = sender_panel.size
+		
+		print("\nAfter adding the instance container: " + str(instance_send_container.size))
+		print("After adding the panel container: " + str(sender_panel.size))
 		
 		#send the data to the backend
 		SocketConnection.send_data({"Socket_Type": "globalMessage", "Sender": PlayerGlobalScript.player_name, "Message": message_input.text })
@@ -50,6 +56,7 @@ func receive_message(data):
 		if data.get("Socket_Type") == "globalMessage":
 			print(data)
 			#TODO: work on this
+			'''
 			var instance_receive_container = recieve_message_container.duplicate()
 			var receiver_name = instance_receive_container.get_node("Sender")
 			var receiver_profile = instance_receive_container.get_node("Profile")
@@ -62,6 +69,8 @@ func receive_message(data):
 			
 			instance_receive_container.visible = true
 			message_contents_container.add_child(instance_receive_container)
+			'''
+			
 
 
 func _on_http_request_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:

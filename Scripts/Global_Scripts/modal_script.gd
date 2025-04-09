@@ -22,10 +22,6 @@ func open_modal():
 	modal.visible = true
 	animate_modal.play("pop_modal")
 	PlayerGlobalScript.modal_open = true
-	
-	#TODO: do something for this
-	for child in panel.get_children():
-		print(child.name)
 
 func close_modal():
 	animate_modal.play_backwards("pop_modal")

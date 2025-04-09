@@ -42,6 +42,10 @@ expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2id5p"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
 bg_color = Color(0, 0.643698, 3.85046e-07, 1)
 border_width_left = 1
 border_width_top = 1
@@ -175,11 +179,11 @@ text = "Send"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Global Message Modal"]
 custom_minimum_size = Vector2(721, 314)
-layout_mode = 0
+layout_mode = 2
 offset_left = 215.5
-offset_top = 132.0
+offset_top = 133.0
 offset_right = 936.5
-offset_bottom = 446.0
+offset_bottom = 447.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_52mh3")
 horizontal_scroll_mode = 0
 
@@ -187,7 +191,7 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 80
+theme_override_constants/separation = 60
 
 [node name="Receive Message" type="Control" parent="Global Message Modal/ScrollContainer/VBoxContainer"]
 visible = false
@@ -196,26 +200,17 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 
-[node name="Panel" type="Panel" parent="Global Message Modal/ScrollContainer/VBoxContainer/Receive Message"]
-custom_minimum_size = Vector2(300, 50)
+[node name="Panel" type="PanelContainer" parent="Global Message Modal/ScrollContainer/VBoxContainer/Receive Message"]
 layout_mode = 0
 offset_top = 43.0
-offset_right = 300.0
+offset_right = 302.0
 offset_bottom = 93.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_w0rbd")
 
 [node name="Text Contents" type="RichTextLabel" parent="Global Message Modal/ScrollContainer/VBoxContainer/Receive Message/Panel"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -0.5
-offset_right = 0.5
-grow_horizontal = 2
+layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("1_fhr0c")
 theme_override_font_sizes/normal_font_size = 15
-text = "test"
 fit_content = true
 
 [node name="Sender" type="RichTextLabel" parent="Global Message Modal/ScrollContainer/VBoxContainer/Receive Message"]
@@ -244,31 +239,25 @@ stretch_mode = 5
 [node name="HTTPRequest" type="HTTPRequest" parent="Global Message Modal/ScrollContainer/VBoxContainer/Receive Message"]
 
 [node name="Send Message" type="Control" parent="Global Message Modal/ScrollContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 
-[node name="Panel" type="Panel" parent="Global Message Modal/ScrollContainer/VBoxContainer/Send Message"]
-custom_minimum_size = Vector2(300, 50)
+[node name="Panel" type="PanelContainer" parent="Global Message Modal/ScrollContainer/VBoxContainer/Send Message"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 0
-offset_top = 43.0
-offset_right = 302.0
-offset_bottom = 93.0
+offset_top = 49.0
+offset_right = 21.0
+offset_bottom = 88.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_2id5p")
 
 [node name="Text Contents" type="RichTextLabel" parent="Global Message Modal/ScrollContainer/VBoxContainer/Send Message/Panel"]
-custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 301.0
-offset_bottom = 49.0
-grow_horizontal = 2
 theme_override_fonts/normal_font = ExtResource("1_fhr0c")
 theme_override_font_sizes/normal_font_size = 15
-text = "message
-"
+text = "test"
 fit_content = true
 
 [node name="Sender" type="RichTextLabel" parent="Global Message Modal/ScrollContainer/VBoxContainer/Send Message"]

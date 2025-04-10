@@ -1,53 +1,51 @@
 extends Control
 
-@export var send_message_container: Control
-@export var recieve_message_container: Control
+@export var message_container: VBoxContainer
+@export var user_send_message: RichTextLabel
 @export var message_input: TextEdit
-@export var send_message_button: Button
-@export var message_contents_container: VBoxContainer
 @export var scroll_container: ScrollContainer
+@export var global_message: Control
+@export var send_button: Button
 
-#http request for getting user profiles
-@export var http_request: HTTPRequest
-
-var image_rect: TextureRect
 
 func _ready() -> void:
-	pass
+	global_message.visible = false
+	global_message.add_theme_color_override("BG Color", "#72727200")
 
+#TODO: make this work properly
 func _process(_delta: float):
 	var socket_data = SocketConnection.socket_data
 	receive_message(socket_data)
-
-#TODO: make this work properly
+	
+	if Input.is_key_pressed(KEY_C):
+		PlayerGlobalScript.modal_open = true
+		message_input.visible = true
+		send_button.visible = true
+		global_message.visible = true
+		global_message.add_theme_color_override("BG Color", "#727272")
+	
 func _on_send_button_pressed():
 	if not message_input.text.is_empty():
-		var instance_send_container = send_message_container.duplicate()
-		var sender_name = instance_send_container.get_node("Sender")
-		var sender_profile = instance_send_container.get_node("Profile")
-		var sender_panel = instance_send_container.get_node("Panel")
-		var send_message_text = sender_panel.get_node("Text Contents")
+		var user_send_message = user_send_message.duplicate()
 
 		#"https://i.imgur.com/ajVzRmV.png"
-		send_message_text.text = message_input.text
-		sender_name.text = PlayerGlobalScript.player_name + " (You)"
-		
-		instance_send_container.visible = true
-		print("Before adding the instance container: " + str(instance_send_container.size))
-		print("Before adding the panel container: " + str(sender_panel.size))
-		
-		message_contents_container.add_child(instance_send_container)
+		user_send_message.text = PlayerGlobalScript.player_name + ": " + message_input.text
+		message_container.visible = true
+		message_container.add_child(user_send_message)
 
-		await get_tree().process_frame
-		instance_send_container.custom_minimum_size = sender_panel.size
-				
-		print("\nAfter adding the instance container: " + str(instance_send_container.size))
-		print("After adding the panel container: " + str(sender_panel.size))
-		
+		#await get_tree().process_frame
+
 		#send the data to the backend
 		SocketConnection.send_data({"Socket_Type": "globalMessage", "Sender": PlayerGlobalScript.player_name, "Message": message_input.text })
 		
 		message_input.text = ""
+		PlayerGlobalScript.modal_open = false
+		message_input.visible = false
+		send_button.visible = false
+		
+		if PlayerGlobalScript.modal_open == false:
+			await get_tree().create_timer(3.0).timeout
+			global_message.visible = false
 
 	scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
 
@@ -70,17 +68,3 @@ func receive_message(data):
 			instance_receive_container.visible = true
 			message_contents_container.add_child(instance_receive_container)
 			'''
-			
-
-
-func _on_http_request_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
-	if result == OK and response_code == 200:
-		var image = Image.new()
-		var error = image.load_png_from_buffer(body)
-		if error == OK:
-			var texture = ImageTexture.create_from_image(image)
-			image_rect.texture = texture
-		else:
-			print("Error loading image from buffer:", error)
-	else:
-		print("HTTP request failed.")

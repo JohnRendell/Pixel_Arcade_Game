@@ -2,10 +2,9 @@ extends Control
 
 @onready var playerTextCoordsLabel = $"Player Coordinates"
 @onready var global_message_button = $"Global Messages"
-@onready var global_message_modal = $"Global Message Modal"
 
 func _ready():
-	global_message_modal.visible = false
+	pass
 
 func _process(_delta: float):
 	var playerX = PlayerGlobalScript.playerCoords.x

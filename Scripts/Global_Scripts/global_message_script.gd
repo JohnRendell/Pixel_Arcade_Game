@@ -19,6 +19,7 @@ func _process(_delta: float):
 	var socket_data = SocketConnection.socket_data
 	receive_message(socket_data)
 
+#TODO: make this work properly
 func _on_send_button_pressed():
 	if not message_input.text.is_empty():
 		var instance_send_container = send_message_container.duplicate()
@@ -36,11 +37,10 @@ func _on_send_button_pressed():
 		print("Before adding the panel container: " + str(sender_panel.size))
 		
 		message_contents_container.add_child(instance_send_container)
-		
-		#TODO: work on these
+
 		await get_tree().process_frame
-		instance_send_container.size = sender_panel.size
-		
+		instance_send_container.custom_minimum_size = sender_panel.size
+				
 		print("\nAfter adding the instance container: " + str(instance_send_container.size))
 		print("After adding the panel container: " + str(sender_panel.size))
 		

@@ -240,17 +240,25 @@ stretch_mode = 5
 
 [node name="Send Message" type="Control" parent="Global Message Modal/ScrollContainer/VBoxContainer"]
 visible = false
-custom_minimum_size = Vector2(300, 50)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 8
-size_flags_vertical = 8
+size_flags_vertical = 2
 
 [node name="Panel" type="PanelContainer" parent="Global Message Modal/ScrollContainer/VBoxContainer/Send Message"]
 custom_minimum_size = Vector2(300, 0)
-layout_mode = 0
-offset_top = 49.0
-offset_right = 21.0
-offset_bottom = 88.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 36.5
+offset_right = 150.0
+offset_bottom = 75.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2id5p")
 
 [node name="Text Contents" type="RichTextLabel" parent="Global Message Modal/ScrollContainer/VBoxContainer/Send Message/Panel"]
@@ -262,11 +270,15 @@ fit_content = true
 
 [node name="Sender" type="RichTextLabel" parent="Global Message Modal/ScrollContainer/VBoxContainer/Send Message"]
 custom_minimum_size = Vector2(250, 30)
-layout_mode = 0
-offset_left = 43.5
-offset_top = 2.0
-offset_right = 293.5
-offset_bottom = 32.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -102.0
+offset_top = 7.0
+offset_right = 148.0
+offset_bottom = 37.0
+grow_horizontal = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("1_fhr0c")
 theme_override_font_sizes/normal_font_size = 15
@@ -274,11 +286,10 @@ text = "Sender (You)"
 vertical_alignment = 1
 
 [node name="Profile" type="TextureRect" parent="Global Message Modal/ScrollContainer/VBoxContainer/Send Message"]
-layout_mode = 0
-offset_left = -2.5
-offset_top = -7.0
-offset_right = 37.5
-offset_bottom = 33.0
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
 texture = ExtResource("7_w0rbd")
 expand_mode = 3
 stretch_mode = 5

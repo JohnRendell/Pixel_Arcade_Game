@@ -41,6 +41,7 @@ module.exports = (server) =>{
                         "Sender": parsed_data.Sender,
                         "Message": parsed_data.Message
                     }
+                    console.log(socket_data)
                     break;
                 
                 default:

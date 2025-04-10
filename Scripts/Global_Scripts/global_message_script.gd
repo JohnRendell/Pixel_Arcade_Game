@@ -2,69 +2,74 @@ extends Control
 
 @export var message_container: VBoxContainer
 @export var user_send_message: RichTextLabel
-@export var message_input: TextEdit
+@export var receiver_send_message: RichTextLabel
+@export var message_input: LineEdit
 @export var scroll_container: ScrollContainer
-@export var global_message: Control
-@export var send_button: Button
 
+var isChatOpen = false
 
-func _ready() -> void:
-	global_message.visible = false
-	global_message.add_theme_color_override("BG Color", "#72727200")
+func _ready():
+	message_input.visible = isChatOpen
+	scroll_container.get("theme_override_styles/panel").bg_color = Color(0.00, 0.00, 0.00, 0.00)
 
-#TODO: make this work properly
 func _process(_delta: float):
 	var socket_data = SocketConnection.socket_data
 	receive_message(socket_data)
 	
-	if Input.is_key_pressed(KEY_C):
-		PlayerGlobalScript.modal_open = true
-		message_input.visible = true
-		send_button.visible = true
-		global_message.visible = true
-		global_message.add_theme_color_override("BG Color", "#727272")
+func _input(_event):
+	if Input.is_action_just_pressed("Chat"):
+		chat_open()
+
+func chat_open():
+	var color
 	
-func _on_send_button_pressed():
+	if isChatOpen:
+		send_message()
+		color = Color(0.00, 0.00, 0.00, 0.00)
+		isChatOpen = false
+		scroll_container.vertical_scroll_mode = 3
+
+	else:
+		color = Color(0.00, 0.00, 0.00, 0.20)
+		isChatOpen = true
+		
+		await get_tree().process_frame
+		message_input.grab_focus()
+		scroll_container.vertical_scroll_mode = 1
+		
+	PlayerGlobalScript.modal_open = isChatOpen
+	message_input.visible = isChatOpen
+	scroll_container.get("theme_override_styles/panel").bg_color = color
+	
+func send_message():
+	var send_content = user_send_message.duplicate()
+	
 	if not message_input.text.is_empty():
-		var user_send_message = user_send_message.duplicate()
-
-		#"https://i.imgur.com/ajVzRmV.png"
-		user_send_message.text = PlayerGlobalScript.player_name + ": " + message_input.text
-		message_container.visible = true
-		message_container.add_child(user_send_message)
-
-		#await get_tree().process_frame
-
-		#send the data to the backend
-		SocketConnection.send_data({"Socket_Type": "globalMessage", "Sender": PlayerGlobalScript.player_name, "Message": message_input.text })
+		send_content.visible = true
+		send_content.text = PlayerGlobalScript.player_name + ": " + message_input.text
 		
-		message_input.text = ""
-		PlayerGlobalScript.modal_open = false
-		message_input.visible = false
-		send_button.visible = false
+		#send data to the backend
+		SocketConnection.send_data({
+			"Socket_Type": "globalMessage", 
+			"Sender": PlayerGlobalScript.player_name, 
+			"Message": message_input.text
+		})
 		
-		if PlayerGlobalScript.modal_open == false:
-			await get_tree().create_timer(3.0).timeout
-			global_message.visible = false
-
+		message_container.add_child(send_content)
+		
+	message_input.text = ""
 	scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
 
+#TODO make a work around on this, fix the data not sending back from server to godot
 func receive_message(data):
 	if typeof(data) == TYPE_DICTIONARY:
 		if data.get("Socket_Type") == "globalMessage":
 			print(data)
-			#TODO: work on this
-			'''
-			var instance_receive_container = recieve_message_container.duplicate()
-			var receiver_name = instance_receive_container.get_node("Sender")
-			var receiver_profile = instance_receive_container.get_node("Profile")
-			var receive_message_text = instance_receive_container.get_node("Panel").get_node("Text Contents")
+			var receive_content = receiver_send_message.duplicate()
+			var receiver_name = data.get("Sender")
 			
-			http_request.request(receiver_profile)
+			if not receiver_name == PlayerGlobalScript.player_name:
+				receive_content.visible = true
+				receive_content.text = receiver_name + ": " + data.get("Message")
 			
-			receiver_name.text = data.get("Sender")
-			receive_message_text.text = data.get("Message")
-			
-			instance_receive_container.visible = true
-			message_contents_container.add_child(instance_receive_container)
-			'''
+				message_container.add_child(receive_content)

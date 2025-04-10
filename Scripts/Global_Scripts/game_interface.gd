@@ -1,7 +1,6 @@
 extends Control
 
 @onready var playerTextCoordsLabel = $"Player Coordinates"
-@onready var global_message_button = $"Global Messages"
 
 func _ready():
 	pass

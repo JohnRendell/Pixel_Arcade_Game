@@ -35,18 +35,19 @@ mongoose.connection.on("connected", () => {
 //parse incoming json
 app.use(express.json())
 
-//serve the index sign up folder
-app.use(express.static(path.join(__dirname, "../Sign Up Pages")))
+//serve the folders
+app.use(express.static(path.join(__dirname, "../Index_Page")))
+app.use("/Contents", express.static(path.join(__dirname, "../Assets")))
 
 app.get("/", (req, res)=>{
-  res.sendFile(path.join(__dirname, "../Sign Up Pages/index.html"))
+  res.sendFile(path.join(__dirname, "../Index_Page/index.html"))
 });
 
 //for socket
 const io = new WebSocket.Server({ server: expressServer });
 
 io.on("connection", (socket)=>{
-    console.log("Server Connected")
+    console.log("Server Connected " + socket.id)
 });
 require("./game_socket")(io)
 

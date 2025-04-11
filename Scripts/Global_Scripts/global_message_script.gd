@@ -7,6 +7,7 @@ extends Control
 @export var scroll_container: ScrollContainer
 
 var isChatOpen = false
+var isMessageSend = false
 
 func _ready():
 	message_input.visible = isChatOpen
@@ -15,6 +16,18 @@ func _ready():
 func _process(_delta: float):
 	var socket_data = SocketConnection.socket_data
 	receive_message(socket_data)
+	
+	if isMessageSend:
+		await get_tree().create_timer(0.005).timeout
+		
+		#send data to the backend
+		SocketConnection.send_data({
+			"Socket_Type": "globalMessage", 
+			"Sender": PlayerGlobalScript.player_name, 
+			"Message": message_input.text
+		})
+		isMessageSend = false
+		message_input.text = ""
 	
 func _input(_event):
 	if Input.is_action_just_pressed("Chat"):
@@ -48,23 +61,14 @@ func send_message():
 		send_content.visible = true
 		send_content.text = PlayerGlobalScript.player_name + ": " + message_input.text
 		
-		#send data to the backend
-		SocketConnection.send_data({
-			"Socket_Type": "globalMessage", 
-			"Sender": PlayerGlobalScript.player_name, 
-			"Message": message_input.text
-		})
-		
+		isMessageSend = true
 		message_container.add_child(send_content)
 		
-	message_input.text = ""
 	scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
 
-#TODO make a work around on this, fix the data not sending back from server to godot
 func receive_message(data):
 	if typeof(data) == TYPE_DICTIONARY:
 		if data.get("Socket_Type") == "globalMessage":
-			print(data)
 			var receive_content = receiver_send_message.duplicate()
 			var receiver_name = data.get("Sender")
 			

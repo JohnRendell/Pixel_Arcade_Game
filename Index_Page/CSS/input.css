@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: Pixelify-Sans;
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url("/Contents/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf") format("truetype");
+}
+
+@theme {
+  --font-Pixelify-Sans: "Pixelify-Sans"; 
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Wars and Stuff</title>
+
+    <link rel="stylesheet" href="./CSS/output.css" />
+    <link rel="stylesheet" href="./CSS/anim.css" />
+</head>
+<body class="bg-[url('/Contents/Images/Menu_Background.png')] w-screen h-screen bg-cover bg-center bg-no-repeat overflow-hidden flex justify-center items-center">
+
+    <div class="flex flex-col gap-4">
+        <h1 class="font-Pixelify-Sans text-center text-2xl text-white">Pixel Wars and Stuff</h1>
+        <button class="text-sm underline cursor-pointer font-Pixelify-Sans text-center text-white active:opacity-[50%]">Download APK</button>
+        <button class="text-sm underline cursor-pointer font-Pixelify-Sans text-center text-white  active:opacity-[50%]">Download EXE</button>
+    </div>
+
+    <button class="absolute top-2 right-2 text-sm underline cursor-pointer font-Pixelify-Sans text-center text-white  active:opacity-[50%]" onclick="modalStatus('createAccount_modal', 'flex')">Create Account</button>
+
+    <!--Create Account Modal-->
+    <div id="createAccount_modal" class="absolute w-screen h-screen justify-center items-center bg-black/50 hidden">
+        <div class="bg-white rounded-2xl w-[20rem] h-auto p-4 flex flex-col gap-4">
+
+            <div class="w-full h-auto flex flex-row justify-between">
+                <h1 class="font-Pixelify-Sans text-center text-black text-lg">Create Account</h1>
+                <button class="w-auto h-auto cursor-pointer group" onclick="modalStatus('createAccount_modal', 'none')">
+                    <img src="/Contents/Images/close_button.png" alt="close button icon" class="w-[20px] h-auto active:opacity-[50%]">
+                </button>
+            </div>
+
+            <label class="font-Pixelify-Sans text-left text-black text-sm" for="userInput">Username</label>
+            <input class="font-Pixelify-Sans text-center text-black border-t-0 border-l-0 border-r-0 border-b-2 border-black outline-none" type="text" placeholder="Username" id="userInput" maxlength="20">
+            
+            <label class="font-Pixelify-Sans text-left text-black text-sm" for="passInput">Password</label>
+            <input class="font-Pixelify-Sans text-center text-black border-t-0 border-l-0 border-r-0 border-b-2 border-black outline-none" type="password" id="passInput" placeholder="Password" maxlength="20">
+            
+            <label class="font-Pixelify-Sans text-left text-black text-sm" for="confirm_passInput">Confirm Password</label>
+            <input class="font-Pixelify-Sans text-center text-black border-t-0 border-l-0 border-r-0 border-b-2 border-black outline-none" type="password" id="confirm_passInput" placeholder="Confirm Password" maxlength="20">
+            
+            <button class="font-Pixelify-Sans text-sm underline text-center cursor-pointer text-black active:opacity-[50%]" onclick="createAccount()">Create</button>
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="function.js"></script>

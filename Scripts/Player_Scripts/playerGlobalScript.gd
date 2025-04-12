@@ -8,8 +8,9 @@ var isIdle = false
 
 var playerCoords = "";
 
-#for opening modal that restricts player when moving
+#for opening modal and global message modal that restricts player when moving
 var modal_open = false
+var global_message_open = false
 
 #for setting up player name
 var player_name = ""

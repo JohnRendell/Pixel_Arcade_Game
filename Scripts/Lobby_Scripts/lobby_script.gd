@@ -1,5 +1,8 @@
 extends Node2D
 
+#particle
+@onready var particle = $"Leaves Particle"
+
 #modals
 @onready var login_modal = $"Lobby UI/UI/Log in Modal"
 
@@ -16,6 +19,8 @@ var player_scene = preload("res://Sprites/player_2.tscn")
 @export var loading_panel: Panel
 
 func _ready():
+	particle.emitting = true
+	
 	login_modal.visible = false
 	PlayerGlobalScript.player_name = guest_player_name_generator()
 	

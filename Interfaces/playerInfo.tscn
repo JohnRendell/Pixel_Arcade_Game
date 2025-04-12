@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://ranvboc1aleu"]
+[gd_scene load_steps=10 format=4 uid="uid://ranvboc1aleu"]
 
 [ext_resource type="Script" uid="uid://ce6wbg0vx4rjd" path="res://Scripts/Global_Scripts/game_interface.gd" id="1_14f72"]
 [ext_resource type="FontFile" uid="uid://bmdl23cbnw41b" path="res://Assets/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="1_fhr0c"]
@@ -963,8 +963,10 @@ cache/0/50/0/glyphs/141/size = Vector2(26, 35)
 cache/0/50/0/glyphs/141/uv_rect = Rect2(188, 1, 26, 35)
 cache/0/50/0/glyphs/141/texture_idx = 0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_27cgy"]
+
 [node name="UI" type="Control"]
-z_index = 10
+z_index = 20
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1106,5 +1108,6 @@ offset_bottom = -49.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("1_fhr0c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_27cgy")
 placeholder_text = "Type a message..."
 max_length = 100

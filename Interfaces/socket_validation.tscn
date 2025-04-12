@@ -1,0 +1,178 @@
+[gd_scene load_steps=12 format=3 uid="uid://bpia3jjo8106n"]
+
+[ext_resource type="FontFile" uid="uid://bmdl23cbnw41b" path="res://Assets/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="1_2kn67"]
+[ext_resource type="Script" uid="uid://cy5gxmdjiyaul" path="res://Scripts/Socket_Scripts/socket_validation.gd" id="1_j4ce5"]
+[ext_resource type="Theme" uid="uid://t8cakbf8cvmc" path="res://Assets/Themes/default_button_texture.tres" id="2_j4ce5"]
+[ext_resource type="Texture2D" uid="uid://px1w8sf20uj" path="res://Assets/Sprite_Slice/Connecting_anim.png" id="3_8ypfm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ignj3"]
+bg_color = Color(0, 0, 0, 0.368627)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wo6c2"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Animation" id="Animation_h23dp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_s7ahk"]
+resource_name = "connecting_anim"
+length = 0.75
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_oohhb"]
+resource_name = "disconnect_anim"
+length = 1.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_bku1b"]
+resource_name = "no_connection_anim"
+length = 0.45
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h23dp"]
+_data = {
+&"RESET": SubResource("Animation_h23dp"),
+&"connecting_anim": SubResource("Animation_s7ahk"),
+&"disconnect_anim": SubResource("Animation_oohhb"),
+&"no_connection_anim": SubResource("Animation_bku1b")
+}
+
+[node name="Socket Validation" type="Control"]
+z_index = 20
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j4ce5")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ignj3")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -100.0
+offset_right = 250.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wo6c2")
+
+[node name="Label" type="RichTextLabel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -20.0
+offset_right = 200.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("1_2kn67")
+theme_override_font_sizes/normal_font_size = 20
+text = "Connecting to the internet..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Retry_btn" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -38.5
+offset_top = -65.0
+offset_right = 38.5
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_j4ce5")
+action_mode = 0
+button_mask = 5
+text = "Retry"
+
+[node name="Sprite Display" type="Sprite2D" parent="Panel"]
+texture_filter = 1
+position = Vector2(78, 123)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_8ypfm")
+hframes = 3
+vframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/Sprite Display"]
+libraries = {
+&"": SubResource("AnimationLibrary_h23dp")
+}
+
+[connection signal="button_down" from="Panel/Retry_btn" to="." method="_on_retry_btn_button_down"]
+[connection signal="animation_finished" from="Panel/Sprite Display/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -1,12 +1,10 @@
 extends Control
 
 #connecting to server modal
-@export var connect_server_modal_path: NodePath
-
-@onready var connect_server_modal = get_node(connect_server_modal_path)
-@onready var connect_server_modal_anim = connect_server_modal.get_node("Panel/Sprite Display/AnimationPlayer")
-@onready var connect_server_modal_retry_btn = connect_server_modal.get_node("Panel/Retry_btn")
-@onready var connect_server_modal_label = connect_server_modal.get_node("Panel/Label")
+@onready var connect_server_modal = $"."
+@onready var connect_server_modal_anim = $"Panel/Sprite Display/AnimationPlayer"
+@onready var connect_server_modal_retry_btn = $"Panel/Retry_btn"
+@onready var connect_server_modal_label = $"Panel/Label"
 
 var isDisconnect = false
 

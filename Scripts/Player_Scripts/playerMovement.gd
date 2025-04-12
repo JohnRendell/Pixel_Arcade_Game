@@ -10,7 +10,7 @@ func _physics_process(_delta):
 	input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	input_vector = input_vector.normalized()
 
-	if PlayerGlobalScript.modal_open == false and SocketConnection.connect_server_status == "Connected":
+	if PlayerGlobalScript.modal_open == false and PlayerGlobalScript.global_message_open == false and SocketConnection.connect_server_status == "Connected":
 		if input_vector:
 			velocity = input_vector * speed
 			PlayerGlobalScript.isIdle = false

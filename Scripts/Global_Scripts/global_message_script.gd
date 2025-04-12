@@ -6,11 +6,10 @@ extends Control
 @export var message_input: LineEdit
 @export var scroll_container: ScrollContainer
 
-var isChatOpen = false
 var isMessageSend = false
 
 func _ready():
-	message_input.visible = isChatOpen
+	message_input.visible = false
 	scroll_container.get("theme_override_styles/panel").bg_color = Color(0.00, 0.00, 0.00, 0.00)
 
 func _process(_delta: float):
@@ -30,28 +29,27 @@ func _process(_delta: float):
 		message_input.text = ""
 	
 func _input(_event):
-	if Input.is_action_just_pressed("Chat"):
+	if Input.is_action_just_pressed("Chat") and PlayerGlobalScript.modal_open == false:
 		chat_open()
 
 func chat_open():
 	var color
 	
-	if isChatOpen:
+	if PlayerGlobalScript.global_message_open:
 		send_message()
 		color = Color(0.00, 0.00, 0.00, 0.00)
-		isChatOpen = false
+		PlayerGlobalScript.global_message_open = false
 		scroll_container.vertical_scroll_mode = 3
 
 	else:
 		color = Color(0.00, 0.00, 0.00, 0.20)
-		isChatOpen = true
+		PlayerGlobalScript.global_message_open = true
 		
 		await get_tree().process_frame
 		message_input.grab_focus()
 		scroll_container.vertical_scroll_mode = 1
 		
-	PlayerGlobalScript.modal_open = isChatOpen
-	message_input.visible = isChatOpen
+	message_input.visible = PlayerGlobalScript.global_message_open
 	scroll_container.get("theme_override_styles/panel").bg_color = color
 	
 func send_message():

@@ -49,7 +49,7 @@ const io = new WebSocket.Server({ server: expressServer });
 io.on("connection", (socket)=>{
     console.log("Server Connected")
 });
-require("./game_socket")(io)
+require("./player_spawn_socket")(io, "lobby")
 require("./global_message")(io);
 
 //for routes

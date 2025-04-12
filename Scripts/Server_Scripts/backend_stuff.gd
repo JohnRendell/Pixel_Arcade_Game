@@ -32,7 +32,6 @@ func _on_request_completed(_result, _response_code, _headers, body):
 	var parsed = JSON.parse_string(response)
 
 	if parsed:
-		print("Returned from request: " + str(parsed))
 		returned_parsed = parsed
 	else:
 		print("⚠️ Invalid or no response from backend.")

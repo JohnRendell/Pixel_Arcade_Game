@@ -6,15 +6,6 @@ extends Node2D
 #modals
 @onready var login_modal = $"Lobby UI/UI/Log in Modal"
 
-#preload player assets
-var player_scene = preload("res://Sprites/player_2.tscn")
-
-#objects on the lobby
-@onready var spawner = $"Y sort/spawner"
-
-#dictionary for joined players
-@export var joined_players = {}
-
 #for loading panel
 @export var loading_panel: Panel
 
@@ -34,10 +25,6 @@ func _ready():
 	var rock_pos = [Vector2(500, 500), Vector2(762, 694), Vector2(472, -369)]
 	scatter_obj(rock, rock_pos)
 	
-func _process(_delta: float):
-	var socket_data = SocketConnection.socket_data
-	check_for_players(socket_data)
-	
 func guest_player_name_generator():
 	var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
 	"m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
@@ -54,68 +41,6 @@ func guest_player_name_generator():
 		playerName += temp_name
 	
 	return "Guest_%s" % [playerName]
-
-func check_for_players(data):
-	if typeof(data) == TYPE_DICTIONARY:
-		if data.get("Socket_Type") == "playerSpawn":
-			var player_name = data.get("Player_Name")
-			var player_posX = data.get("Pos_X")
-			var player_posY = data.get("Pos_Y")
-		
-			#player status
-			var isLeft = data.get("isLeft")
-			var isRight = data.get("isRight")
-			var isUp = data.get("isUp")
-			var isDown = data.get("isDown")
-			var isIdle = data.get("isIdle")
-			
-			#set up variables on joined player
-			var player_join = player_scene.instantiate()
-			
-			#fill player's data
-			player_join.player_name = player_name
-				
-			#spawn the player
-			if PlayerGlobalScript.player_name != player_name:
-				if not joined_players.has(player_name):
-					#activate the spawner machine status
-					if !spawner.isSpawn:
-						spawner.isSpawn = true
-					
-					player_join.position = Vector2(player_posX, player_posY)
-				
-					#player status
-					player_join.isLeft = isLeft
-					player_join.isRight = isRight
-					player_join.isUp = isUp
-					player_join.isDown = isDown
-					player_join.isIdle = isIdle
-				
-					#add the player to the dict
-					joined_players[player_name] = {
-						"Player": player_join,
-						"Position": Vector2(player_posX, player_posY)
-					}
-					$"Y sort".add_child(player_join)
-				else:
-					var player = joined_players[player_name]
-					player["Position"] = Vector2(player_posX, player_posY)
-					player["Player"].position = Vector2(player_posX, player_posY)
-				
-					#player status
-					player["Player"].isLeft = isLeft
-					player["Player"].isRight = isRight
-					player["Player"].isUp =  isUp
-					player["Player"].isDown = isDown
-					player["Player"].isIdle = isIdle
-		
-		elif data.get("Socket_Type") == "playerDisconnect":
-			var player_name = data.get("Player_Name")
-			
-			if joined_players.has(player_name):
-				var player = joined_players[player_name]
-				player["Player"].queue_free()
-				joined_players.erase(player_name)
 
 #for scattering ojects
 func scatter_obj(obj, tree_pos):

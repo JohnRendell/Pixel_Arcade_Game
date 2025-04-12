@@ -11,14 +11,26 @@ module.exports = (io)=>{
                     "Message": await checkProfanity(parsed_data.Message)
                 }
                 
-                io.clients.forEach(client => {
-                    if (client.readyState === WebSocket.OPEN) {
-                        client.send(JSON.stringify(socket_data));
-                    }
-                });
+                broadcast(io, socket_data)
+            }
+
+            if(socket_type === "playerDisconnect"){
+                let socket_data = { 
+                    Socket_Type: socket_type, 
+                    "Player_Name": parsed_data.Player_Name 
+                }
+                broadcast(io, socket_data)
             }
         })
     })
+}
+
+function broadcast(server, data) {
+    server.clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify(data));
+        }
+    });
 }
 
 async function checkProfanity(message){

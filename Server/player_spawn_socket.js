@@ -1,4 +1,4 @@
-module.exports = (server) =>{
+module.exports = (server, scene_name) =>{
     server.on("connection", (socket)=>{
         socket.on("message", (data)=>{
             let parsed_data = JSON.parse(data);
@@ -6,7 +6,7 @@ module.exports = (server) =>{
             let socket_data = {};
 
             switch(socket_type){
-                case "playerSpawn":
+                case "playerSpawn_" + scene_name:
                     let playerName = parsed_data.Player_Name;
                     let playerCoords = { x: parsed_data.Pos_X, y: parsed_data.Pos_Y }
                     let isLeft = parsed_data.isLeft;
@@ -25,13 +25,6 @@ module.exports = (server) =>{
                         "isDown": isDown,
                         "isUp": isUp,
                         "isIdle": isIdle
-                    }
-                    break;
-                
-                case "playerDisconnect":
-                    socket_data = { 
-                        Socket_Type: socket_type, 
-                        "Player_Name": parsed_data.Player_Name 
                     }
                     break;
             }

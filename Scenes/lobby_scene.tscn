@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://cvnoej7tdycly"]
+[gd_scene load_steps=30 format=4 uid="uid://cvnoej7tdycly"]
 
 [ext_resource type="Script" uid="uid://bfvjja37p1vyb" path="res://Scripts/Lobby_Scripts/lobby_script.gd" id="1_3q4fp"]
 [ext_resource type="PackedScene" uid="uid://draqfc0ximnvd" path="res://Sprites/player_character.tscn" id="2_ljcoi"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://bpia3jjo8106n" path="res://Interfaces/socket_validation.tscn" id="15_eh844"]
 [ext_resource type="Script" uid="uid://bopyd0hbxtb05" path="res://Scripts/Lobby_Scripts/lobby_validation.gd" id="15_ngbab"]
 [ext_resource type="Texture2D" uid="uid://tl0t27hr7tba" path="res://Assets/Particles/Leaves particle.png" id="16_eh844"]
+[ext_resource type="PackedScene" uid="uid://cfxerw8ble006" path="res://Interfaces/player_spawn_node.tscn" id="16_k7l5q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bku1b"]
 bg_color = Color(0, 0, 0, 0.368627)
@@ -890,6 +891,15 @@ gravity = Vector2(-980, 600)
 initial_velocity_min = 124.18
 initial_velocity_max = 248.37
 scale_amount_curve = SubResource("Curve_eh844")
+
+[node name="Player_Spawn_node" parent="." node_paths=PackedStringArray("spawner", "ySort") instance=ExtResource("16_k7l5q")]
+offset_left = 612.0
+offset_top = 324.0
+offset_right = 612.0
+offset_bottom = 324.0
+spawner = NodePath("../Y sort/spawner")
+ySort = NodePath("../Y sort")
+scene_name = "lobby"
 
 [connection signal="pressed" from="Lobby UI/UI/Guest Button" to="." method="_on_guest_button_pressed"]
 [connection signal="pressed" from="Lobby UI/UI/Log in Modal/Log in Button" to="Lobby Validation" method="_on_log_in_button_pressed"]

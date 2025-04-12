@@ -1,9 +1,7 @@
 extends Node
 
 var websocket_url = "ws://localhost:8080"
-
 var socket = WebSocketPeer.new()
-
 var socket_data = "";
 
 #connecting to server status

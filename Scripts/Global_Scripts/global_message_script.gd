@@ -58,23 +58,20 @@ func send_message():
 	if not message_input.text.is_empty():
 		var message = ""
 		send_content.visible = true
-		BackendStuff.send_data_to_express({ "message": message_input.text }, "/profanity")
-		
-		await get_tree().create_timer(1.0).timeout
-		if BackendStuff.returned_parsed["status"] == "success":
-			message = BackendStuff.returned_parsed["filterWords"]
 
-		send_content.text = PlayerGlobalScript.player_name + ": " + message
+		send_content.text = PlayerGlobalScript.player_name + ": " + message_input.text
 		
 		isMessageSend = true
 		message_container.add_child(send_content)
 		
+	await get_tree().process_frame
 	scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
 
 func receive_message(data):
 	if typeof(data) == TYPE_DICTIONARY:
+		var receive_content = receiver_send_message.duplicate()
+		
 		if data.get("Socket_Type") == "globalMessage":
-			var receive_content = receiver_send_message.duplicate()
 			var receiver_name = data.get("Sender")
 			
 			if not receiver_name == PlayerGlobalScript.player_name:
@@ -83,5 +80,15 @@ func receive_message(data):
 			
 				message_container.add_child(receive_content)
 				
+				await get_tree().process_frame
+				scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
+				
+		elif data.get("Socket_Type") == "playerDisconnect":
+			receive_content.visible = true
+			var player_leave_game_name = data.get("Player_Name")
+			receive_content.text = player_leave_game_name + " left the game."
+		
+			message_container.add_child(receive_content)
+		
 			await get_tree().process_frame
 			scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value

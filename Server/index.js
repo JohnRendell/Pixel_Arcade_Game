@@ -50,10 +50,12 @@ io.on("connection", (socket)=>{
     console.log("Server Connected")
 });
 require("./game_socket")(io)
+require("./global_message")(io);
 
 //for routes
-app.use("/validate", require("./validateAccount"))
-app.use("/success", require("./successRedirect"))
+app.use("/validate", require("./validateAccount"));
+app.use("/success", require("./successRedirect"));
+app.use("/profanity", require("./checkFilterWords"));
 
 app.use(bodyParser.json())
 

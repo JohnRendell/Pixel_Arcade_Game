@@ -34,19 +34,6 @@ module.exports = (server) =>{
                         "Player_Name": parsed_data.Player_Name 
                     }
                     break;
-
-                case "globalMessage":
-                    socket_data = {
-                        Socket_Type: socket_type,
-                        "Sender": parsed_data.Sender,
-                        "Message": parsed_data.Message
-                    }
-                    console.log(socket_data)
-                    break;
-                
-                default:
-                    console.log(parsed_data)
-                    break;
             }
 
             //send back the data to all players

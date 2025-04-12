@@ -3,11 +3,11 @@ const route = express.Router();
 const bcrypt = require("bcryptjs");
 const account_model = require("./accountMongoose");
 const sanitize = require("sanitize-html");
-const path = require("path");
+const badWords = require("badwords-list");
 
 route.post("/login", async (req, res)=>{
     try{
-        const find_user = await account_model.findOne({ username: sanitize(req.body.username )});
+        const find_user = await account_model.findOne({ username: sanitize(req.body.username)});
         let status = ""
 
         if(find_user){
@@ -33,11 +33,17 @@ route.post("/login", async (req, res)=>{
 
 route.post("/signup", async (req, res)=>{
     try{
-        const find_user = await account_model.findOne({ username: sanitize(req.body.username)});
-        let status = ""
+        let username = sanitize(req.body.username);
+        let password = sanitize(req.body.password);
+        let badWords_reg = new RegExp(badWords.array.join("|"), "i");
+        const find_user = await account_model.findOne({ username: username});
+        let status = "";
 
         if(find_user){
             status = "username already exist"
+        }
+        else if(badWords_reg.test(username)){
+            status = "username contain bad words."
         }
         else{
             function hash_pass(pass){
@@ -46,7 +52,7 @@ route.post("/signup", async (req, res)=>{
 
                 return hash
             }
-            account_model.create({ username: sanitize(req.body.username), password: hash_pass(sanitize(req.body.password))})
+            account_model.create({ username: username, password: hash_pass(password)})
             status = "success"
         }
         res.status(200).json({ message: status })

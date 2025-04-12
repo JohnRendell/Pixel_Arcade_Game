@@ -56,8 +56,15 @@ func send_message():
 	var send_content = user_send_message.duplicate()
 	
 	if not message_input.text.is_empty():
+		var message = ""
 		send_content.visible = true
-		send_content.text = PlayerGlobalScript.player_name + ": " + message_input.text
+		BackendStuff.send_data_to_express({ "message": message_input.text }, "/profanity")
+		
+		await get_tree().create_timer(1.0).timeout
+		if BackendStuff.returned_parsed["status"] == "success":
+			message = BackendStuff.returned_parsed["filterWords"]
+
+		send_content.text = PlayerGlobalScript.player_name + ": " + message
 		
 		isMessageSend = true
 		message_container.add_child(send_content)
@@ -75,3 +82,6 @@ func receive_message(data):
 				receive_content.text = receiver_name + ": " + data.get("Message")
 			
 				message_container.add_child(receive_content)
+				
+			await get_tree().process_frame
+			scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value

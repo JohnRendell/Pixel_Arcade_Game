@@ -32,4 +32,3 @@ func _on_log_in_button_pressed():
 		if BackendStuff.returned_parsed["status"] == "account exists":
 			loading_panel.visible = true
 			loading_panel.begin_load = true
-		print("Get from request: " + str(BackendStuff.returned_parsed))

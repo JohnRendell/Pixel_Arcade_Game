@@ -1063,7 +1063,6 @@ offset_bottom = 200.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_vjvhn")
-horizontal_scroll_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Global Message Display/Scroll Container"]
 layout_mode = 2

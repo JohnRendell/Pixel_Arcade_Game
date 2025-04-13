@@ -55,7 +55,7 @@ require("./global_message")(io);
 //for routes
 app.use("/validate", require("./validateAccount"));
 app.use("/success", require("./successRedirect"));
-app.use("/profanity", require("./checkFilterWords"));
+app.use("/gameData", require("./gameDataFetching"));
 
 app.use(bodyParser.json())
 

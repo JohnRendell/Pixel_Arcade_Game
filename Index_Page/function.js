@@ -5,13 +5,17 @@ function call_pop_modal(text, id){
 
     if(body){
         var pop_body = document.createElement("div");
-        pop_body.setAttribute("class", "absolute top-[-5rem] opacity-0 w-auto h-auto p-4 rounded-2xl bg-white");
-        pop_body.setAttribute("id", "pop_modal_" + id)
+        pop_body.setAttribute("class", "absolute top-[-5rem] opacity-0 w-screen h-auto flex justify-center items-center");
+        pop_body.setAttribute("id", "pop_modal_" + id);
+
+        var pop_panel = document.createElement("div");
+        pop_panel.setAttribute("class", "w-auto h-auto p-4 rounded-2xl bg-white");
+        pop_body.appendChild(pop_panel)
 
         var pop_content = document.createElement("h1");
         pop_content.setAttribute("class", "font-Pixelify-Sans text-center text-sm text-black");
         pop_content.appendChild(document.createTextNode(text));
-        pop_body.appendChild(pop_content);
+        pop_panel.appendChild(pop_content);
 
         body.appendChild(pop_body)
 
@@ -82,9 +86,53 @@ async function createAccount(){
 }
 
 function modalStatus(id, status){
-    var modal = document.getElementById(id)
+    var modal = document.getElementById(id);
+    var body = document.body;
 
     if(modal){
         modal.style.display = status;
+        body.style.overflowY = status === "flex" ? "hidden" : "auto";
     }
 }
+
+function scrollView(id){
+    var elmntToView = document.getElementById(id);
+    
+    if(elmntToView){
+        elmntToView.scrollIntoView({ behavior: "smooth" });
+    }
+}
+
+async function getGameLogs(){
+    try{
+        var container = document.getElementById("game_logs_container");
+
+        const getLogs = await fetch("/gameData/gameLogs", {
+            method: "GET",
+        });
+
+        const getLogs_result = await getLogs.json();
+
+        if(getLogs_result.message === "success" && container){
+            getLogs_result.data.forEach(data => {
+                var wrapper = document.createElement("div");
+                wrapper.setAttribute("class", "w-full h-auto flex flex-col")
+                container.appendChild(wrapper);
+
+                var logs = document.createElement("h1");
+                logs.setAttribute("class", "font-Pixelify-Sans text-left text-black");
+                logs.appendChild(document.createTextNode(data.logs))
+                wrapper.appendChild(logs)
+
+                var date = document.createElement("h1");
+                date.setAttribute("class", "font-Pixelify-Sans text-left text-black");
+                date.appendChild(document.createTextNode("Date: " + data.date))
+                wrapper.appendChild(date) 
+            });
+        }
+    }
+    catch(err){
+        alert(err)
+    }
+}
+getGameLogs();

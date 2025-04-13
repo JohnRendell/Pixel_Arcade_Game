@@ -9,11 +9,26 @@
     <link rel="stylesheet" href="./CSS/output.css" />
     <link rel="stylesheet" href="./CSS/anim.css" />
 </head>
-<body class="bg-[url('/Contents/Images/Menu_Background.png')] w-screen h-screen bg-cover bg-center bg-no-repeat overflow-hidden flex justify-center items-center">
+<body class="overflow-x-hidden overflow-y-auto scroll-smooth">
+    <style>
+        body::-webkit-scrollbar{
+            width: 8px;
+        }
 
-    <div class="flex flex-col items-center gap-10">
+        body::-webkit-scrollbar-track {
+            background-color: rgba(0, 11, 91, 0.63);
+        }
+
+        body::-webkit-scrollbar-thumb{
+            background-color: white;
+            border-radius: 20px;
+        }
+    </style>
+
+
+    <div id="welcome_section" class="bg-[url('/Contents/Images/Menu_Background.png')] w-screen h-[40rem] bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center gap-20">
         <div class="w-auto flex flex-col items-center gap-2">
-            <h1 class="font-Pixelify-Sans text-center text-3xl text-white">Pixel Wars and Stuff</h1>
+            <h1 class="font-Pixelify-Sans text-center text-5xl text-white">Pixel Wars and Stuff</h1>
             <p class="font-Pixelify-Sans text-center text-sm text-white">Protect your base and loot enemy's bases</p>
         </div>
         
@@ -22,10 +37,24 @@
                 onclick="modalStatus('createAccount_modal', 'flex')">Create Account</button>
             <button class="text-sm underline cursor-pointer font-Pixelify-Sans text-center text-white  active:opacity-[50%]">Download</button>
         </div>
+
+        <button class="text-sm underline cursor-pointer font-Pixelify-Sans text-center text-white  active:opacity-[50%]" onclick="scrollView('gameLogs_section')">View Game logs</button>
+    </div>
+
+    <!--Game logs-->
+    <div id="gameLogs_section" class="bg-[url('/Contents/Images/Menu_Background.png')] w-screen h-[40rem] bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center gap-20">
+        <div class="bg-white rounded-2xl w-[60%] h-auto p-2 flex flex-col justify-center items-center">
+            <h1 class="font-Pixelify-Sans text-center text-lg text-black">Game Logs</h1>
+
+            <!--Containers-->
+            <div id="game_logs_container" class="w-full h-[25rem] flex flex-col gap-4"></div>
+
+            <button class="text-sm underline cursor-pointer font-Pixelify-Sans text-center text-black active:opacity-[50%]" onclick="scrollView('welcome_section')">Back to main screen</button>
+        </div>
     </div>
 
     <!--Create Account Modal-->
-    <div id="createAccount_modal" class="absolute w-screen h-screen justify-center items-center bg-black/50 hidden">
+    <div id="createAccount_modal" class="absolute top-0 w-screen h-screen justify-center items-center bg-black/50 hidden">
         <div class="bg-white rounded-2xl w-[20rem] h-auto p-4 flex flex-col gap-4">
 
             <div class="w-full h-auto flex flex-row justify-between">

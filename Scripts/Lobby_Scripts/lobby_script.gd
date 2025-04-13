@@ -17,7 +17,7 @@ func _ready():
 	
 	#scatter trees
 	var tree = preload("res://Sprites/tree_object.tscn")
-	var tree_pos = [Vector2(302, 278), Vector2(-385, -524), Vector2(899, -176), Vector2(1485, 566), Vector2(-406, 719)]
+	var tree_pos = [Vector2(302, 278), Vector2(-385, -524), Vector2(899, -176), Vector2(-406, 719)]
 	scatter_obj(tree, tree_pos)
 	
 	#scatter rocks

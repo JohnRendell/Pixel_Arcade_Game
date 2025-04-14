@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbbytwk4osdkn"]
+
+[ext_resource type="Texture2D" uid="uid://dvdrmari3avmf" path="res://Assets/Sprite_Slice/Tile_Maps/Object_Terrain.png" id="1_j7p1m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j7p1m"]
+size = Vector2(20, 4.5)
+
+[node name="sand_tree_object" type="StaticBody2D"]
+z_index = 2
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_j7p1m")
+offset = Vector2(0, -40)
+region_enabled = true
+region_rect = Rect2(164, 20, 80, 80)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, -10)
+shape = SubResource("RectangleShape2D_j7p1m")
+disabled = true

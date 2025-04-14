@@ -6,6 +6,7 @@
 size = Vector2(13, 4)
 
 [node name="Tree_body" type="StaticBody2D"]
+z_index = 2
 y_sort_enabled = true
 
 [node name="Sprite" type="Sprite2D" parent="."]

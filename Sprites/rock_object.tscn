@@ -6,6 +6,8 @@
 size = Vector2(36, 6)
 
 [node name="rock_object" type="StaticBody2D"]
+z_index = 2
+y_sort_enabled = true
 
 [node name="sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_7bkit")

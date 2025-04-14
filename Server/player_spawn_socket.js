@@ -27,6 +27,14 @@ module.exports = (server, scene_name) =>{
                         "isIdle": isIdle
                     }
                     break;
+
+                case "playerLeave_" + scene_name:
+                    socket_data = {
+                        Socket_Type: socket_type,
+                        "Player_Name": parsed_data.Player_Name
+                    }
+                    console.log(socket_data)
+                    break;
             }
 
             //send back the data to all players

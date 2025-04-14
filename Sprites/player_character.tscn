@@ -140,9 +140,11 @@ bg_color = Color(0, 0.711448, 0.46152, 1)
 size = Vector2(44, 6)
 
 [node name="Player_Body" type="CharacterBody2D"]
+z_index = 2
 y_sort_enabled = true
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_27txk")
+speed = 200
 
 [node name="Player_Sprite" type="Sprite2D" parent="."]
 texture_filter = 1

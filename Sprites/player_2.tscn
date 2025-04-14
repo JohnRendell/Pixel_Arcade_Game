@@ -136,6 +136,7 @@ _data = {
 size = Vector2(44, 9)
 
 [node name="Joined_Player_Body" type="CharacterBody2D"]
+z_index = 2
 y_sort_enabled = true
 texture_filter = 1
 scale = Vector2(0.5, 0.5)

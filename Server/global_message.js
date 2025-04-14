@@ -21,6 +21,14 @@ module.exports = (io)=>{
                 }
                 broadcast(io, socket_data)
             }
+
+            if(socket_type === "playerCount"){
+                let socket_data = {
+                    Socket_Type: socket_type, 
+                    "Player_Count": parsed_data.Player_Count 
+                }
+                broadcast(io, socket_data)
+            }
         })
     })
 }

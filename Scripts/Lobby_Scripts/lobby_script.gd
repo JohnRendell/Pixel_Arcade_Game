@@ -51,4 +51,12 @@ func scatter_obj(obj, tree_pos):
 
 func _on_guest_button_pressed():
 	loading_panel.visible = true
-	loading_panel.begin_load = true
+	BackendStuff.send_data_to_express({ "playerCount": 1 }, "/gameData/setPlayerCount")
+		
+	await get_tree().create_timer(1.0).timeout
+	if BackendStuff.returned_parsed["message"] == "success":
+		SocketConnection.send_data({ "Socket_Type": "playerLeave_lobby", "Player_Name": PlayerGlobalScript.player_name })
+		
+		await get_tree().create_timer(1.0).timeout
+		loading_panel.begin_load = true
+		PlayerGlobalScript.isLoggedIn = true

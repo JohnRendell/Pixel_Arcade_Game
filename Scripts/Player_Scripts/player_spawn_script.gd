@@ -74,7 +74,8 @@ func check_for_players(data):
 					player["Player"].isDown = isDown
 					player["Player"].isIdle = isIdle
 		
-		elif data.get("Socket_Type") == "playerDisconnect":
+		#TODO: Fix this one, player not kind of leaving on lobby when joined
+		elif data.get("Socket_Type") == "playerDisconnect" or data.get("Socket_Type") == "playerLeave_" + scene_name:
 			var player_name = data.get("Player_Name")
 			
 			if joined_players.has(player_name):

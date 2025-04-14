@@ -1,5 +1,7 @@
 const express = require("express");
-const gameModel = require("./gameLogsMongoose")
+const gameModel = require("./gameLogsMongoose");
+const gameDataModel = require("./gameDataMongoose");
+const sanitize = require("sanitize-html");
 const router = express.Router();
 
 router.get("/gameLogs", async (req, res) => {
@@ -17,6 +19,35 @@ router.get("/gameLogs", async (req, res) => {
         }));
 
         res.status(200).json({ message: "success", data: dataMap });
+    } 
+    
+    catch (err) {
+        console.log(err);
+    }
+});
+
+router.post("/setPlayerCount", async (req, res) => {
+    try {
+        let newCount = await gameDataModel.findOneAndUpdate(
+            {},
+            { $inc: { playerCount: sanitize(req.body.playerCount) }},
+            { upsert: true, new: true },
+        )
+        res.status(200).json({ message: "success", playerCount: newCount.playerCount });
+    } 
+    
+    catch (err) {
+        console.log(err);
+    }
+});
+
+router.get("/getPlayerCount", async (req, res) => {
+    try {
+        let getCount = await gameDataModel.findOne({})
+        
+        if(getCount){
+            res.status(200).json({ message: "success", playerCount: getCount.playerCount });
+        }
     } 
     
     catch (err) {

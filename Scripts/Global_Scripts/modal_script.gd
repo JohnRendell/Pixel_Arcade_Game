@@ -13,6 +13,8 @@ func _ready():
 	#add the button's functionality on start
 	modal_button.pressed.connect(open_modal)
 	closeButton.pressed.connect(close_modal)
+	
+	modal.visible = false
 
 func open_modal():
 	PlayerGlobalScript.modal_open = true

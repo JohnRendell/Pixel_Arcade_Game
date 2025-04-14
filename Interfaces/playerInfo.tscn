@@ -1,8 +1,11 @@
-[gd_scene load_steps=10 format=4 uid="uid://ranvboc1aleu"]
+[gd_scene load_steps=13 format=4 uid="uid://ranvboc1aleu"]
 
 [ext_resource type="Script" uid="uid://ce6wbg0vx4rjd" path="res://Scripts/Global_Scripts/game_interface.gd" id="1_14f72"]
 [ext_resource type="FontFile" uid="uid://bmdl23cbnw41b" path="res://Assets/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="1_fhr0c"]
+[ext_resource type="Theme" uid="uid://t8cakbf8cvmc" path="res://Assets/Themes/default_button_texture.tres" id="4_14f72"]
+[ext_resource type="PackedScene" uid="uid://can60qx0sq1hp" path="res://Interfaces/modal.tscn" id="5_jqtam"]
 [ext_resource type="Script" uid="uid://kg4sni8o66cs" path="res://Scripts/Global_Scripts/global_message_script.gd" id="7_f1e4r"]
+[ext_resource type="PackedScene" uid="uid://cwyiac3k7jsff" path="res://Interfaces/loading_panel.tscn" id="7_w0rbd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjvhn"]
 bg_color = Color(0, 0, 0, 0.0509804)
@@ -1110,3 +1113,49 @@ theme_override_fonts/font = ExtResource("1_fhr0c")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_27cgy")
 placeholder_text = "Type a message..."
 max_length = 100
+
+[node name="Setting Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -112.0
+offset_top = 20.0
+offset_right = -22.0
+offset_bottom = 60.0
+grow_horizontal = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("4_14f72")
+button_mask = 5
+text = "Settings"
+
+[node name="Setting Modal" parent="." node_paths=PackedStringArray("modal_button") instance=ExtResource("5_jqtam")]
+visible = false
+layout_mode = 1
+modal_button = NodePath("../Setting Button")
+modal_label = "Settings"
+
+[node name="Log out Button" type="Button" parent="Setting Modal"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -121.0
+offset_right = 40.0
+offset_bottom = -81.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("4_14f72")
+button_mask = 5
+text = "Log Out"
+
+[node name="Loading Panel" parent="." instance=ExtResource("7_w0rbd")]
+visible = false
+layout_mode = 1
+navigate_to_scene = "res://Scenes/main_menu.tscn"
+
+[connection signal="pressed" from="Setting Modal/Log out Button" to="." method="_on_log_out_button_pressed"]

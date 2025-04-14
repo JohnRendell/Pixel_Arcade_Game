@@ -27,6 +27,13 @@ func send_data_to_express(data, route):
 		json
 	)
 
+func get_data_from_backend(route):
+	var url = backend_url + route
+	var err = http_request.request(url)
+	
+	if err != OK:
+		print("Request failed: ", err)
+
 func _on_request_completed(_result, _response_code, _headers, body):
 	var response = body.get_string_from_utf8()
 	var parsed = JSON.parse_string(response)

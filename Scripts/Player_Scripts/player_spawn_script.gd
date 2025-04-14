@@ -76,6 +76,13 @@ func check_for_players(data):
 		
 		#TODO: Fix this one, player not kind of leaving on lobby when joined
 		elif data.get("Socket_Type") == "playerDisconnect" or data.get("Socket_Type") == "playerLeave_" + scene_name:
+			if data.get("Socket_Type") == "playerDisconnect":
+				BackendStuff.send_data_to_express({ "playerCount": -1 }, "/gameData/setPlayerCount")
+		
+				await get_tree().create_timer(1.0).timeout
+				if BackendStuff.returned_parsed["message"] == "success":
+					print(data.get("Socket_Type"))
+					
 			var player_name = data.get("Player_Name")
 			
 			if joined_players.has(player_name):

@@ -22,6 +22,7 @@ GameSocket="*res://Scripts/Socket_Scripts/game_socket.gd"
 SocketConnection="*res://Scripts/Socket_Scripts/socket_connection.gd"
 BackendStuff="*res://Scripts/Server_Scripts/backend_stuff.gd"
 OverallScript="*res://Scripts/Global_Scripts/overall_script.gd"
+NotificationManager="*res://Scripts/Global_Scripts/notificationManager.gd"
 
 [display]
 

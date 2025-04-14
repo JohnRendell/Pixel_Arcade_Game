@@ -39,7 +39,7 @@ func chat_open():
 		send_message()
 		color = Color(0.00, 0.00, 0.00, 0.00)
 		PlayerGlobalScript.global_message_open = false
-		scroll_container.vertical_scroll_mode = 3
+		scroll_container.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
 
 	else:
 		color = Color(0.00, 0.00, 0.00, 0.20)
@@ -47,7 +47,7 @@ func chat_open():
 		
 		await get_tree().process_frame
 		message_input.grab_focus()
-		scroll_container.vertical_scroll_mode = 1
+		scroll_container.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
 		
 	message_input.visible = PlayerGlobalScript.global_message_open
 	scroll_container.get("theme_override_styles/panel").bg_color = color
@@ -56,7 +56,6 @@ func send_message():
 	var send_content = user_send_message.duplicate()
 	
 	if not message_input.text.is_empty():
-		var message = ""
 		send_content.visible = true
 
 		send_content.text = PlayerGlobalScript.player_name + ": " + message_input.text
@@ -65,7 +64,7 @@ func send_message():
 		message_container.add_child(send_content)
 		
 	await get_tree().process_frame
-	scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
+	scroll_container.scroll_vertical = int(scroll_container.get_v_scroll_bar().max_value)
 
 func receive_message(data):
 	if typeof(data) == TYPE_DICTIONARY:
@@ -81,14 +80,29 @@ func receive_message(data):
 				message_container.add_child(receive_content)
 				
 				await get_tree().process_frame
-				scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
+				scroll_container.scroll_vertical = int(scroll_container.get_v_scroll_bar().max_value)
 				
-		elif data.get("Socket_Type") == "playerDisconnect":
+		#TODO: fix this one
+		elif data.get("Socket_Type") == "playerConnected":
+			print("Fired the socket connected")
 			receive_content.visible = true
-			var player_leave_game_name = data.get("Player_Name")
-			receive_content.text = player_leave_game_name + " left the game."
-		
+			var player_game_name = data.get("Player_Name")
+			receive_content.text = player_game_name + " joined the game."
 			message_container.add_child(receive_content)
 		
 			await get_tree().process_frame
-			scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
+			scroll_container.scroll_vertical = int(scroll_container.get_v_scroll_bar().max_value)
+				
+		elif data.get("Socket_Type") == "playerDisconnect":
+			BackendStuff.send_data_to_express({ "playerCount": -1 }, "/gameData/setPlayerCount")
+	
+			await get_tree().create_timer(1.0).timeout
+			if BackendStuff.returned_parsed["message"] == "success":
+				print(data.get("Socket_Type"))
+			receive_content.visible = true
+			var player_game_name = data.get("Player_Name")
+			receive_content.text = player_game_name + " left the game."
+			message_container.add_child(receive_content)
+		
+			await get_tree().process_frame
+			scroll_container.scroll_vertical = int(scroll_container.get_v_scroll_bar().max_value)

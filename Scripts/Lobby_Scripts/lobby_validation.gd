@@ -9,6 +9,8 @@ extends Control
 #for loading panel
 @export var loading_panel: Panel
 
+var leave_lobby = false
+
 func _ready():
 	loading_panel.visible = false
 	validate_loading.visible = false
@@ -16,6 +18,10 @@ func _ready():
 func _process(_delta: float):
 	if !PlayerGlobalScript.modal_open:
 		login_warning_text.text = ""
+	
+	if leave_lobby:
+		SocketConnection.send_data({ "Socket_Type": "playerLeave_lobby", "Player_Name": PlayerGlobalScript.player_name })
+		leave_lobby = false
 
 func _on_log_in_button_pressed():
 	if !login_username_input.text or !login_password_input.text:
@@ -30,9 +36,9 @@ func _on_log_in_button_pressed():
 		warning_text.text = BackendStuff.returned_parsed["status"]
 		
 		if BackendStuff.returned_parsed["status"] == "account exists":
-			SocketConnection.send_data({ "Socket_Type": "playerLeave_lobby", "Player_Name": PlayerGlobalScript.player_name })
-			
+			leave_lobby = true
 			loading_panel.visible = true
+			
 			BackendStuff.send_data_to_express({ "playerCount": 1 }, "/gameData/setPlayerCount")
 		
 			await get_tree().create_timer(1.0).timeout

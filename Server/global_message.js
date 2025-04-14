@@ -14,6 +14,15 @@ module.exports = (io)=>{
                 broadcast(io, socket_data)
             }
 
+            if(socket_type === "playerConnected"){
+                let socket_data = { 
+                    Socket_Type: socket_type, 
+                    "Player_Name": parsed_data.Player_Name 
+                }
+                console.log(socket_data)
+                broadcast(io, socket_data)
+            }
+
             if(socket_type === "playerDisconnect"){
                 let socket_data = { 
                     Socket_Type: socket_type, 

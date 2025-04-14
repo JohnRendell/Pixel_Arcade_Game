@@ -10,13 +10,11 @@ var isPlayerCountFetch = false
 
 func _ready():
 	playerSettings.visible = true if PlayerGlobalScript.isLoggedIn else false
-	print(PlayerGlobalScript.player_name)
 	loading_panel.visible = false
 
 func _process(_delta: float):
 	var playerX = PlayerGlobalScript.playerCoords.x
 	var playerY = PlayerGlobalScript.playerCoords.y
-	
 	playerTextCoordsLabel.text = "X: %.2f \nY: %.2f " % [playerX, playerY]
 	
 	var socket_data = SocketConnection.socket_data

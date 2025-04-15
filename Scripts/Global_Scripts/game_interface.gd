@@ -27,9 +27,6 @@ func _process(_delta: float):
 		await get_tree().create_timer(1.0).timeout
 		if BackendStuff.returned_parsed["message"] == "success":
 			playerCount.text = "Player Count: " + str(int(BackendStuff.returned_parsed["playerCount"]))
-			
-			await get_tree().create_timer(1.0).timeout
-			SocketConnection.send_data({ "Socket_Type": "playerCount", "Player_Count": BackendStuff.returned_parsed["playerCount"] })
 	
 func player_count(data):
 	if typeof(data) == TYPE_DICTIONARY:

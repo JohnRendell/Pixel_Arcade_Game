@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsm7505q2ni6k"]
+[gd_scene load_steps=7 format=3 uid="uid://dsm7505q2ni6k"]
 
 [ext_resource type="Texture2D" uid="uid://ue01vlk78bpj" path="res://Assets/Images/Menu_Background.png" id="1_n45e2"]
 [ext_resource type="Script" uid="uid://dagosdjubaqtw" path="res://Scripts/Main_Menu_Scripts/main_menu.gd" id="1_opfnp"]
 [ext_resource type="FontFile" uid="uid://bmdl23cbnw41b" path="res://Assets/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="2_opfnp"]
 [ext_resource type="Theme" uid="uid://fytpjh21mbhn" path="res://Assets/Themes/default_button_theme.tres" id="3_cp0ys"]
 [ext_resource type="PackedScene" uid="uid://cwyiac3k7jsff" path="res://Interfaces/loading_panel.tscn" id="5_n45e2"]
+[ext_resource type="PackedScene" uid="uid://bpia3jjo8106n" path="res://Interfaces/socket_validation.tscn" id="6_opfnp"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -91,8 +92,12 @@ text = "Developed by John Rendell Catuiza"
 uri = "https://github.com/JohnRendell/Pixel_Wars_And_Stuff"
 
 [node name="Loading Panel" parent="." instance=ExtResource("5_n45e2")]
+visible = false
 z_index = 40
 layout_mode = 1
 navigate_to_scene = "res://Scenes/lobby_scene.tscn"
+
+[node name="Socket Validation" parent="." instance=ExtResource("6_opfnp")]
+layout_mode = 1
 
 [connection signal="pressed" from="Game title and other buttons/Play Button" to="." method="_on_play_button_pressed"]

@@ -6,8 +6,6 @@ extends Control
 @export var message_input: LineEdit
 @export var scroll_container: ScrollContainer
 
-var isMessageSend = false
-
 func _ready():
 	message_input.visible = false
 	scroll_container.get("theme_override_styles/panel").bg_color = Color(0.00, 0.00, 0.00, 0.00)
@@ -15,18 +13,6 @@ func _ready():
 func _process(_delta: float):
 	var socket_data = SocketConnection.socket_data
 	receive_message(socket_data)
-	
-	if isMessageSend:
-		await get_tree().create_timer(0.005).timeout
-		
-		#send data to the backend
-		SocketConnection.send_data({
-			"Socket_Type": "globalMessage", 
-			"Sender": PlayerGlobalScript.player_name, 
-			"Message": message_input.text
-		})
-		isMessageSend = false
-		message_input.text = ""
 	
 func _input(_event):
 	if Input.is_action_just_pressed("Chat") and PlayerGlobalScript.modal_open == false:
@@ -57,11 +43,18 @@ func send_message():
 	
 	if not message_input.text.is_empty():
 		send_content.visible = true
-
 		send_content.text = PlayerGlobalScript.player_name + ": " + message_input.text
-		
-		isMessageSend = true
 		message_container.add_child(send_content)
+		
+		var message = message_input.text
+		message_input.text = ""
+		
+		#await get_tree().create_timer(1.0).timeout
+		SocketConnection.send_data({
+			"Socket_Type": "globalMessage", 
+			"Sender": PlayerGlobalScript.player_name, 
+			"Message": message
+		})
 		
 	await get_tree().process_frame
 	scroll_container.scroll_vertical = int(scroll_container.get_v_scroll_bar().max_value)
@@ -71,6 +64,7 @@ func receive_message(data):
 		var receive_content = receiver_send_message.duplicate()
 		
 		if data.get("Socket_Type") == "globalMessage":
+			print(data)
 			var receiver_name = data.get("Sender")
 			
 			if not receiver_name == PlayerGlobalScript.player_name:
@@ -82,26 +76,14 @@ func receive_message(data):
 				await get_tree().process_frame
 				scroll_container.scroll_vertical = int(scroll_container.get_v_scroll_bar().max_value)
 				
-		#TODO: fix this one
-		elif data.get("Socket_Type") == "playerConnected":
-			print("Fired the socket connected")
+		elif data.get("Socket_Type") == "playerConnected" or data.get("Socket_Type") == "playerDisconnect":
 			receive_content.visible = true
 			var player_game_name = data.get("Player_Name")
-			receive_content.text = player_game_name + " joined the game."
-			message_container.add_child(receive_content)
-		
-			await get_tree().process_frame
-			scroll_container.scroll_vertical = int(scroll_container.get_v_scroll_bar().max_value)
-				
-		elif data.get("Socket_Type") == "playerDisconnect":
-			BackendStuff.send_data_to_express({ "playerCount": -1 }, "/gameData/setPlayerCount")
-	
-			await get_tree().create_timer(1.0).timeout
-			if BackendStuff.returned_parsed["message"] == "success":
-				print(data.get("Socket_Type"))
-			receive_content.visible = true
-			var player_game_name = data.get("Player_Name")
-			receive_content.text = player_game_name + " left the game."
+			
+			if data.get("Socket_Type") == "playerDisconnect":
+				receive_content.text = player_game_name + " left the game."
+			else:
+				receive_content.text = player_game_name + " connected the game."
 			message_container.add_child(receive_content)
 		
 			await get_tree().process_frame

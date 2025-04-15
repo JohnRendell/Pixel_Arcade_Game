@@ -48,6 +48,18 @@ const io = new WebSocket.Server({ server: expressServer });
 
 io.on("connection", (socket)=>{
     console.log("Server Connected")
+
+    socket.on("message", async (data)=>{
+        let parsed_data = JSON.parse(data);
+        
+        if(parsed_data.send === "ping"){
+          io.clients.forEach(client => {
+              if (client.readyState === WebSocket.OPEN) {
+                  client.send(JSON.stringify({ send: "pong" }));
+              }
+          });
+        }
+    })
 });
 require("./player_spawn_socket")(io, "lobby")
 require("./global_message")(io);

@@ -28,12 +28,19 @@ router.get("/gameLogs", async (req, res) => {
 
 router.post("/setPlayerCount", async (req, res) => {
     try {
-        let newCount = await gameDataModel.findOneAndUpdate(
+        const gameData = await gameDataModel.findOne({});
+        let newCount = gameData.playerCount + sanitize(req.body.playerCount);
+
+        if (newCount < 0) {
+            newCount = 0;
+        }
+
+        await gameDataModel.findOneAndUpdate(
             {},
             { $inc: { playerCount: sanitize(req.body.playerCount) }},
             { upsert: true, new: true },
         )
-        res.status(200).json({ message: "success", playerCount: newCount.playerCount });
+        res.status(200).json({ message: "success", playerCount: newCount });
     } 
     
     catch (err) {

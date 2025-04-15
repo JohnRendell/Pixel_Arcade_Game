@@ -13,17 +13,19 @@ var isNotifFired = false
 func _ready():
 	#for no connection stuff
 	_on_animation_player_animation_finished("disconnect_anim")
-	
-	NotificationManager.connect("notify_connected", self._on_notify_connected)
 
 func _process(_delta: float):
 	#for modal
 	if SocketConnection.connect_server_status == "Unable to Connect with the Server" and isDisconnect == false:
+		isConnected = false
 		isDisconnect = true
+		isNotifFired = false
 		connect_server_modal_anim.play("disconnect_anim")
 		
 	if SocketConnection.connect_server_status == "Connecting to Server...":
+		isConnected = false
 		isDisconnect = false
+		isNotifFired = false
 		connect_server_modal_anim.play("connecting_anim")
 	
 	connect_server_modal.visible = false if SocketConnection.connect_server_status == "Connected" else true
@@ -32,11 +34,9 @@ func _process(_delta: float):
 	isConnected = true if SocketConnection.connect_server_status == "Connected" else false
 	
 	if isConnected and isNotifFired == false:
-		NotificationManager.player_connected(PlayerGlobalScript.player_name)
 		isNotifFired = true
-
-func _on_notify_connected(playername):
-	SocketConnection.send_data({"Socket_Type": "playerConnected", "Player_Name": playername })
+		await get_tree().create_timer(1.0).timeout
+		SocketConnection.send_data({"Socket_Type": "playerConnected", "Player_Name": PlayerGlobalScript.player_name })
 	
 func _on_retry_btn_button_down():
 	await SocketConnection.reconnect_to_server()

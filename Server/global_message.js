@@ -10,7 +10,6 @@ module.exports = (io)=>{
                     "Sender": parsed_data.Sender,
                     "Message": await checkProfanity(parsed_data.Message)
                 }
-                
                 broadcast(io, socket_data)
             }
 
@@ -45,6 +44,8 @@ module.exports = (io)=>{
 function broadcast(server, data) {
     server.clients.forEach(client => {
         if (client.readyState === WebSocket.OPEN) {
+            console.log("Sending data")
+            console.log(data)
             client.send(JSON.stringify(data));
         }
     });

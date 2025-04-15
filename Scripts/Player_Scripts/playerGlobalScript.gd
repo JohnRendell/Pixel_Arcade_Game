@@ -17,3 +17,6 @@ var player_name = ""
 
 #for setting up player status if its logged in or not
 var isLoggedIn = false
+
+#for setting up current player scene
+var current_scene = ""

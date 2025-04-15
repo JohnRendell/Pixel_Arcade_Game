@@ -16,7 +16,7 @@ var player_scene = preload("res://Sprites/player_2.tscn")
 @export var scene_name = "name of the scene"
 
 func _process(_delta: float):
-	GameSocket.player_spawn(scene_name)
+	player_spawn(scene_name)
 	var socket_data = SocketConnection.socket_data
 	check_for_players(socket_data)
 
@@ -34,6 +34,9 @@ func check_for_players(data):
 			var isDown = data.get("isDown")
 			var isIdle = data.get("isIdle")
 			
+			#player scene
+			var current_scene = data.get("Current_Scene")
+			
 			#set up variables on joined player
 			var player_join = player_scene.instantiate()
 			
@@ -41,8 +44,9 @@ func check_for_players(data):
 			player_join.player_name = player_name
 				
 			#spawn the player
-			if PlayerGlobalScript.player_name != player_name:
+			if PlayerGlobalScript.player_name != player_name and current_scene == scene_name:
 				if not joined_players.has(player_name):
+					
 					#activate the spawner machine status
 					if !spawner.isSpawn:
 						spawner.isSpawn = true
@@ -73,15 +77,32 @@ func check_for_players(data):
 					player["Player"].isUp =  isUp
 					player["Player"].isDown = isDown
 					player["Player"].isIdle = isIdle
-		
-		#TODO: Fix this one, player not kind of leaving on lobby when joined
-		elif data.get("Socket_Type") == "playerLeave_" + scene_name:
-			print(data)
 			
-		elif data.get("Socket_Type") == "playerDisconnect":
+		elif data.get("Socket_Type") == "playerDisconnect" or data.get("Socket_Type") == "playerLeave_" + scene_name:
+			
+			#TODO: work on these player leave
+			if data.get("Socket_Type") == "playerLeave_" + scene_name:
+				print("Leaving the scene")
 			var player_name = data.get("Player_Name")
 			
 			if joined_players.has(player_name):
 				var player = joined_players[player_name]
 				player["Player"].queue_free()
 				joined_players.erase(player_name)
+
+func player_spawn(scene_name):
+	var playerName = PlayerGlobalScript.player_name
+	var playerCoords = PlayerGlobalScript.playerCoords
+	
+	SocketConnection.send_data({
+		"Socket_Type": "playerSpawn_" + scene_name,
+		"Player_Name": playerName,
+		"isLeft": PlayerGlobalScript.isLeft,
+		"isRight": PlayerGlobalScript.isRight,
+		"isUp": PlayerGlobalScript.isUp,
+		"isDown": PlayerGlobalScript.isDown,
+		"isIdle": PlayerGlobalScript.isIdle,
+		"Pos_X": playerCoords.x,
+		"Pos_Y": playerCoords.y,
+		"Current_Scene": PlayerGlobalScript.current_scene
+	})

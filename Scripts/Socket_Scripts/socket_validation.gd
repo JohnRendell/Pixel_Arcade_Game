@@ -8,7 +8,6 @@ extends Control
 
 var isDisconnect = false
 var isConnected = false
-var isNotifFired = false
 
 func _ready():
 	#for no connection stuff
@@ -19,24 +18,17 @@ func _process(_delta: float):
 	if SocketConnection.connect_server_status == "Unable to Connect with the Server" and isDisconnect == false:
 		isConnected = false
 		isDisconnect = true
-		isNotifFired = false
 		connect_server_modal_anim.play("disconnect_anim")
 		
 	if SocketConnection.connect_server_status == "Connecting to Server...":
 		isConnected = false
 		isDisconnect = false
-		isNotifFired = false
 		connect_server_modal_anim.play("connecting_anim")
 	
 	connect_server_modal.visible = false if SocketConnection.connect_server_status == "Connected" else true
 	connect_server_modal_label.text = SocketConnection.connect_server_status
 	connect_server_modal_retry_btn.visible = true if SocketConnection.connect_server_status == "Unable to Connect with the Server" else false
 	isConnected = true if SocketConnection.connect_server_status == "Connected" else false
-	
-	if isConnected and isNotifFired == false:
-		isNotifFired = true
-		await get_tree().create_timer(1.0).timeout
-		SocketConnection.send_data({"Socket_Type": "playerConnected", "Player_Name": PlayerGlobalScript.player_name })
 	
 func _on_retry_btn_button_down():
 	await SocketConnection.reconnect_to_server()

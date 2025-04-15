@@ -5,10 +5,11 @@ module.exports = (io)=>{
             let socket_type = parsed_data.Socket_Type;
             
             if(socket_type === "globalMessage"){
+                let msg = await checkProfanity(parsed_data.Message)
                 let socket_data = {
                     Socket_Type: socket_type,
                     "Sender": parsed_data.Sender,
-                    "Message": await checkProfanity(parsed_data.Message)
+                    "Message": msg
                 }
                 broadcast(io, socket_data)
             }
@@ -18,7 +19,6 @@ module.exports = (io)=>{
                     Socket_Type: socket_type, 
                     "Player_Name": parsed_data.Player_Name 
                 }
-                console.log(socket_data)
                 broadcast(io, socket_data)
             }
 

@@ -61,7 +61,8 @@ io.on("connection", (socket)=>{
         }
     })
 });
-require("./player_spawn_socket")(io, "lobby")
+require("./player_spawn_socket")(io)
+//require("./player_spawn_socket")(io, "player_base")
 require("./global_message")(io);
 
 //for routes

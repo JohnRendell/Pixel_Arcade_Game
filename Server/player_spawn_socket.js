@@ -1,9 +1,11 @@
-module.exports = (server, scene_name) =>{
+module.exports = (server) =>{
     server.on("connection", (socket)=>{
         socket.on("message", (data)=>{
             let parsed_data = JSON.parse(data);
             let socket_type = parsed_data.Socket_Type;
             let socket_data = {};
+
+            let scene_name = parsed_data.Current_Scene || undefined
 
             switch(socket_type){
                 case "playerSpawn_" + scene_name:
@@ -14,6 +16,7 @@ module.exports = (server, scene_name) =>{
                     let isUp = parsed_data.isUp;
                     let isDown = parsed_data.isDown;
                     let isIdle = parsed_data.isIdle;
+                    let current_scene = parsed_data.Current_Scene
                     
                     socket_data = {
                         Socket_Type: socket_type,
@@ -24,7 +27,8 @@ module.exports = (server, scene_name) =>{
                         "isRight": isRight,
                         "isDown": isDown,
                         "isUp": isUp,
-                        "isIdle": isIdle
+                        "isIdle": isIdle,
+                        "Current_Scene": current_scene
                     }
                     break;
 

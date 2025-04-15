@@ -9,9 +9,8 @@ extends Node2D
 #for loading panel
 @export var loading_panel: Panel
 
-var leave_lobby = false
-
 func _ready():
+	PlayerGlobalScript.current_scene = "lobby"
 	particle.emitting = true
 	
 	login_modal.visible = false
@@ -51,17 +50,11 @@ func scatter_obj(obj, tree_pos):
 		$"Y sort".add_child(instance)
 		instance.position = pos
 
-func _process(_delta: float):
-	if leave_lobby:
-		SocketConnection.send_data({ "Socket_Type": "playerLeave_lobby", "Player_Name": PlayerGlobalScript.player_name })
-		
-		print("At Guest: " + str({ "Socket_Type": "playerLeave_lobby", "Player_Name": PlayerGlobalScript.player_name }))
-		await get_tree().create_timer(1.0).timeout
-		leave_lobby = false
-
 func _on_guest_button_pressed():
 	loading_panel.visible = true
-	leave_lobby = true
+	
+	await get_tree().create_timer(1.0).timeout
+	SocketConnection.send_data({ "Socket_Type": "playerLeave_lobby", "Player_Name": PlayerGlobalScript.player_name })
 	
 	BackendStuff.send_data_to_express({ "playerCount": 1 }, "/gameData/setPlayerCount")
 		

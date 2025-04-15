@@ -6,6 +6,8 @@ extends Control
 @export var message_input: LineEdit
 @export var scroll_container: ScrollContainer
 
+var isNotified = false
+
 func _ready():
 	message_input.visible = false
 	scroll_container.get("theme_override_styles/panel").bg_color = Color(0.00, 0.00, 0.00, 0.00)
@@ -13,6 +15,15 @@ func _ready():
 func _process(_delta: float):
 	var socket_data = SocketConnection.socket_data
 	receive_message(socket_data)
+	
+	if SocketConnection.connect_server_status == "Connected":
+		if not isNotified:
+			isNotified = true
+			await get_tree().create_timer(1.0).timeout
+			SocketConnection.send_data({"Socket_Type": "playerConnected", "Player_Name": PlayerGlobalScript.player_name })
+	else:
+		isNotified = false
+	
 	
 func _input(_event):
 	if Input.is_action_just_pressed("Chat") and PlayerGlobalScript.modal_open == false:
@@ -49,7 +60,7 @@ func send_message():
 		var message = message_input.text
 		message_input.text = ""
 		
-		#await get_tree().create_timer(1.0).timeout
+		await get_tree().create_timer(0.5).timeout
 		SocketConnection.send_data({
 			"Socket_Type": "globalMessage", 
 			"Sender": PlayerGlobalScript.player_name, 

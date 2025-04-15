@@ -69,6 +69,7 @@ func reconnect_to_server():
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		if socket.get_ready_state() == WebSocketPeer.STATE_OPEN:
+			#TODO: not firing when user is a host
 			send_data({"Socket_Type": "playerDisconnect", "Player_Name": PlayerGlobalScript.player_name })
 			socket.close(1000, "%s left" % [PlayerGlobalScript.player_name])
 		get_tree().quit()

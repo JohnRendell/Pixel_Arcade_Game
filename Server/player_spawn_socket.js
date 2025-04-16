@@ -32,10 +32,11 @@ module.exports = (server) =>{
                     }
                     break;
 
-                case "playerLeave_" + scene_name:
+                case "playerGoing":
                     socket_data = {
                         Socket_Type: socket_type,
-                        "Player_Name": parsed_data.Player_Name
+                        "Player_Name": parsed_data.Player_Name,
+                        "current_scene": parsed_data.current_scene
                     }
                     console.log(socket_data)
                     break;

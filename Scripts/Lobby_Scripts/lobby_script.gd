@@ -40,6 +40,7 @@ func guest_player_name_generator():
 		
 		var temp_name = "%s%s" % [letters[char_index], nums[num_index]]
 		playerName += temp_name
+	PlayerGlobalScript.player_temp_name = "Guest_%s" % [playerName]
 	
 	return "Guest_%s" % [playerName]
 
@@ -52,10 +53,5 @@ func scatter_obj(obj, tree_pos):
 
 func _on_guest_button_pressed():
 	loading_panel.visible = true
-	
-	await get_tree().create_timer(1.0).timeout
-	#TODO: fix this one
-	SocketConnection.send_data({ "Socket_Type": "playerLeave_lobby", "Player_Name": PlayerGlobalScript.player_name })
-	
 	loading_panel.begin_load = true
 	PlayerGlobalScript.isLoggedIn = true

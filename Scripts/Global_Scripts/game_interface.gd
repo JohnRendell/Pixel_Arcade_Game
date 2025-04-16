@@ -6,7 +6,7 @@ extends Control
 @onready var setting_modal = $"Setting Modal"
 @onready var playerCount = $"Player Count"
 
-var isPlayerCountFetch = false
+var db_playerCount = 0
 
 func _ready():
 	playerSettings.visible = true if PlayerGlobalScript.isLoggedIn else false
@@ -20,30 +20,18 @@ func _process(_delta: float):
 	var socket_data = SocketConnection.socket_data
 	player_count(socket_data)
 	
-	if SocketConnection.connect_server_status == "Connected" and isPlayerCountFetch == false:
-		BackendStuff.get_data_from_backend("/gameData/getPlayerCount")
-		
-		isPlayerCountFetch = true
-		await get_tree().create_timer(1.0).timeout
-		if BackendStuff.returned_parsed["message"] == "success":
-			playerCount.text = "Player Count: " + str(int(BackendStuff.returned_parsed["playerCount"]))
+	playerCount.text = "Player Count: " + str(db_playerCount)
 	
 func player_count(data):
 	if typeof(data) == TYPE_DICTIONARY:
 		if data.get("Socket_Type") == "playerCount":
-			print("Get data from player count: " + str(int(data.get("Player_Count"))))
-			playerCount.text = "Player Count: " + str(int(data.get("Player_Count")))
-
+			db_playerCount = int(data.get("Player_Count"))
 
 func _on_log_out_button_pressed():
 	loading_panel.visible = true
 	setting_modal.visible = false
-	BackendStuff.send_data_to_express({ "playerCount": -1 }, "/gameData/setPlayerCount")
-		
-	await get_tree().create_timer(1.0).timeout
-	if BackendStuff.returned_parsed["message"] == "success":
-
-		await get_tree().create_timer(1.0).timeout
+	
+	if await BackendComponents.set_playerCount_status(-1) == "success":
 		loading_panel.begin_load = true
 		
 		PlayerGlobalScript.modal_open = false

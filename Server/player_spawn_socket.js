@@ -44,10 +44,6 @@ module.exports = (server) =>{
             //send back the data to all players
             broadcast(server, socket_data);
         });
-
-        socket.on("close", (code, reason) => {
-            console.log(`Player disconnected. Code: ${code}, Reason: ${reason}`);
-        });
     });
 
     function broadcast(server, data) {

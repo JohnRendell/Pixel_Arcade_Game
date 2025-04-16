@@ -8,6 +8,9 @@ var socket_data = JSON;
 var connect_server_status = ""
 var ping_timer = 0.0
 
+var isConnected = false
+var isDisconnected = false
+
 #connecting to web sockets
 func _ready():
 	var err = socket.connect_to_url(websocket_url)
@@ -19,6 +22,9 @@ func _ready():
 	else:
 		#wait for socket to connect
 		await get_tree().create_timer(1).timeout
+		
+func connection_evnt():
+	emit_signal("connection_status", PlayerGlobalScript.player_name)
 
 #polling
 func _process(_delta):
@@ -35,12 +41,29 @@ func _process(_delta):
 				var raw = socket.get_packet().get_string_from_utf8()
 				socket_data = JSON.parse_string(raw)
 				server_respond(socket_data)
+				
+			if PlayerGlobalScript.player_name and isConnected == false:
+				isConnected = true
+				await get_tree().create_timer(1.0).timeout
+				SocketConnection.send_data({"Socket_Type": "playerConnected", "Player_Name": PlayerGlobalScript.player_name })
 		
 		WebSocketPeer.STATE_CONNECTING:
 			connect_server_status = "Connecting to Server..."
+			isDisconnected = true
+			
+			if PlayerGlobalScript.player_name and isDisconnected == false:
+				isDisconnected = true
+				await get_tree().create_timer(1.0).timeout
+				SocketConnection.send_data({"Socket_Type": "playerDisconnected", "Player_Name": PlayerGlobalScript.player_name })
 		
 		WebSocketPeer.STATE_CLOSING, WebSocketPeer.STATE_CLOSED:
 			connect_server_status = "Unable to Connect with the Server"
+			isDisconnected = false
+			
+			if PlayerGlobalScript.player_name and isDisconnected == false:
+				isDisconnected = true
+				await get_tree().create_timer(1.0).timeout
+				SocketConnection.send_data({"Socket_Type": "playerDisconnected", "Player_Name": PlayerGlobalScript.player_name })
 	
 	if connect_server_status == "Connected":
 		ping_timer += _delta
@@ -69,8 +92,6 @@ func reconnect_to_server():
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		if socket.get_ready_state() == WebSocketPeer.STATE_OPEN:
-			#TODO: not firing when user is a host
-			send_data({"Socket_Type": "playerDisconnect", "Player_Name": PlayerGlobalScript.player_name })
 			socket.close(1000, "%s left" % [PlayerGlobalScript.player_name])
 		get_tree().quit()
 

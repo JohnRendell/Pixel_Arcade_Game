@@ -15,16 +15,7 @@ func _ready():
 func _process(_delta: float):
 	var socket_data = SocketConnection.socket_data
 	receive_message(socket_data)
-	
-	if SocketConnection.connect_server_status == "Connected":
-		if not isNotified:
-			isNotified = true
-			await get_tree().create_timer(1.0).timeout
-			SocketConnection.send_data({"Socket_Type": "playerConnected", "Player_Name": PlayerGlobalScript.player_name })
-	else:
-		isNotified = false
-	
-	
+			
 func _input(_event):
 	if Input.is_action_just_pressed("Chat") and PlayerGlobalScript.modal_open == false:
 		chat_open()
@@ -87,11 +78,11 @@ func receive_message(data):
 				await get_tree().process_frame
 				scroll_container.scroll_vertical = int(scroll_container.get_v_scroll_bar().max_value)
 				
-		elif data.get("Socket_Type") == "playerConnected" or data.get("Socket_Type") == "playerDisconnect":
+		elif data.get("Socket_Type") == "playerConnected" or data.get("Socket_Type") == "playerDisconnected" and PlayerGlobalScript.player_name:
 			receive_content.visible = true
 			var player_game_name = data.get("Player_Name")
 			
-			if data.get("Socket_Type") == "playerDisconnect":
+			if data.get("Socket_Type") == "playerDisconnected":
 				receive_content.text = player_game_name + " left the game."
 			else:
 				receive_content.text = player_game_name + " connected the game."

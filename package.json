@@ -8,6 +8,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "mongoose": "^8.13.2",
+    "node-fetch": "^2.7.0",
     "nodemon": "^3.1.9",
     "sanitize-html": "^2.15.0",
     "tailwindcss": "^4.1.3",

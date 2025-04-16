@@ -34,12 +34,8 @@ func _on_log_in_button_pressed():
 			
 			await get_tree().create_timer(1.0).timeout
 			SocketConnection.send_data({ "Socket_Type": "playerLeave_lobby", "Player_Name": PlayerGlobalScript.player_name })
-			
-			BackendStuff.send_data_to_express({ "playerCount": 1 }, "/gameData/setPlayerCount")
-		
-			await get_tree().create_timer(1.0).timeout
-			if BackendStuff.returned_parsed["message"] == "success":
-				loading_panel.begin_load = true
-				PlayerGlobalScript.isLoggedIn = true
-				PlayerGlobalScript.player_name = login_username_input.text
-				PlayerGlobalScript.modal_open = false
+
+			loading_panel.begin_load = true
+			PlayerGlobalScript.isLoggedIn = true
+			PlayerGlobalScript.player_name = login_username_input.text
+			PlayerGlobalScript.modal_open = false

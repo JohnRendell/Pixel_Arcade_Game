@@ -21,8 +21,6 @@ route.post("/login", async (req, res)=>{
         else{
             status = "username or password incorrect";
         }
-
-        console.log(status)
         res.status(200).json({ message: "success", status: status })
         
     }

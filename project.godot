@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 SocketConnection="*res://Scripts/Socket_Scripts/socket_connection.gd"
 PlayerGlobalScript="*res://Scripts/Player_Scripts/playerGlobalScript.gd"
 BackendStuff="*res://Scripts/Server_Scripts/backend_stuff.gd"
+BackendComponents="*res://Scripts/Server_Scripts/backend_components.gd"
 
 [display]
 

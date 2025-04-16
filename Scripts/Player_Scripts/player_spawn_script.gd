@@ -16,7 +16,9 @@ var player_scene = preload("res://Sprites/player_2.tscn")
 @export var scene_name = "name of the scene"
 
 func _process(_delta: float):
-	player_spawn(scene_name)
+	if PlayerGlobalScript.current_scene == "lobby":
+		player_spawn(scene_name)
+		
 	var socket_data = SocketConnection.socket_data
 	check_for_players(socket_data)
 
@@ -78,11 +80,13 @@ func check_for_players(data):
 					player["Player"].isDown = isDown
 					player["Player"].isIdle = isIdle
 			
-		elif data.get("Socket_Type") == "playerDisconnect" or data.get("Socket_Type") == "playerLeave_" + scene_name:
+		elif data.get("Socket_Type") == "playerDisconnected" or data.get("Socket_Type") == "playerLeave_" + scene_name:
 			
 			#TODO: work on these player leave
 			if data.get("Socket_Type") == "playerLeave_" + scene_name:
 				print("Leaving the scene")
+			
+			print(data.get("Socket_Type"))
 			var player_name = data.get("Player_Name")
 			
 			if joined_players.has(player_name):

@@ -24,6 +24,7 @@ func _process(_delta: float):
 
 func check_for_players(data):
 	if typeof(data) == TYPE_DICTIONARY:
+		#spawn the player to the scene
 		if data.get("Socket_Type") == "playerSpawn_" + scene_name:
 			var player_name = data.get("Player_Name")
 			var player_posX = data.get("Pos_X")
@@ -80,6 +81,7 @@ func check_for_players(data):
 					player["Player"].isDown = isDown
 					player["Player"].isIdle = isIdle
 			
+		#remove the player from the scene
 		elif data.get("Socket_Type") == "playerDisconnected" or (data.get("Socket_Type") == "playerGoing" and data.get("current_scene") != scene_name):
 			var player_name = data.get("Player_Name")
 			

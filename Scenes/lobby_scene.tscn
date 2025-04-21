@@ -1214,6 +1214,7 @@ loading_panel = NodePath("../Lobby UI/UI/Loading Panel")
 [node name="Leaves Particle" type="CPUParticles2D" parent="."]
 z_index = 4
 position = Vector2(777, -28)
+emitting = false
 amount = 60
 texture = ExtResource("16_eh844")
 preprocess = 1.0

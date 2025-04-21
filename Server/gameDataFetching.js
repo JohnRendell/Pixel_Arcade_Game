@@ -1,7 +1,6 @@
 const express = require("express");
 const gameModel = require("./gameLogsMongoose");
 const gameDataModel = require("./gameDataMongoose");
-const sanitize = require("sanitize-html");
 const router = express.Router();
 
 router.get("/gameLogs", async (req, res) => {

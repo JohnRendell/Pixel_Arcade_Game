@@ -15,6 +15,7 @@ func _ready():
 	
 	login_modal.visible = false
 	PlayerGlobalScript.player_name = guest_player_name_generator()
+	PlayerGlobalScript.player_temp_name = PlayerGlobalScript.player_name
 	
 	#scatter trees
 	var tree = preload("res://Sprites/tree_object.tscn")
@@ -40,7 +41,6 @@ func guest_player_name_generator():
 		
 		var temp_name = "%s%s" % [letters[char_index], nums[num_index]]
 		playerName += temp_name
-	PlayerGlobalScript.player_temp_name = "Guest_%s" % [playerName]
 	
 	return "Guest_%s" % [playerName]
 

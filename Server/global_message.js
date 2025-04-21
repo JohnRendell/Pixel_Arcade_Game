@@ -6,37 +6,42 @@ module.exports = (io)=>{
         socket.on("message", async (data)=>{
             let parsed_data = JSON.parse(data);
             let socket_type = parsed_data.Socket_Type;
-            
-            if(socket_type === "globalMessage"){
-                let msg = await checkProfanity(parsed_data.Message)
-                let socket_data = {
-                    Socket_Type: socket_type,
-                    "Sender": parsed_data.Sender,
-                    "Message": msg
-                }
-                broadcast(io, socket_data)
-            }
+            let socket_data = {}
 
-            if(socket_type === "playerConnected"){
-                let socket_data = {
-                    Socket_Type: socket_type, 
-                    "Player_Name": parsed_data.Player_Name
-                }
-                socket.player_name = parsed_data.Player_Name
-                broadcast(io, socket_data)
-                await setPlayerCount_status(1, io);
-            }
+            switch(socket_type){
+                case "globalMessage":
+                    let msg = await checkProfanity(parsed_data.Message)
+                    socket_data = {
+                        Socket_Type: socket_type,
+                        "Sender": parsed_data.Sender,
+                        "Message": msg,
+                    }
+                    console.log(socket_data)
+                    broadcast(io, socket_data)
+                break;
+                
+                case "playerConnected":
+                    socket_data = {
+                        Socket_Type: socket_type, 
+                        "Player_Name": parsed_data.Player_Name
+                    }
+                    socket.player_name = parsed_data.Player_Name
 
-            if(socket_type === "playerDisconnected"){
-                let socket_data = { 
-                    Socket_Type: socket_type, 
-                    "Player_Name": parsed_data.Player_Name 
-                }
-                broadcast(io, socket_data)
+                    broadcast(io, socket_data)
+                    await setPlayerCount_status(1, io);
+                break;
 
-                await setPlayerCount_status(-1, io);
+                case "playerDisconnected":
+                    socket_data = { 
+                        Socket_Type: socket_type, 
+                        "Player_Name": parsed_data.Player_Name 
+                    }
+                    broadcast(io, socket_data)
+                    await setPlayerCount_status(-1, io);
+                break;
             }
         });
+
         socket.on("close", async (code, reason) => {
             try{
                 if(socket.player_name){
@@ -45,7 +50,6 @@ module.exports = (io)=>{
                         "Player_Name": socket.player_name 
                     }
                     broadcast(io, socket_data)
-
                     await setPlayerCount_status(-1, io);
                 }
                 console.log(`Player disconnected. Code: ${code}, Reason: ${reason}`);

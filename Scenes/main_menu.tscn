@@ -91,6 +91,26 @@ button_mask = 5
 text = "Developed by John Rendell Catuiza"
 uri = "https://github.com/JohnRendell/Pixel_Wars_And_Stuff"
 
+[node name="Official website" type="LinkButton" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -131.0
+offset_top = -37.0
+offset_right = -16.0
+offset_bottom = -14.0
+grow_horizontal = 0
+grow_vertical = 0
+tooltip_text = "Visit official Website"
+theme_override_fonts/font = ExtResource("2_opfnp")
+theme_override_font_sizes/font_size = 15
+button_mask = 5
+text = "Official Website"
+uri = "http://localhost:8080/"
+
 [node name="Loading Panel" parent="." instance=ExtResource("5_n45e2")]
 visible = false
 z_index = 40
@@ -98,6 +118,7 @@ layout_mode = 1
 navigate_to_scene = "res://Scenes/lobby_scene.tscn"
 
 [node name="Socket Validation" parent="." instance=ExtResource("6_opfnp")]
+visible = false
 layout_mode = 1
 
 [connection signal="pressed" from="Game title and other buttons/Play Button" to="." method="_on_play_button_pressed"]

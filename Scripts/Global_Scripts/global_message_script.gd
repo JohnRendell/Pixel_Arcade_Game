@@ -51,7 +51,7 @@ func send_message():
 		var message = message_input.text
 		message_input.text = ""
 		
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(1.0).timeout
 		SocketConnection.send_data({
 			"Socket_Type": "globalMessage", 
 			"Sender": PlayerGlobalScript.player_name, 
@@ -66,12 +66,13 @@ func receive_message(data):
 		var receive_content = receiver_send_message.duplicate()
 		
 		if data.get("Socket_Type") == "globalMessage":
-			print(data)
 			var receiver_name = data.get("Sender")
 			
+			#TODO: fix this one
 			if not receiver_name == PlayerGlobalScript.player_name:
 				receive_content.visible = true
 				receive_content.text = receiver_name + ": " + data.get("Message")
+				print(data)
 			
 				message_container.add_child(receive_content)
 				

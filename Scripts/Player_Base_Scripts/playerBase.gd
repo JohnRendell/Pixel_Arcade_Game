@@ -8,6 +8,8 @@ func _ready():
 	
 	await get_tree().create_timer(1.0).timeout
 	SocketConnection.send_data({ "Socket_Type": "playerGoing", "Player_Name": PlayerGlobalScript.player_temp_name, "current_scene": PlayerGlobalScript.current_scene })
+	
+	print({ "Socket_Type": "playerGoing", "Player_Name": PlayerGlobalScript.player_temp_name, "current_scene": PlayerGlobalScript.current_scene })
 
 #for scattering ojects
 func scatter_obj(obj, tree_pos):

@@ -30,6 +30,9 @@ module.exports = (server) =>{
                         "isIdle": isIdle,
                         "Current_Scene": current_scene
                     }
+
+                    //send back the data to all players
+                    broadcast(server, socket_data);
                     break;
 
                 case "playerGoing":
@@ -38,12 +41,11 @@ module.exports = (server) =>{
                         "Player_Name": parsed_data.Player_Name,
                         "current_scene": parsed_data.current_scene
                     }
-                    console.log(socket_data)
+
+                    //send back the data to all players
+                    broadcast(server, socket_data);
                     break;
             }
-
-            //send back the data to all players
-            broadcast(server, socket_data);
         });
     });
 

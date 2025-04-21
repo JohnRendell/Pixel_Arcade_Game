@@ -27,6 +27,7 @@ func check_for_players(data):
 		#spawn the player to the scene
 		if data.get("Socket_Type") == "playerSpawn_" + scene_name:
 			var player_name = data.get("Player_Name")
+			var player_ID = data.get("Player_ID")
 			var player_posX = data.get("Pos_X")
 			var player_posY = data.get("Pos_Y")
 		
@@ -48,7 +49,7 @@ func check_for_players(data):
 				
 			#spawn the player
 			if PlayerGlobalScript.player_name != player_name and current_scene == scene_name:
-				if not joined_players.has(player_name):
+				if not joined_players.has(player_ID):
 					
 					#activate the spawner machine status
 					if !spawner.isSpawn:
@@ -64,13 +65,13 @@ func check_for_players(data):
 					player_join.isIdle = isIdle
 				
 					#add the player to the dict
-					joined_players[player_name] = {
+					joined_players[player_ID] = {
 						"Player": player_join,
 						"Position": Vector2(player_posX, player_posY)
 					}
 					ySort.add_child(player_join)
 				else:
-					var player = joined_players[player_name]
+					var player = joined_players[player_ID]
 					player["Position"] = Vector2(player_posX, player_posY)
 					player["Player"].position = Vector2(player_posX, player_posY)
 				
@@ -82,13 +83,14 @@ func check_for_players(data):
 					player["Player"].isIdle = isIdle
 			
 		#remove the player from the scene
-		elif data.get("Socket_Type") == "playerDisconnected" or (data.get("Socket_Type") == "playerGoing" and data.get("current_scene") != scene_name):
-			var player_name = data.get("Player_Name")
+		elif data.get("Socket_Type") == "playerDisconnected" or data.get("Socket_Type") == "playerGoing":
+			var playerID = data.get("Player_ID")
 			
-			if joined_players.has(player_name):
-				var player = joined_players[player_name]
+			if joined_players.has(playerID):
+				var player = joined_players[playerID]
 				player["Player"].queue_free()
-				joined_players.erase(player_name)
+				joined_players.erase(playerID)
+			print(data)
 
 func player_spawn(_scene_name):
 	var playerName = PlayerGlobalScript.player_name
@@ -97,6 +99,7 @@ func player_spawn(_scene_name):
 	SocketConnection.send_data({
 		"Socket_Type": "playerSpawn_" + _scene_name,
 		"Player_Name": playerName,
+		"Player_ID": PlayerGlobalScript.player_ID_name,
 		"isLeft": PlayerGlobalScript.isLeft,
 		"isRight": PlayerGlobalScript.isRight,
 		"isUp": PlayerGlobalScript.isUp,

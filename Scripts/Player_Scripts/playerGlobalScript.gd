@@ -14,7 +14,7 @@ var global_message_open = false
 
 #for setting up player name
 var player_name = ""
-var player_temp_name = ""
+var player_ID_name = ""
 
 #for setting up player status if its logged in or not
 var isLoggedIn = false

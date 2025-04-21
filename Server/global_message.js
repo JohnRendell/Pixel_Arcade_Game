@@ -15,28 +15,37 @@ module.exports = (io)=>{
                         Socket_Type: socket_type,
                         "Sender": parsed_data.Sender,
                         "Message": msg,
+                        "Game_ID": socket.game_ID
                     }
                     console.log(socket_data)
-                    broadcast(io, socket_data)
+                    
+                    setTimeout(() => {
+                        broadcast(io, socket_data)
+                    }, 1000);
                 break;
                 
                 case "playerConnected":
                     socket_data = {
                         Socket_Type: socket_type, 
-                        "Player_Name": parsed_data.Player_Name
+                        "Player_ID": parsed_data.Player_ID
                     }
-                    socket.player_name = parsed_data.Player_Name
+                    socket.game_ID = parsed_data.Player_ID
 
-                    broadcast(io, socket_data)
+                    setTimeout(() => {
+                        broadcast(io, socket_data)
+                    }, 1000);
                     await setPlayerCount_status(1, io);
                 break;
 
                 case "playerDisconnected":
                     socket_data = { 
                         Socket_Type: socket_type, 
-                        "Player_Name": parsed_data.Player_Name 
+                        "Player_ID": socket.game_ID 
                     }
-                    broadcast(io, socket_data)
+                    
+                    setTimeout(() => {
+                        broadcast(io, socket_data)
+                    }, 1000);
                     await setPlayerCount_status(-1, io);
                 break;
             }
@@ -44,12 +53,14 @@ module.exports = (io)=>{
 
         socket.on("close", async (code, reason) => {
             try{
-                if(socket.player_name){
+                if(socket.game_ID){
                     let socket_data = { 
                         Socket_Type: "playerDisconnected", 
-                        "Player_Name": socket.player_name 
+                        "Player_ID": socket.game_ID 
                     }
-                    broadcast(io, socket_data)
+                    setTimeout(() => {
+                        broadcast(io, socket_data)
+                    }, 1000);
                     await setPlayerCount_status(-1, io);
                 }
                 console.log(`Player disconnected. Code: ${code}, Reason: ${reason}`);

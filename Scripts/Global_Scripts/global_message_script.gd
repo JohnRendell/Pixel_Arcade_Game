@@ -51,9 +51,10 @@ func send_message():
 		var message = message_input.text
 		message_input.text = ""
 		
-		await get_tree().create_timer(1.0).timeout
+		#await get_tree().create_timer(1.0).timeout
 		SocketConnection.send_data({
 			"Socket_Type": "globalMessage", 
+			"Game_ID": PlayerGlobalScript.player_ID_name,
 			"Sender": PlayerGlobalScript.player_name, 
 			"Message": message
 		})
@@ -66,13 +67,12 @@ func receive_message(data):
 		var receive_content = receiver_send_message.duplicate()
 		
 		if data.get("Socket_Type") == "globalMessage":
+			var receiver_ID = data.get("Game_ID")
 			var receiver_name = data.get("Sender")
 			
-			#TODO: fix this one
-			if not receiver_name == PlayerGlobalScript.player_name:
+			if not receiver_ID == PlayerGlobalScript.player_ID_name and not receiver_name == PlayerGlobalScript.player_name:
 				receive_content.visible = true
 				receive_content.text = receiver_name + ": " + data.get("Message")
-				print(data)
 			
 				message_container.add_child(receive_content)
 				
@@ -81,12 +81,14 @@ func receive_message(data):
 				
 		elif data.get("Socket_Type") == "playerConnected" or data.get("Socket_Type") == "playerDisconnected" and PlayerGlobalScript.player_name:
 			receive_content.visible = true
-			var player_game_name = data.get("Player_Name")
+			var player_gameID = data.get("Player_ID")
 			
 			if data.get("Socket_Type") == "playerDisconnected":
-				receive_content.text = player_game_name + " left the game."
+				if player_gameID:
+					receive_content.text = player_gameID + " left the game."
 			else:
-				receive_content.text = player_game_name + " connected the game."
+				if player_gameID:
+					receive_content.text = player_gameID + " connected the game."
 			message_container.add_child(receive_content)
 		
 			await get_tree().process_frame

@@ -14,8 +14,8 @@ func _ready():
 	particle.emitting = true
 	
 	login_modal.visible = false
-	PlayerGlobalScript.player_name = guest_player_name_generator()
-	PlayerGlobalScript.player_temp_name = PlayerGlobalScript.player_name
+	PlayerGlobalScript.player_name = "Guest_%s" % [player_name_generator()]
+	PlayerGlobalScript.player_ID_name = "GameID_%s" % [player_name_generator()]
 	
 	#scatter trees
 	var tree = preload("res://Sprites/tree_object.tscn")
@@ -27,7 +27,7 @@ func _ready():
 	var rock_pos = [Vector2(500, 500), Vector2(762, 694), Vector2(472, -369)]
 	scatter_obj(rock, rock_pos)
 	
-func guest_player_name_generator():
+func player_name_generator():
 	var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
 	"m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 	var nums = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -42,7 +42,7 @@ func guest_player_name_generator():
 		var temp_name = "%s%s" % [letters[char_index], nums[num_index]]
 		playerName += temp_name
 	
-	return "Guest_%s" % [playerName]
+	return playerName
 
 #for scattering ojects
 func scatter_obj(obj, tree_pos):

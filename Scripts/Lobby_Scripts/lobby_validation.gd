@@ -31,7 +31,9 @@ func _on_log_in_button_pressed():
 		
 		if BackendStuff.returned_parsed["status"] == "account exists":
 			loading_panel.visible = true
+			PlayerGlobalScript.player_name = "fetching..."
+			PlayerGlobalScript.player_username = login_username_input.text
+			
 			loading_panel.begin_load = true
 			PlayerGlobalScript.isLoggedIn = true
-			PlayerGlobalScript.player_name = login_username_input.text
 			PlayerGlobalScript.modal_open = false

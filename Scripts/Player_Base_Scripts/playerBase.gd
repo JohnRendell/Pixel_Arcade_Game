@@ -7,8 +7,6 @@ func _ready():
 	scatter_obj(tree, [Vector2(301, 145), Vector2(68, -690), Vector2(780, 14), Vector2(-1272, -557), Vector2(1522, 374)])
 	
 	SocketConnection.send_data({ "Socket_Type": "playerGoing", "Player_ID": PlayerGlobalScript.player_ID_name })
-	print("Data sent")
-	print({ "Socket_Type": "playerGoing", "Player_ID": PlayerGlobalScript.player_ID_name })
 
 #for scattering ojects
 func scatter_obj(obj, tree_pos):

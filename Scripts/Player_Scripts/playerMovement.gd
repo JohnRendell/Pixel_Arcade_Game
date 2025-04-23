@@ -3,6 +3,10 @@ extends CharacterBody2D
 @export var speed = 400
 @onready var sprite = $Player_Sprite
 
+func _process(_delta: float):
+	var player_text = $"Player_Sprite/Player Name"
+	player_text.text = PlayerGlobalScript.player_name
+
 func _physics_process(_delta):
 	var playerPos = Vector2()
 	var input_vector = Vector2.ZERO

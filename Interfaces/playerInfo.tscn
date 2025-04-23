@@ -1,11 +1,14 @@
-[gd_scene load_steps=13 format=4 uid="uid://ranvboc1aleu"]
+[gd_scene load_steps=16 format=4 uid="uid://ranvboc1aleu"]
 
 [ext_resource type="Script" uid="uid://ce6wbg0vx4rjd" path="res://Scripts/Global_Scripts/game_interface.gd" id="1_14f72"]
 [ext_resource type="FontFile" uid="uid://bmdl23cbnw41b" path="res://Assets/Fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf" id="1_fhr0c"]
 [ext_resource type="Theme" uid="uid://t8cakbf8cvmc" path="res://Assets/Themes/default_button_texture.tres" id="4_14f72"]
 [ext_resource type="PackedScene" uid="uid://can60qx0sq1hp" path="res://Interfaces/modal.tscn" id="5_jqtam"]
+[ext_resource type="Texture2D" uid="uid://bq8hamqiest3t" path="res://Assets/Sprite_Slice/Game_UI/Diamond_UI.png" id="7_52mh3"]
 [ext_resource type="Script" uid="uid://kg4sni8o66cs" path="res://Scripts/Global_Scripts/global_message_script.gd" id="7_f1e4r"]
 [ext_resource type="PackedScene" uid="uid://cwyiac3k7jsff" path="res://Interfaces/loading_panel.tscn" id="7_w0rbd"]
+[ext_resource type="Texture2D" uid="uid://cmmb6un7xduaj" path="res://icon.svg" id="8_w0rbd"]
+[ext_resource type="Script" uid="uid://byhnvk1iq8nrv" path="res://Scripts/Player_Scripts/player_character_info.gd" id="9_52mh3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjvhn"]
 bg_color = Color(0, 0, 0, 0.0509804)
@@ -1157,5 +1160,63 @@ text = "Log Out"
 visible = false
 layout_mode = 1
 navigate_to_scene = "res://Scenes/main_menu.tscn"
+
+[node name="Profile UI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -112.0
+offset_right = 416.0
+offset_bottom = -12.0
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+
+[node name="Diamond Logo" type="Sprite2D" parent="Profile UI"]
+position = Vector2(104, 49)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_52mh3")
+
+[node name="Profile Image" type="TextureRect" parent="Profile UI"]
+texture_filter = 1
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -35.0
+offset_right = 70.0
+offset_bottom = 35.0
+grow_vertical = 2
+texture = ExtResource("8_w0rbd")
+expand_mode = 1
+
+[node name="Diamond Count" type="RichTextLabel" parent="Profile UI"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 132.0
+offset_top = -21.5
+offset_right = 432.0
+offset_bottom = 18.5
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("1_fhr0c")
+theme_override_font_sizes/normal_font_size = 30
+text = "0"
+fit_content = true
+scroll_active = false
+vertical_alignment = 1
+justification_flags = 35
+
+[node name="Player Info" type="Control" parent="." node_paths=PackedStringArray("diamond")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("9_52mh3")
+diamond = NodePath("../Profile UI/Diamond Count")
 
 [connection signal="pressed" from="Setting Modal/Log out Button" to="." method="_on_log_out_button_pressed"]

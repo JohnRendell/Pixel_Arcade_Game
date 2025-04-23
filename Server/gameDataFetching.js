@@ -55,11 +55,18 @@ router.post("/setPlayerCount", async (req, res) => {
 
 router.get("/getPlayerCount", async (req, res) => {
     try {
-        let getCount = await gameDataModel.findOne({})
+        let getCount = await gameDataModel.findOne({});
+        let status = "";
+        let count = 0;
         
         if(getCount){
-            res.status(200).json({ message: "success", playerCount: getCount.playerCount });
+            status = "success";
+            count = getCount.playerCount;
         }
+        else{
+            status = "failed";
+        }
+        res.status(200).json({ status: status, playerCount: count });
     } 
     
     catch (err) {

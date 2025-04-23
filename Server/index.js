@@ -68,6 +68,7 @@ require("./global_message")(io);
 app.use("/validate", require("./validateAccount"));
 app.use("/success", require("./successRedirect"));
 app.use("/gameData", require("./gameDataFetching"));
+app.use("/playerInfo", require("./playerInfoFetching"));
 
 app.use(bodyParser.json())
 

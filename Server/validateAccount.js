@@ -2,6 +2,7 @@ const express = require("express");
 const route = express.Router();
 const bcrypt = require("bcryptjs");
 const account_model = require("./accountMongoose");
+const playerInfo_model = require("./playerInfoMongoose");
 const sanitize = require("sanitize-html");
 const badWords = require("badwords-list");
 
@@ -50,7 +51,32 @@ route.post("/signup", async (req, res)=>{
 
                 return hash
             }
-            account_model.create({ username: username, password: hash_pass(password)})
+
+            let inGameName = [
+                "bob123",
+                "hotdogMighty_04",
+                "ShadowNoodle",
+                "CaptainCrush",
+                "PixelPirate",
+                "LaserBeard",
+                "SneakyPenguin",
+                "FunkyFalcon",
+                "TacoKnight",
+                "ZebraZap",
+                "ToastViking",
+                "ChocoSlayer",
+                "NovaNugget",
+                "TurboWaffle",
+                "LlamaBlitz",
+                "IceCreamSniper",
+                "BananaBomber",
+                "RoboDuck42",
+                "WizardOfLOL",
+                "MysticMeatball"
+            ];
+
+            account_model.create({ username: username, password: hash_pass(password) });
+            playerInfo_model.create({ username: username, profile: 'https://i.imgur.com/ajVzRmV.png', inGameName: inGameName[Math.floor(Math.random() * inGameName.length)], diamond: 0 });
             status = "success"
         }
         res.status(200).json({ message: status })

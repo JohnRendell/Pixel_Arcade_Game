@@ -31,10 +31,10 @@ module.exports = (io)=>{
                     }
                     socket.game_ID = parsed_data.Player_ID
 
-                    setTimeout(() => {
-                        broadcast(io, socket_data)
+                    setTimeout(async () => {
+                        broadcast(io, socket_data);
+                        await setPlayerCount_status(1, io);
                     }, 1000);
-                    await setPlayerCount_status(1, io);
                 break;
 
                 case "playerDisconnected":
@@ -43,10 +43,10 @@ module.exports = (io)=>{
                         "Player_ID": socket.game_ID 
                     }
                     
-                    setTimeout(() => {
+                    setTimeout(async () => {
                         broadcast(io, socket_data)
+                        await setPlayerCount_status(-1, io);
                     }, 1000);
-                    await setPlayerCount_status(-1, io);
                 break;
             }
         });
@@ -90,7 +90,10 @@ async function setPlayerCount_status(count, io){
                 Socket_Type: "playerCount", 
                 "Player_Count": updatePlayerCount_data.playerCount
             }
-            broadcast(io, socket_data)
+            
+            setTimeout(() => {
+                broadcast(io, socket_data)
+            }, 1000);
         }
     } 
     
